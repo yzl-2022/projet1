@@ -20,7 +20,7 @@ class Config
      * Database name
      * @var string
      */
-    const DB_NAME = '31b';
+    const DB_NAME = 'stampee';
 
     /**
      * Database user
