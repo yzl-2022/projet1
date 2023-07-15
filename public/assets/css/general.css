@@ -1,0 +1,71 @@
+@import url(reset.css); /*remove default*/
+
+/* font-family: 'Roboto', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+/* font-family: 'Open Sans', sans-serif; */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap');
+
+/****variables****/
+:root {
+    /*colors*/
+    --red: #cc0902;
+    --blue: #5e0ff0;
+    --bordercolor: #333;
+
+    /*font-size*/
+    --h1: 36px;
+    --h2: 24px;
+    --h3: 21px;
+    --h5: 18px;
+    --h6: 16px;
+}
+
+/****reusable classes****/
+.wrapper {
+    margin: 0 auto; /* center alignment */
+    max-width: 1200px; /* use max-width instead of width */
+}
+
+.active {
+    color: var(--red);
+}
+
+.hide {
+    display: none;
+}
+
+/****public****/
+
+a {
+    text-decoration: none;
+    color: #333;
+    font-family: 'Open Sans', sans-serif;
+}
+
+h1 {
+    font-size: var(--h1);
+    font-family: 'Roboto', sans-serif;
+}
+
+h2 {
+    font-size: var(--h2);
+    font-family: 'Roboto', sans-serif;
+}
+
+h3 {
+    font-size: var(--h3);
+    font-family: 'Roboto', sans-serif;
+}
+
+h5, p {
+    font-size: var(--h5);
+    font-family: 'Open Sans', sans-serif;
+}
+
+h6 {
+    font-size: var(--h6);
+    font-family: 'Open Sans', sans-serif;
+}

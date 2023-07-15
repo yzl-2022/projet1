@@ -1,0 +1,110 @@
+/*header*/
+header {
+    /*position: sticky;*//*it looks better without sticky*/
+    top: 0;
+    background-color: #fff;
+    z-index: 1;
+    height: 55px; /*same height as the logo*/
+    padding: 1rem 0;
+    border-top: 5px dashed var(--bordercolor);
+    border-bottom: 5px dashed var(--bordercolor);
+    display: flex;
+    justify-content: space-around;
+    align-items: center; /*central aligne all items*/
+    gap: 2rem;
+}
+
+/*header: logo*/
+.logo {
+    width: 205px; /* the logo is 199px in width, but still need extra pixels, why?*/
+    height: 55px; /* the logo is 45px, but why it needs extra 10px to display in full? */
+}
+
+.logo a {
+    display: block;
+    width: 205px;
+    height: 55px;
+    background: url(../icons/logo.webp) no-repeat center;
+    font-size: 0; /*hide the text*/
+}
+
+/*header: nav*/
+.headerNav ul {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 2rem;
+}
+
+.headerNav li a {
+    padding-bottom: 10px; /* floating looks better than underline */
+    font-weight: 550;
+    font-size: var(--h3);
+    white-space: nowrap;
+}
+
+.headerNav li a:hover {
+    border-bottom: 2px solid var(--red);
+    color: var(--red);
+}
+
+/*header: search*/
+.headerSearch {
+    width: 180px;
+    height: 34px;
+    border-radius: 20px;
+    border: 1px solid #333;
+    padding: 0 1rem;
+    display: flex; /* align <input> and <a> on the same line*/
+    justify-content: center;
+    align-items: center;
+}
+
+.headerSearch input {
+    flex: 1;
+    width: 0; /*remove the default width of input box*/
+    border: 0; /*remove the border of input box*/
+    outline: none; /*remove auto focus of input box*/
+}
+
+.headerSearch input::placeholder {
+    color: #999;
+    font-size: var(--h6);
+}
+
+.headerSearch a {
+    align-self: center; /*align image*/
+    width: 24px;
+    height: 24px;
+    background: url(../icons/search.svg) right center;
+}
+
+/*header: notification*/
+.notification {
+    position: relative; /*to position the number box*/
+}
+
+.notification a {
+    display: block;
+    width: 24px;
+    height: 24px;
+    background-image: url(../icons/notification.svg);
+}
+
+.notification .number {
+    position: absolute;
+    top: -0.5rem;
+    left: 0.5rem;
+    padding: 1px 5px;
+    background-color: var(--red);
+    border-radius: 0.5rem;
+    font-size: var(--h6);
+    color: white;
+    line-height: 15px;
+}
+
+/*responsive*/
+@media screen and (max-width: 880px) {
+    .headerNav li:last-child {
+        display: none;
+    }
+}

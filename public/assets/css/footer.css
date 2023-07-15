@@ -1,0 +1,33 @@
+/*footer*/
+footer {
+    border-top: 5px dashed var(--bordercolor);
+    display: flex;
+    justify-content: space-evenly;
+    gap: 2rem;
+    padding: 2rem 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+footer dt {
+    font-weight: 700;
+    margin-bottom: 2rem;
+}
+
+footer dd {
+    margin-bottom: 1rem;
+}
+
+footer dd a:hover {
+    color: var(--red);
+    text-decoration: underline;
+}
+/*list of icons for social media*/
+footer div:last-child ul {
+    display: flex;
+    gap: 6px;
+}
+
+footer div:last-child li a {
+    height: 24px;
+    width: 24px;
+}

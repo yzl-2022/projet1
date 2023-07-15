@@ -1,0 +1,95 @@
+/*content*/
+.content ul {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+.content li {
+    width: 290px;
+    height: 365px;
+    background-color: white;
+    box-shadow: 0 4px 4px rgba(0,0,0,.15);
+    margin-bottom: 2rem;
+    /*transition*/
+    transition: all 0.9s;
+    /*promo-tag*/
+    position: relative;
+}
+
+/*transition*/
+.content li:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 10px 4px rgba(0, 0, 0, 0.42);
+    transition-duration: 100ms;
+	transition-delay: 0ms;
+}
+
+.content li .pic {
+    width: 290px;
+    height: 200px;
+    background-color: black;
+    /*push <img> to center*/
+    display: flex;
+    justify-content: center;
+}
+
+.pic > img {
+    max-width: 290px;
+    max-height: 200px;
+    width: auto;  /*why the inverse (width: 100%; height: auto) does not work?*/
+    height: 100%;
+    vertical-align: middle;  /*It seems not to work, why?  --> flex parent box*/
+}
+
+.content li .txt {
+    text-align: left;
+    padding: 0 2rem;
+    height: 146px; /*I have no idea where this height comes from, just measured it from the browser*/
+}
+
+.content h3 {
+    height: 50px; /*this height should be enough to cover 2 lines*/
+    line-height: 25px;
+    overflow: hidden;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    font-size: var(--h3);
+    font-weight: 400;
+    color: black;
+}
+
+.content h3:hover {
+    color: var(--red);
+}
+
+.content p {
+    font-size: var(--h6);
+    height: 40px; /*this height should be enough to cover 2 lines*/
+    line-height: 20px;
+    overflow: hidden;
+    color: #333;
+}
+
+.content p:not(:first-child) {
+    margin-top: 0.5rem;
+}
+
+.content p span {
+    color: var(--blue);
+    font-weight: 700;
+    font-size: var(--h6);
+}
+
+.content li .promo {
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    color: white;
+    background-color: var(--red);
+    border-radius: 0.5rem;
+    font-size: var(--h6);
+    font-family: 'Open Sans', sans-serif;
+    padding: 5px;
+}

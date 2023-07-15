@@ -1,0 +1,45 @@
+/*banner*/
+.banner {
+    height: 500px;
+    /*background-color: black;*/
+    overflow: hidden;
+    position: relative;
+}
+
+/*banner: picture*/
+.banner .picture img {
+    width: 100%;
+    height: auto;
+    /*opacity: .75;*/
+}
+
+/*banner: side-nav*/
+.bannertext {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    height: 25px;
+    background-color: transparent;
+    color: whitesmoke;
+}
+
+.bannertext h2 {
+    font-size: var(--h1);
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.bannertext p {
+    font-size: var(--h5);
+    margin-bottom: 2rem;
+}
+
+.bannertext > a {
+    background-color: var(--blue);
+    color: aliceblue;
+    border-radius: 15px;
+    padding: 4px 0.5rem;
+    /*ajouter contrast*/
+    box-shadow: 0 4px 4px rgba(0,0,0,.15);
+    font-weight: 700;
+}

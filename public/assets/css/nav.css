@@ -1,0 +1,32 @@
+/*top-menu*/
+nav {
+    height: 52px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+nav ul {
+    display: flex;
+    line-height: 24px;
+}
+
+nav li a {
+    padding: 0 15px;
+    border-right: 1px solid #999; /*add border to <a> not <li> so it has the same height as the content*/
+    font-size: 14px;
+    color: black;
+}
+
+nav li a > img {
+    vertical-align: bottom;
+    margin-right: 4px;
+}
+
+nav li a:hover {
+    color: var(--red);
+}
+
+nav li:last-child a {
+    border-right: none;
+}

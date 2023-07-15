@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="projet1-stampee">
+    <title>MON PROFIL</title>
+    <link rel="stylesheet" href="../assets/css/index.css">
+</head>
+<body>
+    <!--top-menu-->
+    <nav class="wrapper">
+        <ul>
+            <li><a href="/user/profil"><img src="../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li><a href="/user/login">DÉCONNECTER</a></li>
+            <li><a href="#">CONTACTEZ-NOUS</a></li>
+            <li><a href="#"><img src="../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
+        </ul>
+    </nav>
+    <!--header--main-menu-->
+    <header class="wrapper">
+        <!--logo-->
+        <div class="logo">
+            <h1><a href="/">Stampee</a></h1>
+        </div>
+        <!--nav-->
+        <div class="headerNav">
+            <ul>
+                <li><a href="#">Créer une nouvelle enchère</a></li>
+                <li><a href="#">Toutes les enchères</a></li>
+            </ul>
+        </div>
+        <!--search-->
+        <div class="headerSearch">
+            <input type="text" placeholder="search">
+            <a href="products.html"></a>
+        </div>
+        <!--cart-->
+        <div class="notification">
+            <a href="#"></a>
+            <div class="number">5</div>
+        </div>
+    </header>
+    <!--main-->
+    <main class="wrapper">
+        <!--title-->
+        <div class="title">
+            <div class="left"><h3>TIMBREs</h3></div>
+            <div class="right"><a href="#">afficher tout ></a></div>
+        </div>
+        <!--content-->
+        <div class="content">
+            <ul>
+                <li>
+                    <a href="#">
+                        <div class="pic"><img src="../assets/images/queen-elizabeth-II.webp" alt="catalogue1"></div>
+                        <div class="txt">
+                            <h3>Queen Elizabeth II</h3>
+                            <p>This is a special collection in terms of Queen Elizabeth II.</p>
+                            <p><span>1125</span> items avaliable</p>
+                        </div>
+                    </a>
+                    <div class="promo">SPÉCIAL</div>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="pic"><img src="../assets/images/asian-collection.webp" alt="catalogue2"></div>
+                        <div class="txt">
+                            <h3>Asian Collection</h3>
+                            <p>This is a special collection on asian stamps.</p>
+                            <p><span>1125</span> items avaliable</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="pic"><img src="../assets/images/personal-collection.webp" alt="catalogue3"></div>
+                        <div class="txt">
+                            <h3>Personal Collection of Dr Jhon Stampee</h3>
+                            <p>Personal collection of Dr Jhon Stampee.</p>
+                            <p>Limited time offer.</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="pic"><img src="../assets/images/special-collection.webp" alt="catalogue4"></div>
+                        <div class="txt">
+                            <h3>A ride back to 1900s</h3>
+                            <p>Stamps used in 1900s from all over the world.</p>
+                            <p>Starting price: <span>$15</span></p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!--title-->
+        <div class="title">
+            <div class="left"><h3>ENCHÈRES</h3></div>
+            <ul>
+                <li><a class="active" href="#">juin</a></li>
+                <li><a href="#">juillet</a></li>
+                <li><a href="#">août</a></li>
+            </ul>
+            <div class="right"><a href="#">afficher plus ></a></div>
+        </div>
+        <!--content-->
+        <div class="content">
+            <ul>
+                <li>
+                    <a href="#">
+                        <div class="pic"><img src="../assets/images/queen-elizabeth-II.webp" alt="auction1"></div>
+                        <div class="txt">
+                            <h3>Queen Elizabeth II</h3>
+                            <p>This is a special collection in terms of Queen Elizabeth II.</p>
+                            <p><span>1125</span> mises - Ends in <span>48</span>h <span>45</span>m</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="pic"><img src="../assets/images/asian-collection.webp" alt="auction2"></div>
+                        <div class="txt">
+                            <h3>Asian Collection</h3>
+                            <p>This is a special collection on asian stamps.</p>
+                            <p><span>1125</span> items avaliable</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="pic"><img src="../assets/images/personal-collection.webp" alt="auction3"></div>
+                        <div class="txt">
+                            <h3>Personal Collection of Dr Jhon Stampee</h3>
+                            <p>Personal collection of Dr Jhon Stampee.</p>
+                            <p>Limited time offer.</p>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="pic"><img src="../assets/images/special-collection.webp" alt="auction4"></div>
+                        <div class="txt">
+                            <h3>A ride back to 1900s</h3>
+                            <p>Stamps used in 1900s from all over the world.</p>
+                            <p>Starting price: <span>$15</span></p>
+                        </div>
+                    </a>
+                    <div class="promo">Ouvert dans 11 heures</div>
+                </li>
+            </ul>
+        </div>
+    </main>
+    <!--footer-->
+    <footer class="wrapper">
+        <!--about-->
+        <div>
+            <dl>
+                <dt>À PROPOS DE NOUS</dt>
+                <dd><a href="#">Général</a></dd>
+                <dd><a href="#">Sur Stampee</a></dd>
+                <dd><a href="#">Annonces</a></dd>
+                <dd><a href="#">Visitez-nous</a></dd>
+            </dl>
+        </div>
+        <!--sitemap-->
+        <div>
+            <dl>
+                <dt>PLAN DU SITE</dt>
+                <dd><a class="active" href="#">Accueil</a></dd>
+                <dd><a href="#">Timbres</a></dd>
+                <dd><a href="#">Enchères</a></dd>
+                <dd><a href="#">Sur nous</a></dd>
+            </dl>
+        </div>
+        <!--moreinfo-->
+        <div>
+            <dl>
+                <dt>PLUS D'INFORMATION</dt>
+                <dd><a href="#">Politique de confidentialité</a></dd>
+                <dd><a href="#">Pré-enchères</a></dd>
+                <dd><a href="#">Pendant enchères</a></dd>
+                <dd><a href="#">Après enchères</a></dd>
+            </dl>
+        </div>
+        <!--contact-->
+        <div>
+            <dl>
+                <dt>CONTACT</dt>
+                <dd>Stampee LTD</dd>
+                <dd>3-3333 PIE-IX</dd>
+                <dd>Montréal, QC</dd>
+                <dd><a href="#">services@stampee.ca</a></dd>
+            </dl>
+            <ul>
+                <li><a href="#"><img src="../assets/icons/facebook.svg" alt="facebook"></a></li>
+                <li><a href="#"><img src="../assets/icons/twitter.svg" alt="twitter"></a></li>
+                <li><a href="#"><img src="../assets/icons/youtube.svg" alt="youtube"></a></li>
+                <li><a href="#"><img src="../assets/icons/instagram.svg" alt="instagram"></a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

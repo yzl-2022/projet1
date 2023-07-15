@@ -1,0 +1,70 @@
+@import url(general.css);
+@import url(nav.css);
+@import url(header.css);
+@import url(breadcrumb.css);
+@import url(banner.css); /*only the home page has banner*/
+@import url(title.css);
+@import url(content.css);
+@import url(footer.css);
+
+
+/***below is the content specific to home page***/
+
+/*presentation*/
+.presentation h2 {
+    font-weight: 700;
+    margin: 2rem auto;
+    color: var(--red);
+}
+.presentation p {
+    font-size: var(--h5);
+    line-height: 24px;
+}
+.presentation p:not(:last-child) {
+    margin-bottom: 0.5rem;
+}
+
+/*location*/
+.location {
+    margin: 2rem auto;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.location h3 {
+    font-size: var(--h5);
+    font-weight: 400;
+    color: white;
+    background: var(--blue);
+    border-radius: 10px;
+    padding: 0.5rem;
+}
+
+.location > ul {
+    flex: 1; 
+    display: flex;
+}
+
+.location li a {
+    padding: 0 1.5rem;
+    border-right: 1px solid #666; /*border give to <a> so it has the same height as text*/
+    font-size: var(--h5);
+    white-space: nowrap;
+}
+
+.location ul li:last-child a {
+    border-right: none;
+    display: block;
+    margin-right: 2rem;
+}
+
+/*responsive*/
+@media screen and (max-width: 1160px) {
+    .content ul,
+    .location ul {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}

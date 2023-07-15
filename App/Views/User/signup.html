@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="projet1-stampee">
+    <title>Inscription</title>
+    <link rel="stylesheet" href="../assets/css/connect.css">
+</head>
+<body>
+    <main>
+        <!--logo-->
+        <h1><a class="logo" href="/"><img src="../assets/icons/logo.webp" alt="logo">Stampee</a></h1>
+        <!--signup-->
+        <form name="user_signup" action="/user/profil" method="post">
+            <fieldset>
+                <legend><h2>Inscription</h2></legend>
+                <label for="user_nom">Votre nom</label>
+                <input type="text" id="user_nom" name="user_nom" placeholder="nom de famille" value="">
+                <label for="user_prenom">Votre prenom</label>
+                <input type="text" id="user_prenom" name="user_prenom" placeholder="prenom" value="">
+                <label for="user_email">Courriel</label>
+                <input type="email" id="user_email" name="user_email" placeholder="email" value="">
+                <label for="user_mdp">Mot de passe</label>
+                <input type="password" id="user_mdp" name="user_mdp" placeholder="password" value="">
+                <input type="submit" name="" value="S'inscrire">
+            </fieldset>
+        </form>
+        <!--login-->
+        <span>Vous avez déjà un compte?</span>
+        <a class="switch" href="/user/login">Se connecter</a>
+    </main>
+</body>
+</html>

@@ -19,6 +19,8 @@ error_reporting(E_ALL);
 set_error_handler('Core\Error::errorHandler');
 set_exception_handler('Core\Error::exceptionHandler');
 
+// activer $_SESSION
+session_start();
 
 /**
  * Routing
@@ -32,3 +34,5 @@ $router->add('{controller}/{action}/{id:\d+}');
 
     
 $router->dispatch($_SERVER['QUERY_STRING']);
+
+

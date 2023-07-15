@@ -65,7 +65,7 @@ INSERT INTO `stamp_color` (`sc_id`,`sc_st_id`,`sc_color_id`) VALUES
 (null,4,1),
 (null,5,3),
 (null,6,3),
-(null,7,4),
+(null,7,3),
 (null,8,2);
 
 -- Table 'color'
@@ -75,4 +75,4 @@ INSERT INTO `color` (`color_id`,`color`) VALUES
 (1,'bleu'),
 (2,'vert'),
 (3,'rouge'),
-(4,'blanc');
+(4,'noir');

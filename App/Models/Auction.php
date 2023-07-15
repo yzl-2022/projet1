@@ -5,36 +5,40 @@ namespace App\Models;
 use PDO;
 
 
-class Etudiant extends \Core\Model
+class Auction extends \Core\Model
 {
 
     /**
-     * Get all the users as an associative array
+     * Get 4 auctions --> diff by date?
      *
      * @return array
      */
     public static function getAll()
     {
         $db = static::getDB();
-        $stmt = $db->query('SELECT * FROM etudiant');
+        $stmt = $db->query("SELECT * FROM auction
+                            JOIN stamp ON au_id = st_au_id
+                            GROUP BY au_id
+                            LIMIT 4");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     /**
-     * Get one user as an associative array
-     *
+     * Get one auction
+     * @param int $au_id
      * @return array
      */
-    public static function getOne($id_etudiant)
+    public static function getOne($au_id)
     {
         $db = static::getDB();
-        $stmt = $db->query('SELECT * FROM etudiant WHERE id_etudiant = :id_etudiant');
-        $stmt->bindParam(':id_etudiant', $id_etudiant);
+        $stmt = $db->prepare("SELECT * FROM auction
+                              WHERE au_id = :au_id");
+        $stmt->bindParam(':au_id', $au_id);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
     /**
-     * Ajouter un etudiant
+     * Create an auction
      * @param array $data
      * @return boolean true si suppression effectuée, false sinon
      */

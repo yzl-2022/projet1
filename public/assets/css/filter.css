@@ -1,0 +1,13 @@
+@import url(form.css);
+
+/*filter*/
+.filter {
+    flex: 0 0 290px;
+}
+
+/*rewrite form*/
+form {
+    max-width: 290px;
+    min-height: 616px;
+    padding: 1rem;
+}

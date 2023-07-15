@@ -1,0 +1,85 @@
+@import url(general.css);
+@import url(nav.css);
+@import url(header.css);
+@import url(breadcrumb.css);
+@import url(filter.css); /*only the products page has filter*/
+@import url(title.css);
+@import url(content.css);
+@import url(footer.css);
+
+
+/***below is the content specific to products page***/
+
+/*main*/
+main {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+/*rewrite from content.css*/
+.content {
+    flex: 1;
+}
+
+.price {
+    margin-top: 0.5rem;
+    padding: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.price span {
+    color: var(--red);
+    margin-left: 3px;
+}
+
+.price img {
+    vertical-align: baseline;
+}
+
+/*panier*/
+.panier {
+    display: inline-block;
+    background-color: var(--blue);
+    color: white;
+    border-radius: 4px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.33);
+    padding: 5px 10px;
+}
+
+.panier:hover {
+    background-color: var(--red);
+    color: black;
+    transition: 0.7s;
+}
+
+/*button to change grid vs list*/
+.grid {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.grid button {
+	appearance: none;
+	border: none;
+	padding: 5px;
+	background-color: var(--red);
+    color: white;
+	border-radius: 3px; 
+    font-size: var(--h6);
+}
+
+/*for js*/
+.list {
+    flex: 100%;
+}
+
+/*responsive*/
+@media screen and (max-width: 1160px) {
+    section > .content ul {
+        flex-wrap: wrap;
+    }
+}
