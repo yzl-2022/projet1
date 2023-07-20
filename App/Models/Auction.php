@@ -9,11 +9,24 @@ class Auction extends \Core\Model
 {
 
     /**
-     * Get 4 auctions --> diff by date?
+     * Get all auctions
      *
      * @return array
      */
     public static function getAll()
+    {
+        $db = static::getDB();
+        $stmt = $db->query("SELECT * FROM auction
+                            JOIN stamp ON au_id = st_au_id
+                            GROUP BY au_id");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    /**
+     * Get 4 auctions
+     *
+     * @return array
+     */
+    public static function get4()
     {
         $db = static::getDB();
         $stmt = $db->query("SELECT * FROM auction
@@ -23,18 +36,20 @@ class Auction extends \Core\Model
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     /**
-     * Get one auction
+     * Get one auction and all its stamps
      * @param int $au_id
      * @return array
      */
     public static function getOne($au_id)
     {
         $db = static::getDB();
-        $stmt = $db->prepare("SELECT * FROM auction
-                              WHERE au_id = :au_id");
+        $stmt = $db->prepare("SELECT * FROM stamp 
+                              JOIN stamp_color ON st_id = sc_st_id
+                              JOIN color ON sc_color_id = color_id
+                              WHERE st_au_id = :au_id");
         $stmt->bindParam(':au_id', $au_id);
         $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
     /**

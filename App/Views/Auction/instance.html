@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="projet1-stampee">
-    <title>ENCHÈRES</title>
-    <link rel="stylesheet" href="../assets/css/products.css">
+    <title>ENCHÈRE</title>
+    <link rel="stylesheet" href="../../assets/css/products.css">
 </head>
 <body>
     <!--top-menu-->
     <nav class="wrapper">
         <ul>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/profil"><img src="../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
             <li class="{{ user ? '' : 'hide' }}"><a href="/user/login">DÉCONNECTER</a></li>
             <li class="{{ user ? 'hide' : '' }}"><a href="/user/login">CONNEXION</a></li>
             <li class="{{ user ? 'hide' : '' }}"><a href="/user/signup">INSCRIPTION</a></li>
             <li><a href="#">CONTACTEZ-NOUS</a></li>
-            <li><a href="#"><img src="../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
+            <li><a href="#"><img src="../../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
         </ul>
     </nav>
     <!--header--main-menu-->
@@ -48,50 +48,29 @@
     <aside class="breadcrumb wrapper">
         <ul>
             <li><a href="/">ACCUEIL</a> ></li>
-            <li><a class="active" href="/auction/lister">ENCHÈRES</a></li>
+            <li><a href="/auction/lister">ENCHÈRES</a> ></li>
+            <li><a class="active" href="/auction/instance/{{ au_id }}">Timbres d'enchère {{ au_id }}</a></li>
         </ul>
     </aside>
     <!--main-->
     <main class="wrapper">
-        <!--filter-->
-        <section class="filter">
-            <!--form of the filter-->
-            <form action="" name="filter">
-                <h2>Sélection</h2>
-                <label for="start_date">Date de début:</label>
-                <input type="date" name="start_date" id="start_date">
-                <label for="end_date">Date de fin:</label>
-                <input type="date" name="end_date" id="end_date">
-                <fieldset>
-                    <legend>Fourchette de prix :</legend>
-                    <label for="minP">Minimum</label>
-                    <input type="text" name="minP" id="minP" placeholder="9.99">
-                    <label for="maxP">Maximum</label>
-                    <input type="text" name="maxP" id="maxP" placeholder="999.99">
-                </fieldset>
-                <input type="reset" value="Rétablir">
-                <input type="submit" value="Soumettre">
-            </form>
-        </section>
-        <!--list of products-->
+        <!--list of stamps-->
         <section class="content">
-            <div class="grid"><button id="grid-list">Grille / Liste</button></div>
+            <div class="grid"><button id="grid-list">Ajouter à la liste de souhaits</button></div>
             <ul id="products">
-                {% for auction in auctions %}
+                {% for stamp in stamps %}
                 <li>
                     <article>
-                        <a href="/auction/instance/{{ auction.au_id }}">
-                            <div class="pic"><img src="../assets/images/{{ auction.st_image_principal }}" alt="image pour {{ auction.st_title }}"></div>
+                        <a href="/stamp/instance/{{ stamp.st_id }}">
+                            <div class="pic"><img src="../../assets/images/{{ stamp.st_image_principal}}" alt="image pour {{ stamp.st_title }}"></div>
                             <div class="txt">
-                                <h3>Heure de début:<br> {{ auction.au_start_date }}</h3>
-                                <p>Ouvert pour miser jusqu'à <span>{{ auction.au_end_date }}</span></p>
-                                <p class="price">Prix de départ: <span>{{ auction.au_prix_plancher }}</span> $</p>    
+                                <h3>{{ stamp.st_title|title }}</h3>
+                                <p>{{ stamp.st_description }}</p>
+                                <p class="price">Prix de départ: <span>{{ stamp.st_start_price }}</span> $</p>    
                                 <a class="panier" href="#">Placer un mise</a>
                             </div>
                         </a>
-                        {% if auction.au_lord %}
-                        <div class="promo">Coups de coeur de Lord</div>
-                        {% endif %}
+                        <div class="promo">{{ stamp.st_condition }}</div>
                     </article>
                 </li>
                 {% endfor %}
@@ -140,10 +119,10 @@
                 <dd><a href="#">services@stampee.ca</a></dd>
             </dl>
             <ul>
-                <li><a href="#"><img src="../assets/icons/facebook.svg" alt="facebook"></a></li>
-                <li><a href="#"><img src="../assets/icons/twitter.svg" alt="twitter"></a></li>
-                <li><a href="#"><img src="../assets/icons/youtube.svg" alt="youtube"></a></li>
-                <li><a href="#"><img src="../assets/icons/instagram.svg" alt="instagram"></a></li>
+                <li><a href="#"><img src="../../assets/icons/facebook.svg" alt="facebook"></a></li>
+                <li><a href="#"><img src="../../assets/icons/twitter.svg" alt="twitter"></a></li>
+                <li><a href="#"><img src="../../assets/icons/youtube.svg" alt="youtube"></a></li>
+                <li><a href="#"><img src="../../assets/icons/instagram.svg" alt="instagram"></a></li>
             </ul>
         </div>
     </footer>

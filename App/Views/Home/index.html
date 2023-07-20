@@ -28,8 +28,8 @@
         <!--nav-->
         <div class="headerNav">
             <ul>
-                <li><a href="/stamp/index">TIMBRES</a></li>
-                <li><a href="/auction/index">ENCHÈRES</a></li>
+                <li><a href="/stamp/lister">TIMBRES</a></li>
+                <li><a href="/auction/lister">ENCHÈRES</a></li>
                 <li><a href="#">SUR NOUS</a></li>
             </ul>
         </div>
@@ -38,7 +38,7 @@
             <input type="text" placeholder="search">
             <a href="#"></a>
         </div>
-        <!--cart-->
+        <!--notification-->
         <div class="notification">
             <a href="#"></a>
             <div class="number">5</div>
@@ -60,7 +60,7 @@
         <div class="bannertext">
             <h2>Bienvenue chez Stampee !</h2>
             <p>Un endroit idéal pour développer votre collection de timbres.</p>
-            <a href="/auction/index">EN SAVOIR PLUS</a>
+            <a href="/auction/lister">EN SAVOIR PLUS</a>
         </div>
     </section>
     <!--main-->
@@ -68,19 +68,19 @@
         <!--title-->
         <div class="title">
             <div class="left"><h3>TIMBRES</h3></div>
-            <div class="right"><a href="/stamp/index">afficher plus ></a></div>
+            <div class="right"><a href="/stamp/lister">afficher plus ></a></div>
         </div>
         <!--content-->
         <div class="content">
             <ul>
                 {% for stamp in stamps %}
                 <li>
-                    <a href="/stamp/{{ stamp.st_id }}">
+                    <a href="/stamp/instance/{{ stamp.st_id }}">
                         <div class="pic"><img src="assets/images/{{ stamp.st_image_principal}}" alt="image pour {{ stamp.st_title }}"></div>
                         <div class="txt">
-                            <h3>{{ stamp.st_title }}</h3>
+                            <h3>{{ stamp.st_title|title }}</h3>
                             <p>{{ stamp.st_description }}</p>
-                            <p>prix de départ: <span>{{ stamp.st_start_price }}</span> $</p>
+                            <p class="price">Prix de départ: <span>{{ stamp.st_start_price }}</span> $</p>
                         </div>
                     </a>
                     <div class="promo">{{ stamp.st_condition }}</div>
@@ -96,19 +96,19 @@
                 <li><a href="#">août</a></li>
                 <li><a href="#">septembre</a></li>
             </ul>
-            <div class="right"><a href="/auction/index">afficher plus ></a></div>
+            <div class="right"><a href="/auction/lister">afficher plus ></a></div>
         </div>
         <!--content-->
         <div class="content">
             <ul>
                 {% for auction in auctions %}
                 <li>
-                    <a href="/auction/{{ auction.au_id }}">
-                        <div class="pic"><img src="assets/images/{{ auction.st_image_principal }}" alt="image pour {{ auction.st_title }}"></div>
+                    <a href="/auction/instance/{{ auction.au_id }}">
+                        <div class="pic"><img src="../assets/images/{{ auction.st_image_principal }}" alt="image pour {{ auction.st_title }}"></div>
                         <div class="txt">
                             <h3>Heure de début:<br> {{ auction.au_start_date }}</h3>
                             <p>Ouvert pour miser jusqu'à <span>{{ auction.au_end_date }}</span></p>
-                            <p>prix de départ: <span>{{ auction.au_prix_plancher }}</span> $</p>
+                            <p class="price">Prix de départ: <span>{{ auction.au_prix_plancher }}</span> $</p>
                         </div>
                     </a>
                     {% if auction.au_lord %}
@@ -157,9 +157,9 @@
         <div>
             <dl>
                 <dt>PLAN DU SITE</dt>
-                <dd><a class="active" href="#">Accueil</a></dd>
-                <dd><a href="#">Timbres</a></dd>
-                <dd><a href="#">Enchères</a></dd>
+                <dd><a class="active" href="/">Accueil</a></dd>
+                <dd><a href="/stamp/lister">Timbres</a></dd>
+                <dd><a href="/auction/lister">Enchères</a></dd>
                 <dd><a href="#">Sur nous</a></dd>
             </dl>
         </div>

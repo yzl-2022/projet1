@@ -42,20 +42,26 @@ class User extends \Core\Controller
      */
     public function profilAction()
     {
-        $user = null;
-        $msgErr = '';
-        if (count($_POST) !== 0){
-            $user = \App\Models\User::connecter($_POST);
-            if ($user !== false){
-                $_SESSION['user'] = $user;
-                View::renderTemplate('User/profil.html',
-                                    ['user' => $user]);
-            }else{ // if connection fails
-                $msgErr = "Courriel ou mot de passe incorrect.";
-                View::renderTemplate('User/login.html',
-                                    ['msgErr' => $msgErr]);
+        if (isset($_SESSION['user'])) { // if the user already login
+            View::renderTemplate('User/profil.html',
+                                ['user' => $_SESSION['user']]);
+        }else{
+            $user = null;
+            $msgErr = '';
+            if (count($_POST) !== 0){
+                $user = \App\Models\User::connecter($_POST);
+                if ($user !== false){
+                    $_SESSION['user'] = $user;
+                    View::renderTemplate('User/profil.html',
+                                        ['user' => $user]);
+                }else{ // if connection fails
+                    $msgErr = "Courriel ou mot de passe incorrect.";
+                    View::renderTemplate('User/login.html',
+                                        ['msgErr' => $msgErr]);
+                }
             }
         }
+        
     }
 
     /**

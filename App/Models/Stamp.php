@@ -9,11 +9,25 @@ class Stamp extends \Core\Model
 {
 
     /**
-     * Get 4 stamps
+     * Get all stamps
      *
      * @return array
      */
     public static function getAll()
+    {
+        $db = static::getDB();
+        $stmt = $db->query("SELECT * FROM stamp
+                            JOIN stamp_color ON st_id = sc_st_id
+                            JOIN color ON sc_color_id = color_id
+                            WHERE st_active = 1");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    /**
+     * Get 4 stamps
+     *
+     * @return array
+     */
+    public static function get4()
     {
         $db = static::getDB();
         $stmt = $db->query("SELECT * FROM stamp
@@ -28,7 +42,7 @@ class Stamp extends \Core\Model
      * @param int $st_id
      * @return array
      */
-    public static function getOneStamp($st_id)
+    public static function getOne($st_id)
     {
         $db = static::getDB();
         $stmt = $db->prepare("SELECT * FROM stamp 
@@ -38,22 +52,6 @@ class Stamp extends \Core\Model
         $stmt->bindParam(':st_id', $st_id);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-    /**
-     * Get all stamps of an auction
-     * @param int $au_id
-     * @return array
-     */
-    public static function getOneAuction($au_id)
-    {
-        $db = static::getDB();
-        $stmt = $db->prepare("SELECT * FROM stamp 
-                              JOIN stamp_color ON st_id = sc_st_id
-                              JOIN color ON sc_color_id = color_id
-                              WHERE st_au_id = :au_id");
-        $stmt->bindParam(':au_id', $au_id);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
     /**
@@ -65,7 +63,7 @@ class Stamp extends \Core\Model
     public static function insert($data)
     {
         $db = static::getDB();
-        $stmt = $db->prepare("INSERT INTO etudiant SET nom = :nom, age = :age");
+        $stmt = $db->prepare("INSERT INTO stamp SET nom = :nom, age = :age");
         $nomsParams = array_keys($data);
         foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam]);
         $stmt->execute();
@@ -76,7 +74,7 @@ class Stamp extends \Core\Model
     }
 
     /**
-     * Supprimer un etudiant
+     * delete a stamp
     * @param int $id_etudiant clé primaire
     * @return boolean
     */

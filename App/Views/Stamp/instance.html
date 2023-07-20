@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="projet1-stampee">
+    <title>TIMBRE</title>
+    <link rel="stylesheet" href="../../assets/css/products.css">
+</head>
+<body>
+    <!--top-menu-->
+    <nav class="wrapper">
+        <ul>
+            <li class="{{ user ? '' : 'hide' }}"><a href="/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="/user/login">DÉCONNECTER</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="/user/login">CONNEXION</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="/user/signup">INSCRIPTION</a></li>
+            <li><a href="#">CONTACTEZ-NOUS</a></li>
+            <li><a href="#"><img src="../../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
+        </ul>
+    </nav>
+    <!--header--main-menu-->
+    <header class="wrapper">
+        <!--logo-->
+        <div class="logo">
+            <h1><a href="/">Stampee</a></h1>
+        </div>
+        <!--nav-->
+        <div class="headerNav">
+            <ul>
+                <li><a href="/stamp/lister">TIMBRES</a></li>
+                <li><a class="active" href="/auction/lister">ENCHÈRES</a></li>
+                <li><a href="#">SUR NOUS</a></li>
+            </ul>
+        </div>
+        <!--search-->
+        <div class="headerSearch">
+            <input type="text" placeholder="search">
+            <a href="#"></a>
+        </div>
+        <!--notification-->
+        <div class="notification">
+            <a href="#"></a>
+            <div class="number">5</div>
+        </div>
+    </header>
+    <!--breadcrumb-->
+    <aside class="breadcrumb wrapper">
+        <ul>
+            <li><a href="/">ACCUEIL</a> ></li>
+            <li><a href="/stamp/lister">TIMBRES</a> ></li>
+            <li><a class="active" href="/stamp/instance/{{ st_id }}">Timbre {{ st_id }}</a></li>
+        </ul>
+    </aside>
+    <!--main-->
+    <main class="wrapper">
+        <!--stamp-->
+        <article>
+            <a href="/stamp/instance/{{ stamp.st_id }}">
+                <div class="pic"><img src="../../assets/images/{{ stamp.st_image_principal}}" alt="image pour {{ stamp.st_title }}"></div>
+                <div class="txt">
+                    <h3>{{ stamp.st_title|title }}</h3>
+                    <p>{{ stamp.st_description }}</p>
+                    <p class="price">Prix de départ: <span>{{ stamp.st_start_price }}</span> $</p>    
+                    <a class="panier" href="#">Placer un mise</a>
+                </div>
+            </a>
+            <div class="promo">{{ stamp.st_condition }}</div>
+        </article>
+    </main>
+    <!--footer-->
+    <footer class="wrapper">
+        <!--about-->
+        <div>
+            <dl>
+                <dt>À PROPOS DE NOUS</dt>
+                <dd><a href="#">Général</a></dd>
+                <dd><a href="#">Sur Stampee</a></dd>
+                <dd><a href="#">Annonces</a></dd>
+                <dd><a href="#">Visitez-nous</a></dd>
+            </dl>
+        </div>
+        <!--sitemap-->
+        <div>
+            <dl>
+                <dt>PLAN DU SITE</dt>
+                <dd><a href="/">Accueil</a></dd>
+                <dd><a href="/stamp/lister">Timbres</a></dd>
+                <dd><a class="active" href="/auction/lister">Enchères</a></dd>
+                <dd><a href="#">Sur nous</a></dd>
+            </dl>
+        </div>
+        <!--moreinfo-->
+        <div>
+            <dl>
+                <dt>PLUS D'INFORMATION</dt>
+                <dd><a href="#">Politique de confidentialité</a></dd>
+                <dd><a href="#">Pré-enchères</a></dd>
+                <dd><a href="#">Pendant enchères</a></dd>
+                <dd><a href="#">Après enchères</a></dd>
+            </dl>
+        </div>
+        <!--contact-->
+        <div>
+            <dl>
+                <dt>CONTACT</dt>
+                <dd>Stampee LTD</dd>
+                <dd>3-3333 PIE-IX</dd>
+                <dd>Montréal, QC</dd>
+                <dd><a href="#">services@stampee.ca</a></dd>
+            </dl>
+            <ul>
+                <li><a href="#"><img src="../../assets/icons/facebook.svg" alt="facebook"></a></li>
+                <li><a href="#"><img src="../../assets/icons/twitter.svg" alt="twitter"></a></li>
+                <li><a href="#"><img src="../../assets/icons/youtube.svg" alt="youtube"></a></li>
+                <li><a href="#"><img src="../../assets/icons/instagram.svg" alt="instagram"></a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
