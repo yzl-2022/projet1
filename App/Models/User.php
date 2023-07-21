@@ -48,7 +48,7 @@ class User extends \Core\Model
         $db = static::getDB();
         $stmt = $db->prepare("SELECT user_id, user_nom, user_prenom, user_email, role FROM user 
                               JOIN user_role ON role_id = user_role_id
-                              WHERE user_email = :user_email AND user_mdp = SHA2( :user_mdp, 512)");
+                              WHERE user_email = LOWER(TRIM(:user_email)) AND user_mdp = SHA2( LOWER(TRIM(:user_mdp)), 512)");
         $nomsParams = array_keys($data);
         foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam], PDO::PARAM_STR);
         $stmt->execute();
@@ -64,9 +64,12 @@ class User extends \Core\Model
     {
         $db = static::getDB();
         $stmt = $db->prepare("INSERT INTO user
-                              SET user_nom = :user_nom, user_prenom = :user_prenom,
-                                  user_email = :user_email, user_mdp = :user_mdp,
-                                  user_active = 1,  user_role_id = 3");
+                              SET user_nom     = LOWER(TRIM(:user_nom)), 
+                                  user_prenom  = LOWER(TRIM(:user_prenom)),
+                                  user_email   = LOWER(TRIM(:user_email)), 
+                                  user_mdp     = SHA2( LOWER(TRIM(:user_mdp)), 512),
+                                  user_active  = 1,  
+                                  user_role_id = 3");
         $nomsParams = array_keys($data);
         foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam]);
         $stmt->execute();

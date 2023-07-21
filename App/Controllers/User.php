@@ -20,9 +20,14 @@ class User extends \Core\Controller
     public function loginAction()
     {
         if (isset($_SESSION['user'])) unset($_SESSION['user']);
+
+        if (count($_POST) !== 0){
+            $newUser = \App\Models\User::insert($_POST);
+        }
         //afficher le page de se connecter
         View::renderTemplate('User/login.html');
     }
+    
     /**
      * s'inscrire
      *
@@ -60,8 +65,7 @@ class User extends \Core\Controller
                                         ['msgErr' => $msgErr]);
                 }
             }
-        }
-        
+        } 
     }
 
     /**
