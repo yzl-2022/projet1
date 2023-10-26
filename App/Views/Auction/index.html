@@ -85,8 +85,12 @@
                             <div class="txt">
                                 <h3>Heure de début:<br> {{ auction.au_start_date }}</h3>
                                 <p>Ouvert pour miser jusqu'à <span>{{ auction.au_end_date }}</span></p>
-                                <p class="price">Prix de départ: <span>{{ auction.au_prix_plancher }}</span> $</p>    
+                                <p class="price">Prix de départ: <span>{{ auction.au_prix_plancher }}</span> $</p>
+                                {% if auction.au_user_id != user.user_id %}    
                                 <a class="panier" href="#">Placer un mise</a>
+                                {% else %}
+                                <a class="panier" href="/auction/modifier/{{ auction.au_id }}"> Modifier </a>
+                                {% endif %}
                             </div>
                         </a>
                         {% if auction.au_lord %}

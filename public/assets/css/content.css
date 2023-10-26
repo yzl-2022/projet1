@@ -2,7 +2,7 @@
 .content ul {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin: 1rem 0;
 }
 

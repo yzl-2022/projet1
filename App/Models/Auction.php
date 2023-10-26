@@ -7,7 +7,6 @@ use PDO;
 
 class Auction extends \Core\Model
 {
-
     /**
      * Get all auctions
      *
@@ -21,6 +20,7 @@ class Auction extends \Core\Model
                             GROUP BY au_id");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
     /**
      * Get 4 auctions
      *
@@ -35,6 +35,7 @@ class Auction extends \Core\Model
                             LIMIT 4");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
     /**
      * Get one auction and all its stamps
      * @param int $au_id
@@ -51,9 +52,41 @@ class Auction extends \Core\Model
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    /**
+     * Get the id of the last auction available
+     * @return int $au_id of the last element in the table
+     */
+    public static function getLast()
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare("SELECT * FROM auction 
+                              ORDER BY au_id DESC
+                              LIMIT 1");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get all auctions of one user
+     * @param int $user_id
+     * @return array
+     */
+    public static function getByUser($user_id)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare("SELECT * FROM auction 
+                              JOIN stamp ON st_au_id = au_id
+                              JOIN stamp_color ON st_id = sc_st_id
+                              JOIN color ON sc_color_id = color_id
+                              WHERE au_user_id = :user_id
+                              GROUP BY au_id");
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     
     /**
-     * Create an auction
+     * ajouter une enchère
      * @param array $data
      * @return boolean true si suppression effectuée, false sinon
      */
@@ -72,10 +105,10 @@ class Auction extends \Core\Model
     }
 
     /**
-     * Supprimer un etudiant
-    * @param int $id_etudiant clé primaire
-    * @return boolean
-    */
+     * supprimer une enchère
+     * @param int $au_id
+     * @return boolean
+     */
     public static function delete($id)
     {
         $db = static::getDB();

@@ -95,8 +95,12 @@
                             <div class="txt">
                                 <h3>{{ stamp.st_title|title }}</h3>
                                 <p>{{ stamp.st_description }}</p>
-                                <p class="price">Prix de départ: <span>{{ stamp.st_start_price }}</span> $</p>    
+                                <p class="price">Prix de départ: <span>{{ stamp.st_start_price }}</span> $</p>
+                                {% if stamp.au_user_id != user.user_id %}
                                 <a class="panier" href="#">Placer un mise</a>
+                                {% else %}
+                                <a class="panier" href="/stamp/modifier/{{ stamp.st_id }}"> Modifier </a>
+                                {% endif %}
                             </div>
                         </a>
                         <div class="promo">{{ stamp.st_condition }}</div>

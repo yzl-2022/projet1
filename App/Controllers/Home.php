@@ -20,8 +20,11 @@ class Home extends \Core\Controller
     public function indexAction()
     {
         // check if the user has log in
-        $user = null;
-        if (isset($_SESSION['user'])) $user = $_SESSION['user'];
+        if (isset($_SESSION['user'])){
+            $user = $_SESSION['user'];
+        }else{
+            $user = null;
+        }
 
         // obtain data
         $stamp4 = \App\Models\Stamp::get4();

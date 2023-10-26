@@ -60,6 +60,19 @@
     margin-right: 2rem;
 }
 
+/*profil -- button to add a new instance*/
+.ajouter {
+    display: inline-block;
+    background-color: var(--red);
+    color: white;
+    border: none;
+    font-size: var(--h3);
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.33);
+    padding: 2px;
+}
+
 /*responsive*/
 @media screen and (max-width: 1160px) {
     .content ul,

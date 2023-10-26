@@ -20,7 +20,7 @@ set_error_handler('Core\Error::errorHandler');
 set_exception_handler('Core\Error::exceptionHandler');
 
 // activer $_SESSION
-session_start();
+session_start(); /* why I need to refresh after login */
 
 /**
  * Routing

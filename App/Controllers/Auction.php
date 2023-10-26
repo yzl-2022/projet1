@@ -49,7 +49,8 @@ class Auction extends \Core\Controller
         View::renderTemplate('Auction/instance.html',
                              ['user' => $user,
                               'au_id' => $id,
-                              'stamps' => $list]);
+                              'stamps' => $list
+                            ]);
     }
 
     /**
@@ -59,15 +60,23 @@ class Auction extends \Core\Controller
      */
     public function ajouterAction()
     {
+        // check if the user has log in
+        $user = null;
+        if (isset($_SESSION['user'])) $user = $_SESSION['user'];
+
+        // get the id of auction to be added
+        $id = $this->route_params['id'];
+
         if (!empty($_POST)){
 
-            //on enlève le champ "envoyer" pour que le tableau corresponde aux champs de la table en base de données
-            unset($_POST["envoyer"]);
+            unset($_POST["envoyer"]); // clear the content of $_POST
 
             $id_insertion = \App\Models\Auction::insert($_POST);
             echo "<br>L'id de l'étudiant inséré est $id_insertion";
         }
-        View::renderTemplate('Auction/ajouter.html');
+        View::renderTemplate('Auction/ajouter.html',
+                             ['user' => $user,
+                              'au_id' => $id]);
     }
 
     /**

@@ -48,8 +48,22 @@ class User extends \Core\Controller
     public function profilAction()
     {
         if (isset($_SESSION['user'])) { // if the user already login
+            // get stamps and auctions of this user
+            $user_id = $_SESSION['user']['user_id'];
+            $auctions = \App\Models\Auction::getByUser($user_id);
+            $last_au = \App\Models\Auction::getLast();
+            $next_au_id = $last_au['au_id'] + 1;
+            $stamps = \App\Models\Stamp::getByUser($user_id);
+            $last_st = \App\Models\Stamp::getLast();
+            $next_st_id = $last_st['st_id'] + 1;
+
             View::renderTemplate('User/profil.html',
-                                ['user' => $_SESSION['user']]);
+                                ['user' => $_SESSION['user'],
+                                 'auctions' => $auctions,
+                                 'stamps' => $stamps,
+                                 'next_au_id' => $next_au_id,
+                                 'next_st_id' => $next_st_id
+                                ]);
         }else{
             $user = null;
             $msgErr = '';
@@ -57,6 +71,7 @@ class User extends \Core\Controller
                 $user = \App\Models\User::connecter($_POST);
                 if ($user !== false){
                     $_SESSION['user'] = $user;
+                    exit(header('Location:/user/profil')); //$_SESSION need to refresh the page
                     View::renderTemplate('User/profil.html',
                                         ['user' => $user]);
                 }else{ // if connection fails
