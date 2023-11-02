@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="projet1-stampee">
+    <title>ADMIN</title>
+    <link rel="stylesheet" href="../assets/css/index.css">
+</head>
+<body>
+    <!--top-menu-->
+    <nav class="wrapper">
+        <ul>
+            <li><a href="/user/profil"><img src="../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li><a class="active" href="/user/admin">ADMIN</a></li>
+            <li><a href="/user/login">DÉCONNECTER</a></li>
+            <li><a href="#">CONTACTEZ-NOUS</a></li>
+            <li><a href="#"><img src="../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
+        </ul>
+    </nav>
+    <!--header--main-menu-->
+    <header class="wrapper">
+        <!--logo-->
+        <div class="logo">
+            <h1><a href="/">Stampee</a></h1>
+        </div>
+        <!--nav-->
+        <div class="headerNav">
+            <ul>
+                <li><a href="/stamp/lister">TIMBRES</a></li>
+                <li><a href="/auction/lister">ENCHÈRES</a></li>
+                <li><a href="/home/about">SUR NOUS</a></li>
+            </ul>
+        </div>
+        <!--search-->
+        <div class="headerSearch">
+            <input type="text" placeholder="search">
+            <a href="products.html"></a>
+        </div>
+        <!--notification-->
+        <div class="notification">
+            <a href="#"></a>
+            <div class="number">5</div>
+        </div>
+    </header>
+    <!--main-->
+    <main class="wrapper">
+        <!--admin-nav-->
+        <section class="location wrapper">
+            <ul>
+                <li><a id="nav-utilisateurs" href="#">Utilisateurs</a></li>
+                <li><a id="nav-encheres" href="#">Enchères</a></li>
+                <li><a id="nav-timbres" href="#">Timbres</a></li>
+            </ul>
+        </section>
+        <!--table-utilisateurs-->
+        <table class="wrapper" id="table-utilisateurs">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>Nom</th>
+                    <th>Prénom</th>
+                    <th>email</th>
+                    <th>role</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ user.user_id}}</td>
+                    <td>{{ user.user_nom}}</td>
+                    <td>{{ user.user_prenom }}</td>
+                    <td>{{ user.user_email }}</td>
+                    <td>{{ user.role }}</td>
+                    <td>
+                        <a href="/user/modifier/{{ user.user_id}}">Modifier</a>
+                        {% if user.role != 'propriétaire' %}
+                        <a href="/user/supprimer/{{ user.user_id}}">Supprimer</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr><td colspan="6"><a href="/utilisateur/ajouter">Ajouter Utilisateur</a></td></tr>
+            </tbody>
+        </table>
+        <!--table-encheres-->
+        <table class="wrapper" id="table-encheres">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>crée par</th>
+                    <th>prix plancher</th>
+                    <th>date debut</th>
+                    <th>date fin</th>
+                    <th>coups de coeur de Lord</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for auction in auctions %}
+                <tr>
+                    <td>{{ auction.au_id }}</td>
+                    <td>{{ auction.user_prenom }} {{ auction.user_nom }}</td>
+                    <td>{{ auction.au_prix_plancher }} $</td>
+                    <td>{{ auction.au_start_date }}</td>
+                    <td>{{ auction.au_end_date }}</td>
+                    <td>{% if (auction.au_lord > 0) %} oui {% else %} non {% endif %}</td>
+                    <td>
+                        <a href="/auction/modifier/{{ auction.user_id}}">Modifier</a>
+                        <a href="/auction/supprimer/{{ auction.user_id}}">Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr><td colspan="7"><a href="/auction/ajouter">Ajouter Enchère</a></td></tr>
+            </tbody>
+        </table>
+        <!--table-timbres-->
+        <table class="wrapper" id="table-timbres">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>catégorie</th>
+                    <th>condition</th>
+                    <th>largeur</th>
+                    <th>hauteur</th>
+                    <th>prix début</th>
+                    <th>prix fin</th>
+                    <th>état</th>
+                    <th>couleur</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stamp in stamps %}
+                <tr>
+                    <td>{{ stamp.st_id }}</td>
+                    <td>{{ stamp.cat_name }}</td>
+                    <td>{{ stamp.st_condition }}</td>
+                    <td>{{ stamp.st_width }} cm</td>
+                    <td>{{ stamp.st_height }} cm</td>
+                    <td>{{ stamp.st_start_price }} $</td>
+                    <td>{{ stamp.st_end_price }} $</td>
+                    <td>{% if (stamp.st_active> 0) %} actif {% endif %}</td>
+                    <td>{{ stamp.color }}</td>
+                    <td>
+                        <a href="/stamp/modifier/{{ stamp.user_id}}">Modifier</a>
+                        <a href="/stamp/supprimer/{{ stamp.user_id}}">Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                <tr><td colspan="10"><a href="/stamp/ajouter">Ajouter Timbre</a></td></tr>
+            </tbody>
+        </table>
+        <section class="location wrapper">
+            <!--? Do I need a button 'Ajouter' here ?-->
+        </section>
+    </main>
+    <!--footer-->
+    <footer class="wrapper">
+        <!--about-->
+        <div>
+            <dl>
+                <dt>À PROPOS DE NOUS</dt>
+                <dd><a href="#">Général</a></dd>
+                <dd><a href="#">Sur Stampee</a></dd>
+                <dd><a href="#">Annonces</a></dd>
+                <dd><a href="#">Visitez-nous</a></dd>
+            </dl>
+        </div>
+        <!--sitemap-->
+        <div>
+            <dl>
+                <dt>PLAN DU SITE</dt>
+                <dd><a href="/">Accueil</a></dd>
+                <dd><a href="/stamp/lister">Timbres</a></dd>
+                <dd><a href="/auction/lister">Enchères</a></dd>
+                <dd><a href="#">Sur nous</a></dd>
+            </dl>
+        </div>
+        <!--moreinfo-->
+        <div>
+            <dl>
+                <dt>PLUS D'INFORMATION</dt>
+                <dd><a href="#">Politique de confidentialité</a></dd>
+                <dd><a href="#">Pré-enchères</a></dd>
+                <dd><a href="#">Pendant enchères</a></dd>
+                <dd><a href="#">Après enchères</a></dd>
+            </dl>
+        </div>
+        <!--contact-->
+        <div>
+            <dl>
+                <dt>CONTACT</dt>
+                <dd>Stampee LTD</dd>
+                <dd>3-3333 PIE-IX</dd>
+                <dd>Montréal, QC</dd>
+                <dd><a href="#">services@stampee.ca</a></dd>
+            </dl>
+            <ul>
+                <li><a href="#"><img src="../assets/icons/facebook.svg" alt="facebook"></a></li>
+                <li><a href="#"><img src="../assets/icons/twitter.svg" alt="twitter"></a></li>
+                <li><a href="#"><img src="../assets/icons/youtube.svg" alt="youtube"></a></li>
+                <li><a href="#"><img src="../assets/icons/instagram.svg" alt="instagram"></a></li>
+            </ul>
+        </div>
+    </footer>
+<script>
+    //update the table based on which tab is selected
+
+    //1) get all tabs
+    const navUtilisateurs = document.getElementById('nav-utilisateurs');
+    const navEncheres = document.getElementById('nav-encheres');
+    const navTimbres = document.getElementById('nav-timbres');
+
+    //2) get all tables
+    const tableUtilisateurs = document.getElementById('table-utilisateurs');
+    const tableEncheres = document.getElementById('table-encheres');
+    const tableTimbres = document.getElementById('table-timbres');
+
+    //3) when landing on the page:
+    window.onload = function(){
+        tableUtilisateurs.classList.remove('hide');
+        tableEncheres.classList.add('hide');
+        tableTimbres.classList.add('hide');
+
+        navUtilisateurs.classList.add('active');
+        navEncheres.classList.remove('active');
+        navTimbres.classList.remove('active');
+    };
+
+    //4) event listeners
+    navUtilisateurs.onclick = function(){
+        navUtilisateurs.classList.add('active');
+        tableUtilisateurs.classList.remove('hide');
+
+        navEncheres.classList.remove('active');
+        tableEncheres.classList.add('hide');
+
+        navTimbres.classList.remove('active');
+        tableTimbres.classList.add('hide');
+    }
+    navEncheres.onclick = function(){
+        navUtilisateurs.classList.remove('active');
+        tableUtilisateurs.classList.add('hide');
+
+        navEncheres.classList.add('active');
+        tableEncheres.classList.remove('hide');
+
+        navTimbres.classList.remove('active');
+        tableTimbres.classList.add('hide');
+    }
+    navTimbres.onclick = function(){
+        navUtilisateurs.classList.remove('active');
+        tableUtilisateurs.classList.add('hide');
+
+        navEncheres.classList.remove('active');
+        tableEncheres.classList.add('hide');
+
+        navTimbres.classList.add('active');
+        tableTimbres.classList.remove('hide');
+    }
+</script>
+</body>
+</html>

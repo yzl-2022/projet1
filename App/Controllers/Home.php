@@ -35,5 +35,24 @@ class Home extends \Core\Controller
                              'stamps' => $stamp4,
                              'auctions' => $auction4]);
     }
+
+    /**
+     * Show the about page
+     *
+     * @return void
+     */
+    public function aboutAction()
+    {
+        // check if the user has log in
+        if (isset($_SESSION['user'])){
+            $user = $_SESSION['user'];
+        }else{
+            $user = null;
+        }
+
+        View::renderTemplate('Home/about.html',
+                            ['user' => $user]);
+    }
+
 }
 

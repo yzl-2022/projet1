@@ -16,6 +16,7 @@ class Stamp extends \Core\Model
     {
         $db = static::getDB();
         $stmt = $db->query("SELECT * FROM stamp
+                            JOIN category ON st_cat_id = cat_id
                             JOIN stamp_color ON st_id = sc_st_id
                             JOIN color ON sc_color_id = color_id
                             JOIN auction ON st_au_id = au_id

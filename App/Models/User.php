@@ -18,7 +18,7 @@ class User extends \Core\Model
         $db = static::getDB();
         $stmt = $db->query("SELECT user_id, user_nom, user_prenom, user_email, role FROM user
                             JOIN user_role ON role_id = user_role_id
-                            ORDER BY user_nom");
+                            ORDER BY user_id");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     

@@ -17,6 +17,7 @@ class Auction extends \Core\Model
         $db = static::getDB();
         $stmt = $db->query("SELECT * FROM auction
                             JOIN stamp ON au_id = st_au_id
+                            JOIN user ON au_user_id = user_id
                             GROUP BY au_id");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

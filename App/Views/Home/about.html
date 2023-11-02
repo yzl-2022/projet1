@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="projet1-stampee">
-    <title>ENCHÈRES</title>
-    <link rel="stylesheet" href="../assets/css/products.css">
+    <title>ACCUEIL</title>
+    <link rel="stylesheet" href="../assets/css/index.css">
 </head>
 <body>
     <!--top-menu-->
@@ -29,7 +29,7 @@
         <div class="headerNav">
             <ul>
                 <li><a href="/stamp/lister">TIMBRES</a></li>
-                <li><a class="active" href="/auction/lister">ENCHÈRES</a></li>
+                <li><a href="/auction/lister">ENCHÈRES</a></li>
                 <li><a href="/home/about">SUR NOUS</a></li>
             </ul>
         </div>
@@ -48,60 +48,61 @@
     <aside class="breadcrumb wrapper">
         <ul>
             <li><a href="/">ACCUEIL</a> ></li>
-            <li><a class="active" href="/auction/lister">ENCHÈRES</a></li>
+            <li><a class="active" href="/home/about">SUR NOUS</a></li>
         </ul>
     </aside>
+    <!--banner-->
+    <section class="banner wrapper">
+        <!--picture-->
+        <div class="picture">
+            <a href="#"><img src="../assets/images/banner.webp" alt="banner"></a>
+        </div>
+        <!--side-nav-->
+        <div class="bannertext">
+            <h2>Bienvenue chez Stampee !</h2>
+            <p>Un endroit idéal pour développer votre collection de timbres.</p>
+            <a href="/auction/lister">EN SAVOIR PLUS</a>
+        </div>
+    </section>
     <!--main-->
-    <main class="wrapper">
-        <!--filter-->
-        <section class="filter">
-            <!--form of the filter-->
-            <form action="" name="filter">
-                <h2>Sélection</h2>
-                <label for="start_date">Date de début:</label>
-                <input type="date" name="start_date" id="start_date">
-                <label for="end_date">Date de fin:</label>
-                <input type="date" name="end_date" id="end_date">
-                <fieldset>
-                    <legend>Fourchette de prix :</legend>
-                    <label for="minP">Minimum</label>
-                    <input type="text" name="minP" id="minP" placeholder="9.99">
-                    <label for="maxP">Maximum</label>
-                    <input type="text" name="maxP" id="maxP" placeholder="999.99">
-                </fieldset>
-                <input type="reset" value="Rétablir">
-                <input type="submit" value="Soumettre">
-            </form>
-        </section>
-        <!--list of products-->
-        <section class="content">
-            <div class="grid"><button id="grid-list">Grille / Liste</button></div>
-            <ul id="products">
-                {% for auction in auctions %}
-                <li>
-                    <article>
-                        <a href="/auction/instance/{{ auction.au_id }}">
-                            <div class="pic"><img src="../assets/images/{{ auction.st_image_principal }}" alt="image pour {{ auction.st_title }}"></div>
-                            <div class="txt">
-                                <h3>Heure de début:<br> {{ auction.au_start_date }}</h3>
-                                <p>Ouvert pour miser jusqu'à <span>{{ auction.au_end_date }}</span></p>
-                                <p class="price">Prix de départ: <span>{{ auction.au_prix_plancher }}</span> $</p>
-                                {% if auction.au_user_id != user.user_id %}    
-                                <a class="panier" href="#">Placer un mise</a>
-                                {% else %}
-                                <a class="panier" href="/auction/modifier/{{ auction.au_id }}"> Modifier </a>
-                                {% endif %}
-                            </div>
-                        </a>
-                        {% if auction.au_lord %}
-                        <div class="promo">Coups de coeur de Lord</div>
-                        {% endif %}
-                    </article>
-                </li>
-                {% endfor %}
-            </ul>
-        </section>
-    </main>
+    <!--presentation-->
+    <section class="presentation wrapper">
+        <h2>Présentation Sommaire de Lord Stampee</h2>
+        <p>Lord Reginald Stampee, duc de Worcessteshear et philatéliste depuis sa tendre enfance au milieu des années cinquante, 
+           décide de faire le pas dans le numérique et étendre au-delà du Royaume-Uni ses fameuses enchères de timbres qui font accourir les plus grands philatélistes du monde.</p>
+        <p>Ce site « Stampee » est un magazine canadien spécialisé dans le commerce et les enchères de timbres. 
+           Stampee a établi 6 clubs de philatélie à travers Canada, qui fournit un marché stable hors ligne. 
+           Avec la popularité de NFT, Stampee libère un nouveau marché NFT pour ses collections de timbres. 
+           Ce faisant, Stampee espère protéger la beauté des timbres fragiles et apporter leur beauté aux amateurs de timbres du monde entier.</p>
+        <h2>Comment creer une enchère?</h2>
+        <table>
+            <tr>
+                <td>1</td>
+                <td>Creer un compt par <a href="/user/signup">ici</a></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Creer une nouvelle enchère et ajouter vos timbres</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Envoyer vos timbres après recevoir les résultat de votre enchère</td>
+            </tr>
+        </table>
+    </section>
+    <!--location-->
+    <!--location-->
+    <section class="location wrapper">
+        <a href="#"><h3>Trouver un club Stampee</h3></a>
+        <ul>
+            <li><a href="#">Alberta</a></li>
+            <li><a href="#">Colombie-Britannique</a></li>
+            <li><a href="#">Manitoba</a></li>
+            <li><a href="#">Nouveau-Brunswick</a></li>
+            <li><a href="#">Ontario</a></li>
+            <li><a href="#">Québec</a></li>
+        </ul>
+    </section>
     <!--footer-->
     <footer class="wrapper">
         <!--about-->
@@ -118,9 +119,9 @@
         <div>
             <dl>
                 <dt>PLAN DU SITE</dt>
-                <dd><a href="/">Accueil</a></dd>
+                <dd><a class="active" href="/">Accueil</a></dd>
                 <dd><a href="/stamp/lister">Timbres</a></dd>
-                <dd><a class="active" href="/auction/lister">Enchères</a></dd>
+                <dd><a href="/auction/lister">Enchères</a></dd>
                 <dd><a href="#">Sur nous</a></dd>
             </dl>
         </div>

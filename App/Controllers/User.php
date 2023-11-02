@@ -84,6 +84,31 @@ class User extends \Core\Controller
     }
 
     /**
+     * gerer tous les utilisateur
+     * 
+     * @return void
+     */
+    public function adminAction()
+    {
+        if ( isset($_SESSION['user']) && ($_SESSION['user']['role'] == 'administrateur' || $_SESSION['user']['role'] == 'propriétaire')){
+            $all_users = \App\Models\User::getAll();
+            $all_auctions = \App\Models\Auction::getAll();
+            $all_stamps = \App\Models\Stamp::getAll();
+
+            //var_dump($all_stamps);
+
+            View::renderTemplate('User/admin.html',
+                                ['user' => $_SESSION['user'],
+                                 'users' => $all_users,
+                                 'auctions' => $all_auctions,
+                                 'stamps' => $all_stamps
+                                ]);
+        }else{
+            echo "<script>alert('Vous devez se connecter comme administrateur ou propriétaire pour visiter cette page.');location.href='/user/login';</script>";
+        }
+    }
+
+    /**
      * ajouter un utilisateur par formulaire
      *
      * @return void
