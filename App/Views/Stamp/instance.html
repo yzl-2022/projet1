@@ -57,12 +57,11 @@
         <!--stamp-->
         <article>
             <a href="/stamp/instance/{{ stamp.st_id }}">
-                <div class="pic"><img src="../../assets/images/{{ stamp.st_image_principal}}" alt="image pour {{ stamp.st_title }}"></div>
+                <div class="pic"><img src="../../assets/images/{{ stamp.photo_name }}" alt="image pour {{ stamp.st_title }}"></div>
                 <div class="txt">
                     <h3>{{ stamp.st_title|title }}</h3>
                     <p>Description: {{ stamp.st_description }}</p>
-                    <p>Date de création: {{ stamp.st_date }}</p>
-                    <p>Couleur: {{ stamp.color }}</p>
+                    <p>Couleur: {{ stamp.st_color }}</p>
                     <p>Pays d’origine: {{ stamp.st_country }}</p>
                     <p>Condition: {{ stamp.st_condition }}</p>
                     <p>Tirage: {{ stamp.st_tirage }}</p>
@@ -100,7 +99,7 @@
                 <dd><a href="/">Accueil</a></dd>
                 <dd><a class="active" href="/stamp/lister">Timbres</a></dd>
                 <dd><a href="/auction/lister">Enchères</a></dd>
-                <dd><a href="#">Sur nous</a></dd>
+                <dd><a href="/home/about">Sur nous</a></dd>
             </dl>
         </div>
         <!--moreinfo-->

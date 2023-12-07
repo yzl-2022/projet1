@@ -16,11 +16,10 @@ class Stamp extends \Core\Model
     {
         $db = static::getDB();
         $stmt = $db->query("SELECT * FROM stamp
+                            JOIN photo on st_id = photo_st_id
                             JOIN category ON st_cat_id = cat_id
-                            JOIN stamp_color ON st_id = sc_st_id
-                            JOIN color ON sc_color_id = color_id
                             JOIN auction ON st_au_id = au_id
-                            WHERE st_active = 1");
+                            WHERE photo_principal = 1");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -33,10 +32,9 @@ class Stamp extends \Core\Model
     {
         $db = static::getDB();
         $stmt = $db->query("SELECT * FROM stamp
-                            JOIN stamp_color ON st_id = sc_st_id
-                            JOIN color ON sc_color_id = color_id
+                            JOIN photo on st_id = photo_st_id
                             JOIN auction ON st_au_id = au_id
-                            WHERE st_active = 1
+                            WHERE photo_principal = 1
                             LIMIT 4");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -50,8 +48,7 @@ class Stamp extends \Core\Model
     {
         $db = static::getDB();
         $stmt = $db->prepare("SELECT * FROM stamp 
-                              JOIN stamp_color ON st_id = sc_st_id
-                              JOIN color ON sc_color_id = color_id
+                              JOIN photo on st_id = photo_st_id
                               JOIN auction ON st_au_id = au_id
                               WHERE st_id = :st_id");
         $stmt->bindParam(':st_id', $st_id);
@@ -82,8 +79,7 @@ class Stamp extends \Core\Model
     {
         $db = static::getDB();
         $stmt = $db->prepare("SELECT * FROM stamp 
-                              JOIN stamp_color ON st_id = sc_st_id
-                              JOIN color ON sc_color_id = color_id
+                              JOIN photo on st_id = photo_st_id
                               JOIN auction ON st_au_id = au_id
                               WHERE au_user_id = :user_id");
         $stmt->bindParam(':user_id', $user_id);

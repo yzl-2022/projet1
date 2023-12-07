@@ -54,15 +54,17 @@
     </aside>
     <!--main-->
     <main class="wrapper">
-        <!--filter-->
+        <!--ajouter un timbre-->
         <section class="filter">
             <!--form of the filter-->
-            <form action="" name="filter">
-                <h2>Sélection</h2>
-                <label for="start_date">Date de début:</label>
+            <form enctype="multipart/form-data" action="trasmete.php" name="ajouter_timbre" method="post">
+                <h2>Ajouter un timbre</h2>
+                <!-- MAX_FILE_SIZE must precede the file input field -->
+                <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+                <label for="image_timbre">Téléverser une image</label>
+                <input type="file" name="image_timbre" id="image_timbre">
+                <label for="start_date">Titre du timbre:</label>
                 <input type="date" name="start_date" id="start_date">
-                <label for="end_date">Date de fin:</label>
-                <input type="date" name="end_date" id="end_date">
                 <fieldset>
                     <legend>Fourchette de prix :</legend>
                     <label for="minP">Minimum</label>
@@ -94,7 +96,7 @@
                 <dd><a href="/">Accueil</a></dd>
                 <dd><a class="active" href="/stamp/lister">Timbres</a></dd>
                 <dd><a href="/auction/lister">Enchères</a></dd>
-                <dd><a href="#">Sur nous</a></dd>
+                <dd><a href="/home/about">Sur nous</a></dd>
             </dl>
         </div>
         <!--moreinfo-->

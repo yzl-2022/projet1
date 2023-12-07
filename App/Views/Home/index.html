@@ -76,7 +76,7 @@
                 {% for stamp in stamps %}
                 <li>
                     <a href="/stamp/instance/{{ stamp.st_id }}">
-                        <div class="pic"><img src="assets/images/{{ stamp.st_image_principal}}" alt="image pour {{ stamp.st_title }}"></div>
+                        <div class="pic"><img src="assets/images/{{ stamp.photo_name }}" alt="image pour {{ stamp.st_title }}"></div>
                         <div class="txt">
                             <h3>{{ stamp.st_title|title }}</h3>
                             <p>{{ stamp.st_description }}</p>
@@ -92,9 +92,9 @@
         <div class="title">
             <div class="left"><h3>ENCHÈRES</h3></div>
             <ul>
-                <li><a class="active" href="#">juillet</a></li>
-                <li><a href="#">août</a></li>
-                <li><a href="#">septembre</a></li>
+                <li><a class="active" href="#">décembre</a></li>
+                <li><a href="#">janvier</a></li>
+                <li><a href="#">février</a></li>
             </ul>
             <div class="right"><a href="/auction/lister">afficher plus ></a></div>
         </div>
@@ -104,7 +104,7 @@
                 {% for auction in auctions %}
                 <li>
                     <a href="/auction/instance/{{ auction.au_id }}">
-                        <div class="pic"><img src="../assets/images/{{ auction.st_image_principal }}" alt="image pour {{ auction.st_title }}"></div>
+                        <div class="pic"><img src="../assets/images/{{ auction.photo_name }}" alt="image pour {{ auction.st_title }}"></div>
                         <div class="txt">
                             <h3>Heure de début:<br> {{ auction.au_start_date }}</h3>
                             <p>Ouvert pour miser jusqu'à <span>{{ auction.au_end_date }}</span></p>
@@ -161,7 +161,7 @@
                 <dd><a class="active" href="/">Accueil</a></dd>
                 <dd><a href="/stamp/lister">Timbres</a></dd>
                 <dd><a href="/auction/lister">Enchères</a></dd>
-                <dd><a href="#">Sur nous</a></dd>
+                <dd><a href="/home/about">Sur nous</a></dd>
             </dl>
         </div>
         <!--moreinfo-->

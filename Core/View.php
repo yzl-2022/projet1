@@ -48,6 +48,9 @@ class View
             $twig = new \Twig\Environment($loader);
         }
 
+        /* ajouter l’url racine  à Twig*/
+        //$twig->addGobal("url_racine", \App\Config::URL_RACINE);
+
         echo $twig->render($template, $args);
     }
 }

@@ -18,6 +18,8 @@ class Auction extends \Core\Model
         $stmt = $db->query("SELECT * FROM auction
                             JOIN stamp ON au_id = st_au_id
                             JOIN user ON au_user_id = user_id
+                            JOIN photo on st_id = photo_st_id
+                            WHERE photo_principal = 1
                             GROUP BY au_id");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
@@ -32,6 +34,8 @@ class Auction extends \Core\Model
         $db = static::getDB();
         $stmt = $db->query("SELECT * FROM auction
                             JOIN stamp ON au_id = st_au_id
+                            JOIN photo on st_id = photo_st_id
+                            WHERE photo_principal = 1
                             GROUP BY au_id
                             LIMIT 4");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -46,8 +50,7 @@ class Auction extends \Core\Model
     {
         $db = static::getDB();
         $stmt = $db->prepare("SELECT * FROM stamp 
-                              JOIN stamp_color ON st_id = sc_st_id
-                              JOIN color ON sc_color_id = color_id
+                              JOIN photo on st_id = photo_st_id
                               WHERE st_au_id = :au_id");
         $stmt->bindParam(':au_id', $au_id);
         $stmt->execute();
@@ -77,8 +80,7 @@ class Auction extends \Core\Model
         $db = static::getDB();
         $stmt = $db->prepare("SELECT * FROM auction 
                               JOIN stamp ON st_au_id = au_id
-                              JOIN stamp_color ON st_id = sc_st_id
-                              JOIN color ON sc_color_id = color_id
+                              JOIN photo on st_id = photo_st_id
                               WHERE au_user_id = :user_id
                               GROUP BY au_id");
         $stmt->bindParam(':user_id', $user_id);

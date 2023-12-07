@@ -39,4 +39,9 @@ class Config
      * @var boolean
      */
     const SHOW_ERRORS = true;
+
+    /**
+     * l’url racine -- ajouter cette url à Twig
+     */
+    const URL_RACINE = "http://stampee";
 }
