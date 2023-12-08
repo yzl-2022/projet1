@@ -46,6 +46,7 @@
     </header>
     <!--breadcrumb-->
     <aside class="breadcrumb wrapper">
+        
         <ul>
             <li><a href="/">ACCUEIL</a> ></li>
             <li><a href="/stamp/lister">TIMBRES</a> ></li>
@@ -56,22 +57,75 @@
     <main class="wrapper">
         <!--ajouter un timbre-->
         <section class="filter">
-            <!--form of the filter-->
-            <form enctype="multipart/form-data" action="trasmete.php" name="ajouter_timbre" method="post">
+            <!--form of adding a stamp-->
+            <form enctype="multipart/form-data" action="" name="ajouter_timbre" method="post">
                 <h2>Ajouter un timbre</h2>
+                <!--st_id-->
+                <input class='hide' type="text" name="st_id" value="{{ next_st_id }}">
+                <!--st_au_id-->
+                <input class='hide' type="text" name="st_au_id" value="{{ st_au_id }}">
+                <!--Condition-->
+                <label for="st_condition">Condition</label>
+                <select id="st_condition" name="st_condition">
+                    <option value="Parfaite">Parfaite</option>
+                    <option value="Excellente">Excellente</option>
+                    <option value="Bonne">Bonne</option>
+                    <option value="Moyenne">Moyenne</option>
+                    <option value="Endommagé">Endommagé</option>
+                </select>
+                <!--Width-->
+                <label for="st_width">Largeur (centimètre)</label>
+                <input type="number" name="st_width" id="st_width">
+                <!--Height-->
+                <label for="st_height">Hauteur (centimètre)</label>
+                <input type="number" name="st_height" id="st_height">
+                <!--Start_price-->
+                <input class='hide' type="text" name="st_start_price" value="{{ au_prix_plancher }}">
+                <!--Title-->
+                <label for="st_title">Titre (Maximum 40 mots)</label>
+                <input type="text" name="st_title" id="st_title">
+                <!--Description-->
+                <label for="st_description">Description (Maximum 80 mots)</label>
+                <input type="text" name="st_description" id="st_description">
+                <!--Country-->
+                <label for="st_country">Pays d’origine</label>
+                <input type="text" name="st_country" id="st_country">
+                <!--Continent-->
+                <label for="st_continent">Continent</label>
+                <select id="st_continent" name="st_continent">
+                    <option value="Afrique">Afrique</option>
+                    <option value="Amérique">Amérique</option>
+                    <option value="Antarctique">Antarctique</option>
+                    <option value="Asie">Asie</option>
+                    <option value="Europe">Europe</option>
+                    <option value="Océanie">Océanie</option>
+                </select>
+                <!--Certifie-->
+                <input class='hide' type="text" name="st_certifie" value="0">
+                <!--Tirage-->
+                <input class='hide' type="text" name="st_triage" value="1">
+                <!--Color-->
+                <label for="st_color">Couleur principale</label>
+                <select id="st_color" name="st_color">
+                    <option value="bleu">bleu</option>
+                    <option value="vert">vert</option>
+                    <option value="rouge">rouge</option>
+                    <option value="brun">noir</option>
+                    <option value="violet">violet</option>
+                    <option value="brun">brun</option>
+                    <option value="jaune">jaune</option>
+                </select>
+                <!--Category-->
+                <label for="st_cat_id">Catégorie</label>
+                <select id="st_cat_id" name="st_cat_id">
+                    {% for category in categories %}
+                    <option value="{{ category.cat_id}}">{{ category.cat_name }}</option>
+                    {% endfor %}
+                </select>
                 <!-- MAX_FILE_SIZE must precede the file input field -->
                 <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-                <label for="image_timbre">Téléverser une image</label>
-                <input type="file" name="image_timbre" id="image_timbre">
-                <label for="start_date">Titre du timbre:</label>
-                <input type="date" name="start_date" id="start_date">
-                <fieldset>
-                    <legend>Fourchette de prix :</legend>
-                    <label for="minP">Minimum</label>
-                    <input type="text" name="minP" id="minP" placeholder="9.99">
-                    <label for="maxP">Maximum</label>
-                    <input type="text" name="maxP" id="maxP" placeholder="999.99">
-                </fieldset>
+                <label for="photo_name">Téléverser une image</label>
+                <input type="file" name="photo_name" id="photo_name">
                 <input type="reset" value="Rétablir">
                 <input type="submit" value="Soumettre">
             </form>

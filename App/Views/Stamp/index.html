@@ -97,7 +97,7 @@
                                 <p>{{ stamp.st_description }}</p>
                                 <p class="price">Prix de départ: <span>{{ stamp.st_start_price }}</span> $</p>
                                 {% if stamp.au_user_id != user.user_id %}
-                                <a class="panier" href="#">Placer un mise</a>
+                                <a class="panier" href="{{ user ? '#' : '/user/login' }}">Placer un mise</a>
                                 {% else %}
                                 <a class="panier" href="/stamp/modifier/{{ stamp.st_id }}"> Modifier </a>
                                 {% endif %}

@@ -97,7 +97,11 @@ class Auction extends \Core\Model
     public static function insert($data)
     {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO etudiant SET nom = :nom, age = :age');
+        $stmt = $db->prepare('INSERT INTO auction SET au_id = :au_id, 
+                                                      au_user_id = :au_user_id, 
+                                                      au_prix_plancher = :au_prix_plancher, 
+                                                      au_start_date = :au_start_date,
+                                                      au_end_date = :au_end_date');
         $nomsParams = array_keys($data);
         foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam]);
         $stmt->execute();

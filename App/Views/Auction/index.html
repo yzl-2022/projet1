@@ -87,7 +87,7 @@
                                 <p>Ouvert pour miser jusqu'à <span>{{ auction.au_end_date }}</span></p>
                                 <p class="price">Prix de départ: <span>{{ auction.au_prix_plancher }}</span> $</p>
                                 {% if auction.au_user_id != user.user_id %}    
-                                <a class="panier" href="#">Placer un mise</a>
+                                <a class="panier" href="{{ user ? '#' : '/user/login' }}">Placer un mise</a>
                                 {% else %}
                                 <a class="panier" href="/auction/modifier/{{ auction.au_id }}"> Modifier </a>
                                 {% endif %}

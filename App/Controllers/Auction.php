@@ -67,6 +67,8 @@ class Auction extends \Core\Controller
         // get the id of auction to be added
         $id = $this->route_params['id'];
 
+        var_dump($_POST);
+
         if (!empty($_POST)){
 
             unset($_POST["envoyer"]); // clear the content of $_POST

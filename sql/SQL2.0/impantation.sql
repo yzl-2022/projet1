@@ -38,11 +38,11 @@ INSERT INTO `auction` (`au_id`,`au_user_id`,`au_prix_plancher`,`au_start_date`,`
 -- Table 'user'
 
 INSERT INTO `user` (`user_id`,`user_nom`,`user_prenom`,`user_email`,`user_mdp`,`user_role_id`) VALUES
-(1,'Mcdonald','Jacques','jacques.mcdonald@site1.ca',SHA2("a1b2c3d4e5", 512),1),
-(2,'Stampee', 'Lord',   'lord.stampee@site2.ca',    SHA2("u1v2w3x4y5", 512),2),
-(3,'Tremblay','Olivier','olivier.tremblay@site3.ca',SHA2("f1g2h3i4j5", 512),3),
-(4,'Durand',  'Jean',   'jean.durand@site4.ca',     SHA2("k1l2m3n4o5", 512),3),
-(5,'Fontaine','Pierre', 'pierre.fontaine@site5.ca', SHA2("p1q2r3s4t5", 512),3);
+(1,'Mcdonald','Jacques','jacques.mcdonald@site1.ca',"a1b2c3d4e5",1),
+(2,'Stampee', 'Lord',   'lord.stampee@site2.ca',    "u1v2w3x4y5",2),
+(3,'Tremblay','Olivier','olivier.tremblay@site3.ca',"f1g2h3i4j5",3),
+(4,'Durand',  'Jean',   'jean.durand@site4.ca',     "k1l2m3n4o5",3),
+(5,'Fontaine','Pierre', 'pierre.fontaine@site5.ca', "p1q2r3s4t5",3);
 
 
 -- Table 'user_role'

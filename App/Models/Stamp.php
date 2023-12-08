@@ -81,9 +81,22 @@ class Stamp extends \Core\Model
         $stmt = $db->prepare("SELECT * FROM stamp 
                               JOIN photo on st_id = photo_st_id
                               JOIN auction ON st_au_id = au_id
-                              WHERE au_user_id = :user_id");
+                              WHERE au_user_id = :user_id
+                              AND photo_principal = 1");
         $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get all categories of stamps
+     * 
+     * @return array
+     */
+    public static function getCategories()
+    {
+        $db = static::getDB();
+        $stmt = $db->query("SELECT * FROM category");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     

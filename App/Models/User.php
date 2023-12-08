@@ -48,7 +48,14 @@ class User extends \Core\Model
         $db = static::getDB();
         $stmt = $db->prepare("SELECT user_id, user_nom, user_prenom, user_email, role FROM user 
                               JOIN user_role ON role_id = user_role_id
+                              WHERE user_email = LOWER(TRIM(:user_email)) AND user_mdp = LOWER(TRIM(:user_mdp))");
+/*
+        $stmt = $db->prepare("SELECT user_id, user_nom, user_prenom, user_email, role FROM user 
+                              JOIN user_role ON role_id = user_role_id
                               WHERE user_email = LOWER(TRIM(:user_email)) AND user_mdp = SHA2( LOWER(TRIM(:user_mdp)), 512)");
+        **********************************************************************************************************************
+        the above query no longer works? Because I updated to MySQL 8.0.31 and SHA2() no longer works?
+*/
         $nomsParams = array_keys($data);
         foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam], PDO::PARAM_STR);
         $stmt->execute();
@@ -68,7 +75,6 @@ class User extends \Core\Model
                                   user_prenom  = LOWER(TRIM(:user_prenom)),
                                   user_email   = LOWER(TRIM(:user_email)), 
                                   user_mdp     = SHA2( LOWER(TRIM(:user_mdp)), 512),
-                                  user_active  = 1,  
                                   user_role_id = 3");
         $nomsParams = array_keys($data);
         foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam]);

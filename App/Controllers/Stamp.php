@@ -60,14 +60,18 @@ class Stamp extends \Core\Controller
     public function ajouterAction()
     {
         if (!empty($_POST)){
-
             //on enlève le champ "envoyer" pour que le tableau corresponde aux champs de la table en base de données
             unset($_POST["envoyer"]);
-
-            $id_insertion = \App\Models\Stamp::insert($_POST);
-            echo "<br>L'id de l'étudiant inséré est $id_insertion";
         }
-        View::renderTemplate('Stamp/ajouter.html');
+
+        $categories = \App\Models\Stamp::getCategories();
+        $last_st = \App\Models\Stamp::getLast();
+        $next_st_id = $last_st['st_id'] + 1;
+        
+        View::renderTemplate('Stamp/ajouter.html',
+                              ['categories' => $categories,
+                              'next_st_id' => $next_st_id
+                              ]);
     }
 
     /**
