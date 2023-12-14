@@ -109,7 +109,19 @@ class Stamp extends \Core\Model
     public static function insert($data)
     {
         $db = static::getDB();
-        $stmt = $db->prepare("INSERT INTO stamp SET nom = :nom, age = :age");
+        $stmt = $db->prepare("INSERT INTO stamp SET st_au_id = :st_au_id,
+                                                    st_condition = :st_condition,
+                                                    st_width = :st_width,
+                                                    st_height = :st_height,
+                                                    st_title = :st_title,
+                                                    st_description = :st_description,
+                                                    st_country = :st_country,
+                                                    st_continent = :st_continent,
+                                                    st_certiie = :st_certifie,
+                                                    st_tirage = :st_tirage,
+                                                    st_color = :st_color,
+                                                    st_cat_id = :st_cat_id;
+                                INSERT INTO photo VALUES(null, :st_id,:photo_name, :photo_principal);");
         $nomsParams = array_keys($data);
         foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam]);
         $stmt->execute();
@@ -127,7 +139,7 @@ class Stamp extends \Core\Model
     public static function delete($id)
     {
         $db = static::getDB();
-        $stmt = $db->prepare('DELETE FROM etudiant WHERE id = :id');
+        $stmt = $db->prepare('DELETE FROM stamp WHERE st_id = :id');
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         if ($stmt->rowCount() <= 0)  return false;

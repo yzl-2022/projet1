@@ -28,7 +28,7 @@
         <!--nav-->
         <div class="headerNav">
             <ul>
-                <li><a class="active" href="/stamp/lister">TIMBRES</a></li>
+                <li><a href="/stamp/lister">TIMBRES</a></li>
                 <li><a href="/auction/lister">ENCHÈRES</a></li>
                 <li><a href="/home/about">SUR NOUS</a></li>
             </ul>
@@ -49,8 +49,8 @@
         
         <ul>
             <li><a href="/">ACCUEIL</a> ></li>
-            <li><a href="/stamp/lister">TIMBRES</a> ></li>
-            <li><a class="active" href="/stamp/ajouter/{{ st_id }}">Ajouter timbre {{ st_id }}</a></li>
+            <li><a href="/user/profil">PROFIL</a> ></li>
+            <li><a class="active" href="/stamp/ajouter">Ajouter un timbre</a></li>
         </ul>
     </aside>
     <!--main-->
@@ -58,10 +58,8 @@
         <!--ajouter un timbre-->
         <section class="filter">
             <!--form of adding a stamp-->
-            <form enctype="multipart/form-data" action="" name="ajouter_timbre" method="post">
+            <form enctype="multipart/form-data" action="" name="stamp_ajouter" method="post">
                 <h2>Ajouter un timbre</h2>
-                <!--st_id-->
-                <input class='hide' type="text" name="st_id" value="{{ next_st_id }}">
                 <!--st_au_id-->
                 <input class='hide' type="text" name="st_au_id" value="{{ st_au_id }}">
                 <!--Condition-->
@@ -103,7 +101,7 @@
                 <!--Certifie-->
                 <input class='hide' type="text" name="st_certifie" value="0">
                 <!--Tirage-->
-                <input class='hide' type="text" name="st_triage" value="1">
+                <input class='hide' type="text" name="st_tirage" value="1">
                 <!--Color-->
                 <label for="st_color">Couleur principale</label>
                 <select id="st_color" name="st_color">
@@ -122,10 +120,17 @@
                     <option value="{{ category.cat_id}}">{{ category.cat_name }}</option>
                     {% endfor %}
                 </select>
+                <!--upload photo-->
                 <!-- MAX_FILE_SIZE must precede the file input field -->
                 <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
                 <label for="photo_name">Téléverser une image</label>
                 <input type="file" name="photo_name" id="photo_name">
+                <!--principal image: yes/no-->
+                <label for="photo_principal">Image principale: </label>
+                <select name="photo_principal" id="photo_principal">
+                    <option value="1">Oui</option>
+                    <option value="0">Non</option>
+                </select>
                 <input type="reset" value="Rétablir">
                 <input type="submit" value="Soumettre">
             </form>

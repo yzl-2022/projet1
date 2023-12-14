@@ -74,7 +74,7 @@ class User extends \Core\Model
                               SET user_nom     = LOWER(TRIM(:user_nom)), 
                                   user_prenom  = LOWER(TRIM(:user_prenom)),
                                   user_email   = LOWER(TRIM(:user_email)), 
-                                  user_mdp     = SHA2( LOWER(TRIM(:user_mdp)), 512),
+                                  user_mdp     = LOWER(TRIM(:user_mdp)),
                                   user_role_id = 3");
         $nomsParams = array_keys($data);
         foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam]);

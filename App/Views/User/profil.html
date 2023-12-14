@@ -50,14 +50,18 @@
         <!--title-->
         <div class="title">
             <div class="left"><h3>ENCHÈRES</h3></div>
-            <a class="ajouter" href="/auction/ajouter/{{ next_au_id }}">ajouter une enchère</a>
+            <a class="ajouter" href="/auction/ajouter">ajouter une enchère</a>
         </div>
         {% if auctions|length > 0 %}
         {% for auction in auctions %}
         <!--title-->
         <div class="title">
             <div class="left"><h3>MA ENCHÈRE {{ auction.au_id }}</h3></div>
-            <a class="ajouter" href="/auction/modifier/{{ auction.au_id }}">Modifier</a>
+            <a class="ajouter" href="/stamp/ajouter/{{ auction.au_id }}">Ajouter timbre</a>
+            <div>
+                <a class="ajouter" href="/auction/modifier/{{ auction.au_id }}">Modifier</a>
+                <a class="ajouter" href="/auction/supprimer/{{ auction.au_id }}">Supprimer</a>
+            </div>
         </div>
         <!--content-->
         <div class="content">
@@ -70,7 +74,10 @@
                         <div class="txt">
                             <h3>{{ stamp.st_title|title }}</h3>
                             <p>{{ stamp.st_description }}</p>
-                            <p class="price">Prix de départ: <span>{{ stamp.st_start_price }}</span> $</p>
+                            <p>
+                                <a class="ajouter" href="/stamp/modifier/{{ stamp.st_id }}"> Modifier </a>
+                                <a class="ajouter" href="/stamp/supprimer/{{ stamp.st_id }}"> Supprimer </a>
+                            </p>
                         </div>
                     </a>
                     <div class="promo">{{ stamp.st_condition }}</div>

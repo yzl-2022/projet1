@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="projet1-stampee">
+    <title>TIMBRE</title>
+    <link rel="stylesheet" href="../../assets/css/products.css">
+</head>
+<body>
+    <!--top-menu-->
+    <nav class="wrapper">
+        <ul>
+            <li class="{{ user ? '' : 'hide' }}"><a href="/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="/user/login">DÉCONNECTER</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="/user/login">CONNEXION</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="/user/signup">INSCRIPTION</a></li>
+            <li><a href="#">CONTACTEZ-NOUS</a></li>
+            <li><a href="#"><img src="../../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
+        </ul>
+    </nav>
+    <!--header--main-menu-->
+    <header class="wrapper">
+        <!--logo-->
+        <div class="logo">
+            <h1><a href="/">Stampee</a></h1>
+        </div>
+        <!--nav-->
+        <div class="headerNav">
+            <ul>
+                <li><a href="/stamp/lister">TIMBRES</a></li>
+                <li><a href="/auction/lister">ENCHÈRES</a></li>
+                <li><a href="/home/about">SUR NOUS</a></li>
+            </ul>
+        </div>
+        <!--search-->
+        <div class="headerSearch">
+            <input type="text" placeholder="search">
+            <a href="#"></a>
+        </div>
+        <!--notification-->
+        <div class="notification">
+            <a href="#"></a>
+            <div class="number">5</div>
+        </div>
+    </header>
+    <!--breadcrumb-->
+    <aside class="breadcrumb wrapper">
+        
+        <ul>
+            <li><a href="/">ACCUEIL</a> ></li>
+            <li><a href="/user/profil">PROFIL</a> ></li>
+            <li><a class="active" href="/stamp/modifier/{{ st_id }}">Modifier timbre {{ st_id }}</a></li>
+        </ul>
+    </aside>
+    <!--main-->
+    <main class="wrapper">
+        <!--modifier un timbre-->
+        <section class="filter">
+            <!--form of adding a stamp-->
+            <form enctype="multipart/form-data" action="" name="stamp_modifier" method="post">
+                <h2>modifier timbre {{ st_id }}</h2>
+                <!--st_id-->
+                <input class='hide' type="text" name="st_id" value="{{ st_id }}">
+                <!--st_au_id-->
+                <input class='hide' type="text" name="st_au_id" value="{{ st_au_id }}">
+                <!--Condition-->
+                <label for="st_condition">Condition</label>
+                <select id="st_condition" name="st_condition">
+                    <option value="Parfaite">Parfaite</option>
+                    <option value="Excellente">Excellente</option>
+                    <option value="Bonne">Bonne</option>
+                    <option value="Moyenne">Moyenne</option>
+                    <option value="Endommagé">Endommagé</option>
+                </select>
+                <!--Width-->
+                <label for="st_width">Largeur (centimètre)</label>
+                <input type="number" name="st_width" id="st_width">
+                <!--Height-->
+                <label for="st_height">Hauteur (centimètre)</label>
+                <input type="number" name="st_height" id="st_height">
+                <!--Start_price-->
+                <input class='hide' type="text" name="st_start_price" value="{{ au_prix_plancher }}">
+                <!--Title-->
+                <label for="st_title">Titre (Maximum 40 mots)</label>
+                <input type="text" name="st_title" id="st_title">
+                <!--Description-->
+                <label for="st_description">Description (Maximum 80 mots)</label>
+                <input type="text" name="st_description" id="st_description">
+                <!--Country-->
+                <label for="st_country">Pays d’origine</label>
+                <input type="text" name="st_country" id="st_country">
+                <!--Continent-->
+                <label for="st_continent">Continent</label>
+                <select id="st_continent" name="st_continent">
+                    <option value="Afrique">Afrique</option>
+                    <option value="Amérique">Amérique</option>
+                    <option value="Antarctique">Antarctique</option>
+                    <option value="Asie">Asie</option>
+                    <option value="Europe">Europe</option>
+                    <option value="Océanie">Océanie</option>
+                </select>
+                <!--Certifie-->
+                <input class='hide' type="text" name="st_certifie" value="0">
+                <!--Tirage-->
+                <input class='hide' type="text" name="st_tirage" value="1">
+                <!--Color-->
+                <label for="st_color">Couleur principale</label>
+                <select id="st_color" name="st_color">
+                    <option value="bleu">bleu</option>
+                    <option value="vert">vert</option>
+                    <option value="rouge">rouge</option>
+                    <option value="brun">noir</option>
+                    <option value="violet">violet</option>
+                    <option value="brun">brun</option>
+                    <option value="jaune">jaune</option>
+                </select>
+                <!--Category-->
+                <label for="st_cat_id">Catégorie</label>
+                <select id="st_cat_id" name="st_cat_id">
+                    {% for category in categories %}
+                    <option value="{{ category.cat_id}}">{{ category.cat_name }}</option>
+                    {% endfor %}
+                </select>
+                <!--upload photo-->
+                <!-- MAX_FILE_SIZE must precede the file input field -->
+                <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+                <label for="photo_name">Téléverser une image</label>
+                <input type="file" name="photo_name" id="photo_name">
+                <!--principal image: yes/no-->
+                <label for="photo_principal">Image principale: </label>
+                <select name="photo_principal" id="photo_principal">
+                    <option value="1">Oui</option>
+                    <option value="0">Non</option>
+                </select>
+                <input type="reset" value="Rétablir">
+                <input type="submit" value="Soumettre">
+            </form>
+        </section>
+    </main>        
+    <!--footer-->
+    <footer class="wrapper">
+        <!--about-->
+        <div>
+            <dl>
+                <dt>À PROPOS DE NOUS</dt>
+                <dd><a href="#">Général</a></dd>
+                <dd><a href="#">Sur Stampee</a></dd>
+                <dd><a href="#">Annonces</a></dd>
+                <dd><a href="#">Visitez-nous</a></dd>
+            </dl>
+        </div>
+        <!--sitemap-->
+        <div>
+            <dl>
+                <dt>PLAN DU SITE</dt>
+                <dd><a href="/">Accueil</a></dd>
+                <dd><a class="active" href="/stamp/lister">Timbres</a></dd>
+                <dd><a href="/auction/lister">Enchères</a></dd>
+                <dd><a href="/home/about">Sur nous</a></dd>
+            </dl>
+        </div>
+        <!--moreinfo-->
+        <div>
+            <dl>
+                <dt>PLUS D'INFORMATION</dt>
+                <dd><a href="#">Politique de confidentialité</a></dd>
+                <dd><a href="#">Pré-enchères</a></dd>
+                <dd><a href="#">Pendant enchères</a></dd>
+                <dd><a href="#">Après enchères</a></dd>
+            </dl>
+        </div>
+        <!--contact-->
+        <div>
+            <dl>
+                <dt>CONTACT</dt>
+                <dd>Stampee LTD</dd>
+                <dd>3-3333 PIE-IX</dd>
+                <dd>Montréal, QC</dd>
+                <dd><a href="#">services@stampee.ca</a></dd>
+            </dl>
+            <ul>
+                <li><a href="#"><img src="../../assets/icons/facebook.svg" alt="facebook"></a></li>
+                <li><a href="#"><img src="../../assets/icons/twitter.svg" alt="twitter"></a></li>
+                <li><a href="#"><img src="../../assets/icons/youtube.svg" alt="youtube"></a></li>
+                <li><a href="#"><img src="../../assets/icons/instagram.svg" alt="instagram"></a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>

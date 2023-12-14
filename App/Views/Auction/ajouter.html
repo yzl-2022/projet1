@@ -28,7 +28,7 @@
         <!--nav-->
         <div class="headerNav">
             <ul>
-                <li><a class="active" href="/stamp/lister">TIMBRES</a></li>
+                <li><a href="/stamp/lister">TIMBRES</a></li>
                 <li><a href="/auction/lister">ENCHÈRES</a></li>
                 <li><a href="/home/about">SUR NOUS</a></li>
             </ul>
@@ -48,19 +48,17 @@
     <aside class="breadcrumb wrapper">
         <ul>
             <li><a href="/">ACCUEIL</a> ></li>
-            <li><a href="/auction/lister">ENCHÈRE</a> ></li>
-            <li><a class="active" href="/auction/ajouter/{{ au_id }}">Ajouter enchère {{ au_id }}</a></li>
+            <li><a href="/user/profil">PROFIL</a> ></li>
+            <li><a class="active" href="/auction/ajouter">Ajouter une enchère</a></li>
         </ul>
     </aside>
     <!--main-->
     <main class="wrapper">
-        <!--filter-->
+        <!--ajouter une enchère-->
         <section class="filter">
             <!--formulaire d'ajouter une enchère-->
-            <form action="" name="ajouterEnchere" method="post">
-                <h2>Ajouter enchère {{ au_id }}</h2>
-                <!--au_id-->
-                <input class='hide' type="text" name="au_id" value="{{ au_id }}">
+            <form action="" name="auction_ajouter" method="post">
+                <h2>Ajouter une enchère</h2>
                 <!--au_user_id-->
                 <input class='hide' type="text" name="au_user_id" value="{{ user.user_id }}">
                 <!--Prix plancher-->

@@ -27,8 +27,6 @@ CREATE TABLE `stamp` (
   `st_condition` ENUM('parfaite','excellente','bonne','moyenne','endommage') NOT NULL,
   `st_width` TINYINT NOT NULL,
   `st_height` TINYINT NOT NULL,
-  `st_start_price` DOUBLE NOT NULL,
-  `st_end_price` DOUBLE NOT NULL,
   `st_title` VARCHAR(100) NOT NULL,
   `st_description` VARCHAR(100) NULL DEFAULT NULL,
   `st_country` VARCHAR(100) NOT NULL,

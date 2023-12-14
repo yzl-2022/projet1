@@ -59,19 +59,62 @@ class Stamp extends \Core\Controller
      */
     public function ajouterAction()
     {
-        if (!empty($_POST)){
-            //on enlève le champ "envoyer" pour que le tableau corresponde aux champs de la table en base de données
-            unset($_POST["envoyer"]);
-        }
+        // check if the user has log in -- this page is not accessible without login
+        if (!isset($_SESSION['user'])){
+            echo "<script>alert('Vous devez se connecter pour visiter cette page.');location.href='/user/login';</script>";
+        }else{
+            $user = $_SESSION['user'];
 
-        $categories = \App\Models\Stamp::getCategories();
-        $last_st = \App\Models\Stamp::getLast();
-        $next_st_id = $last_st['st_id'] + 1;
-        
-        View::renderTemplate('Stamp/ajouter.html',
-                              ['categories' => $categories,
-                              'next_st_id' => $next_st_id
-                              ]);
+            //get a list of all categories from SQL query
+            $categories = \App\Models\Stamp::getCategories();
+
+            //get the au_id from url
+            $st_au_id = $this->route_params['id'];
+
+            if (!empty($_POST)) {
+                unset($_POST["envoyer"]);
+
+                var_dump($_FILES);
+
+                //treatment of image upload
+                if($_FILES['photo_name']['error']){
+                    echo "<script>alert('erreur dans image');history.back();</script>";
+                    exit;
+                }
+                if(!empty($_FILES['photo_name']['name'])){
+                    //maximum file size
+                    if($_FILES['photo_name']['size'] > 3000){
+                        echo "<script>alert('image trops large');history.back();</script>";
+                        exit;
+                    }
+                    //file format
+                    $allowType = array('png','gif','jpg','jpeg');
+                    $arrCut = explode('.',$_FILES['photo_name']['name']);
+                    $ext = $arrCut[count($arrCut) - 1];
+                    if (!in_array($ext, $allowType)){
+                        echo "<script>alert('wrong image format');history.back();</script>";
+                        exit;
+                    }
+                    //file path
+                    $uploaddir = "../../assets/images/";
+                    $uploadfile = $uploaddir . basename($_FILES['photo_name']['name']);
+
+                    if(move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)){
+                        $id_insertion = \App\Models\Stamp::insert($_POST);
+                        echo "<br>L'id de l'timbre inséré est $id_insertion";
+                    }else{
+                        echo "<script>alert('image non trouvé');history.back();</script>";
+                        exit;
+                    }
+                }
+            }
+
+            View::renderTemplate('Stamp/ajouter.html',
+                                ['user' => $user,
+                                 'categories' => $categories,
+                                 'st_au_id' => $st_au_id
+                                ]);
+        }
     }
 
     /**
@@ -81,20 +124,20 @@ class Stamp extends \Core\Controller
      */
     public function modifierAction()
     {
-        $id = $this->route_params['id'];
+        $st_id = $this->route_params['id'];
         View::renderTemplate('Stamp/modifier.html',
-                            ['id' => $id]
+                            ['st_id' => $st_id]
         );
     }
     /**
-     * Show the delete page
+     * supprimer un timbre
      *
      * @return void
      */
     public function supprimerAction()
     {
         $id = $this->route_params['id'];
-        echo  \App\Models\Stamp::delete($id);
+        if (\App\Models\Stamp::delete($id)) echo "<script>location.href='/user/profil';</script>";
     }
 }
 

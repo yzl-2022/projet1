@@ -44,7 +44,7 @@ class Auction extends \Core\Controller
 
         // obtain data
         $id = $this->route_params['id'];
-        $list = \App\Models\Auction::getOne($id);
+        $list = \App\Models\Auction::getStamps($id);
 
         View::renderTemplate('Auction/instance.html',
                              ['user' => $user,
@@ -54,31 +54,28 @@ class Auction extends \Core\Controller
     }
 
     /**
-     * ajouter une enchere par formulaire
+     * ajouter une enchère par formulaire
      *
      * @return void
      */
     public function ajouterAction()
     {
-        // check if the user has log in
-        $user = null;
-        if (isset($_SESSION['user'])) $user = $_SESSION['user'];
+        // check if the user has log in -- this page is not accessible without login
+        if (!isset($_SESSION['user'])){
+            echo "<script>alert('Vous devez se connecter pour visiter cette page.');location.href='/user/login';</script>";
+        }else{
+            $user = $_SESSION['user'];
 
-        // get the id of auction to be added
-        $id = $this->route_params['id'];
+            if (!empty($_POST)) {
+                unset($_POST["envoyer"]);
 
-        var_dump($_POST);
-
-        if (!empty($_POST)){
-
-            unset($_POST["envoyer"]); // clear the content of $_POST
-
-            $id_insertion = \App\Models\Auction::insert($_POST);
-            echo "<br>L'id de l'étudiant inséré est $id_insertion";
+                $id_insertion = \App\Models\Auction::insert($_POST);
+                echo "<br>L'id de l'enchère insérée est $id_insertion";
+            }
+    
+            View::renderTemplate('Auction/ajouter.html',
+                                 ['user' => $user]);
         }
-        View::renderTemplate('Auction/ajouter.html',
-                             ['user' => $user,
-                              'au_id' => $id]);
     }
 
     /**
@@ -88,10 +85,29 @@ class Auction extends \Core\Controller
      */
     public function modifierAction()
     {
-        $id = $this->route_params['id'];
-        View::renderTemplate('Auction/modifier.html',
-                            ['id' => $id]
-        );
+        // check if the user has log in -- this page is not accessible without login
+        if (!isset($_SESSION['user'])){
+            echo "<script>alert('Vous devez se connecter pour visiter cette page.');location.href='/user/login';</script>";
+        }else{
+            $user = $_SESSION['user'];
+
+            $au_id = $this->route_params['id'];
+            $au = \App\Models\Auction::getOne($au_id);
+            var_dump($au);
+
+            if (!empty($_POST)) {
+                unset($_POST["envoyer"]);
+
+                $id_insertion = \App\Models\Auction::modifier($_POST);
+                echo "<br>L'id de l'enchère modifiée est $id_insertion";
+            }
+
+            View::renderTemplate('Auction/modifier.html',
+                                ['au_id' => $au_id,
+                                 'au' => $au,
+                                 'user' => $user]
+            );
+        }
     }
 
     /**
@@ -102,7 +118,7 @@ class Auction extends \Core\Controller
     public function supprimerAction()
     {
         $id = $this->route_params['id'];
-        echo  \App\Models\Auction::delete($id);
+        if (\App\Models\Auction::delete($id)) echo "<script>location.href='/user/profil';</script>";
     }
 }
 

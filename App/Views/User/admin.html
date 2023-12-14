@@ -60,8 +60,8 @@
                     <th>id</th>
                     <th>Nom</th>
                     <th>Prénom</th>
-                    <th>email</th>
-                    <th>role</th>
+                    <th>Courriel</th>
+                    <th>Rôle</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -81,7 +81,7 @@
                     </td>
                 </tr>
                 {% endfor %}
-                <tr><td colspan="6"><a href="/utilisateur/ajouter">Ajouter Utilisateur</a></td></tr>
+                <tr><td colspan="6"><a href="/user/ajouter">Ajouter Utilisateur</a></td></tr>
             </tbody>
         </table>
         <!--table-encheres-->
@@ -89,10 +89,10 @@
             <thead>
                 <tr>
                     <th>id</th>
-                    <th>crée par</th>
+                    <th>créé par</th>
                     <th>prix plancher</th>
-                    <th>date debut</th>
-                    <th>date fin</th>
+                    <th>date de début</th>
+                    <th>date de fin</th>
                     <th>coups de coeur de Lord</th>
                     <th>Action</th>
                 </tr>
@@ -107,8 +107,8 @@
                     <td>{{ auction.au_end_date }}</td>
                     <td>{% if (auction.au_lord > 0) %} oui {% else %} non {% endif %}</td>
                     <td>
-                        <a href="/auction/modifier/{{ auction.user_id}}">Modifier</a>
-                        <a href="/auction/supprimer/{{ auction.user_id}}">Supprimer</a>
+                        <a href="/auction/modifier/{{ auction.au_id}}">Modifier</a>
+                        <a href="/auction/supprimer/{{ auction.au_id}}">Supprimer</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -124,9 +124,8 @@
                     <th>condition</th>
                     <th>largeur</th>
                     <th>hauteur</th>
-                    <th>prix début</th>
-                    <th>prix fin</th>
-                    <th>état</th>
+                    <th>tirage</th>
+                    <th>certifié</th>
                     <th>couleur</th>
                     <th>Action</th>
                 </tr>
@@ -139,17 +138,15 @@
                     <td>{{ stamp.st_condition }}</td>
                     <td>{{ stamp.st_width }} cm</td>
                     <td>{{ stamp.st_height }} cm</td>
-                    <td>{{ stamp.st_start_price }} $</td>
-                    <td>{{ stamp.st_end_price }} $</td>
-                    <td>{% if (stamp.st_active> 0) %} actif {% endif %}</td>
-                    <td>{{ stamp.color }}</td>
+                    <td>{{ stamp.st_tirage }}</td>
+                    <td>{% if (stamp.st_certifie > 0) %} oui {% else %} non {% endif %}</td>
+                    <td>{{ stamp.st_color }}</td>
                     <td>
-                        <a href="/stamp/modifier/{{ stamp.user_id}}">Modifier</a>
-                        <a href="/stamp/supprimer/{{ stamp.user_id}}">Supprimer</a>
+                        <a href="/stamp/modifier/{{ stamp.st_id}}">Modifier</a>
+                        <a href="/stamp/supprimer/{{ stamp.st_id}}">Supprimer</a>
                     </td>
                 </tr>
                 {% endfor %}
-                <tr><td colspan="10"><a href="/stamp/ajouter">Ajouter Timbre</a></td></tr>
             </tbody>
         </table>
         <section class="location wrapper">

@@ -4,15 +4,15 @@
 
 -- Table 'stamp'
 
-INSERT INTO `stamp` (`st_id`,`st_au_id`,`st_condition`,`st_width`,`st_height`,`st_start_price`,`st_end_price`,`st_title`,`st_description`,`st_country`,`st_continent`,`st_certifie`,`st_tirage`,`st_color`,`st_cat_id`) VALUES
-(1,1,'excellente',40,20,5.00,  15.00, 'title de timbre 1','description de timbre 1','Irlande',   'Europe',  1,1,'vert', 1),
-(2,1,'excellente',40,20,5.00,  15.00, 'title de timbre 2','description de timbre 2','Canada',    'Amérique',1,1,'bleu', 1),
-(3,1,'excellente',40,20,5.00,  15.00, 'title de timbre 3','description de timbre 3','États-Unis','Amérique',1,1,'rouge',1),
-(4,3,'excellente',20,40,6.00,  8.00,  'title de timbre 4','description de timbre 4','États-Unis','Amérique',1,1,'bleu', 2),
-(5,2,'excellente',40,20,23.00, 45.00, 'title de timbre 5','description de timbre 5','Russie',    'Europe',  1,2,'rouge',2),
-(6,4,'excellente',20,40,16.00, 38.00, 'title de timbre 6','description de timbre 6','Hongrois',  'Europe',  1,1,'rouge',3),
-(7,3,'excellente',40,20,7.00,  9.00,  'title de timbre 7','description de timbre 7','Allemagne', 'Europe',  1,1,'noir', 4),
-(8,2,'excellente',30,40,120.00,480.00,'title de timbre 8','description de timbre 8','Chine',     'Asie',    1,1,'vert', 5);
+INSERT INTO `stamp` (`st_id`,`st_au_id`,`st_condition`,`st_width`,`st_height`,`st_title`,`st_description`,`st_country`,`st_continent`,`st_certifie`,`st_tirage`,`st_color`,`st_cat_id`) VALUES
+(1,1,'excellente',40,20,'title de timbre 1','description de timbre 1','Irlande',   'Europe',  1,1,'vert', 1),
+(2,1,'excellente',40,20,'title de timbre 2','description de timbre 2','Canada',    'Amérique',1,1,'bleu', 1),
+(3,1,'excellente',40,20,'title de timbre 3','description de timbre 3','États-Unis','Amérique',1,1,'rouge',1),
+(4,2,'excellente',20,40,'title de timbre 4','description de timbre 4','États-Unis','Amérique',1,1,'bleu', 3),
+(5,2,'excellente',40,20,'title de timbre 5','description de timbre 5','Russie',    'Europe',  1,2,'rouge',2),
+(6,3,'excellente',20,40,'title de timbre 6','description de timbre 6','Hongrois',  'Europe',  1,1,'rouge',4),
+(7,4,'excellente',40,20,'title de timbre 7','description de timbre 7','Allemagne', 'Europe',  1,1,'noir', 3),
+(8,5,'excellente',30,40,'title de timbre 8','description de timbre 8','Chine',     'Asie',    1,1,'vert', 2);
 
 -- Table 'photo'
 

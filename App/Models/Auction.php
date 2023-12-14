@@ -23,6 +23,18 @@ class Auction extends \Core\Model
                             GROUP BY au_id");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    /**
+     * Get all auctions even those without no stamps
+     *
+     * @return array
+     */
+    public static function getAllWithEmpty()
+    {
+        $db = static::getDB();
+        $stmt = $db->query("SELECT * FROM auction
+                            JOIN user ON au_user_id = user_id");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 
     /**
      * Get 4 auctions
@@ -42,11 +54,25 @@ class Auction extends \Core\Model
     }
 
     /**
-     * Get one auction and all its stamps
+     * Get one auction by its id
      * @param int $au_id
      * @return array
      */
     public static function getOne($au_id)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare("SELECT * FROM auction 
+                              WHERE au_id = :au_id");
+        $stmt->bindParam(':au_id', $au_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    /**
+     * Get all stamps of one auction
+     * @param int $au_id
+     * @return array
+     */
+    public static function getStamps($au_id)
     {
         $db = static::getDB();
         $stmt = $db->prepare("SELECT * FROM stamp 
@@ -55,19 +81,6 @@ class Auction extends \Core\Model
         $stmt->bindParam(':au_id', $au_id);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    /**
-     * Get the id of the last auction available
-     * @return int $au_id of the last element in the table
-     */
-    public static function getLast()
-    {
-        $db = static::getDB();
-        $stmt = $db->prepare("SELECT * FROM auction 
-                              ORDER BY au_id DESC
-                              LIMIT 1");
-        $stmt->execute();
-        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -79,8 +92,6 @@ class Auction extends \Core\Model
     {
         $db = static::getDB();
         $stmt = $db->prepare("SELECT * FROM auction 
-                              JOIN stamp ON st_au_id = au_id
-                              JOIN photo on st_id = photo_st_id
                               WHERE au_user_id = :user_id
                               GROUP BY au_id");
         $stmt->bindParam(':user_id', $user_id);
@@ -97,11 +108,10 @@ class Auction extends \Core\Model
     public static function insert($data)
     {
         $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO auction SET au_id = :au_id, 
-                                                      au_user_id = :au_user_id, 
+        $stmt = $db->prepare("INSERT INTO auction SET au_user_id = :au_user_id, 
                                                       au_prix_plancher = :au_prix_plancher, 
-                                                      au_start_date = :au_start_date,
-                                                      au_end_date = :au_end_date');
+                                                      au_start_date = CONCAT( :au_start_date, ' ', :au_start_time, ':00'),
+                                                      au_end_date = CONCAT( :au_end_date, ' ', :au_end_time, ':00')");
         $nomsParams = array_keys($data);
         foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam]);
         $stmt->execute();
@@ -119,7 +129,7 @@ class Auction extends \Core\Model
     public static function delete($id)
     {
         $db = static::getDB();
-        $stmt = $db->prepare('DELETE FROM etudiant WHERE id = :id');
+        $stmt = $db->prepare('DELETE FROM auction WHERE au_id = :id');
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         if ($stmt->rowCount() <= 0)  return false;

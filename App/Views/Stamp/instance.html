@@ -72,8 +72,8 @@
                     {% if stamp.au_user_id != user.user_id %}
                     <a class="panier" href="#"> Placer un mise </a>
                     {% else %}
-                    <a class="panier" href="#"> Modifier </a>
-                    <a class="panier" href="#"> Supprimer </a>
+                    <a class="panier" href="/stamp/modifier/{{ stamp.st_id }}"> Modifier </a>
+                    <a class="panier" href="/stamp/supprimer/{{ stamp.st_id }}"> Supprimer </a>
                     {% endif %}
                     <p><!--empty for test--></p>
                 </div>

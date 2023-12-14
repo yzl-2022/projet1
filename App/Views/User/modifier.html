@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="projet1-stampee">
+    <title>ENCHÈRE</title>
+    <link rel="stylesheet" href="../../assets/css/products.css">
+</head>
+<body>
+    <!--top-menu-->
+    <nav class="wrapper">
+        <ul>
+            <li class="{{ user ? '' : 'hide' }}"><a href="/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="/user/login">DÉCONNECTER</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="/user/login">CONNEXION</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="/user/signup">INSCRIPTION</a></li>
+            <li><a href="#">CONTACTEZ-NOUS</a></li>
+            <li><a href="#"><img src="../../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
+        </ul>
+    </nav>
+    <!--header--main-menu-->
+    <header class="wrapper">
+        <!--logo-->
+        <div class="logo">
+            <h1><a href="/">Stampee</a></h1>
+        </div>
+        <!--nav-->
+        <div class="headerNav">
+            <ul>
+                <li><a href="/stamp/lister">TIMBRES</a></li>
+                <li><a href="/auction/lister">ENCHÈRES</a></li>
+                <li><a href="/home/about">SUR NOUS</a></li>
+            </ul>
+        </div>
+        <!--search-->
+        <div class="headerSearch">
+            <input type="text" placeholder="search">
+            <a href="#"></a>
+        </div>
+        <!--notification-->
+        <div class="notification">
+            <a href="#"></a>
+            <div class="number">5</div>
+        </div>
+    </header>
+    <!--breadcrumb-->
+    <aside class="breadcrumb wrapper">
+        <ul>
+            <li><a href="/">ACCUEIL</a> ></li>
+            <li><a href="/user/profil">PROFIL</a> ></li>
+            <li><a href="/user/admin">ADMIN</a> ></li>
+            <li><a class="active" href="/auction/ajouter">Modifier un utilisateur</a></li>
+        </ul>
+    </aside>
+    <!--main-->
+    <main class="wrapper">
+        <!--modifier un utilisateur-->
+        <section class="filter">
+            <!--formulaire d'modifier un utilisateur-->
+            <form action="" name="user_modifier" method="post">
+                <h2>Modifier utilisateur {{ userToModify.user_id }}</h2>
+                <label for="user_nom">Nom</label>
+                <input type="text" id="user_nom" name="user_nom" placeholder="nom de famille" value="{{ userToModify.user_nom }}">
+                <label for="user_prenom">Prénom</label>
+                <input type="text" id="user_prenom" name="user_prenom" placeholder="prenom" value="{{ userToModify.user_prenom }}">
+                <label for="user_email">Courriel</label>
+                <input type="email" id="user_email" name="user_email" placeholder="email" value="{{ userToModify.user_email }}">
+                <label for="user_mdp">Mot de passe</label>
+                <input type="password" id="user_mdp" name="user_mdp" placeholder="password" value="{{ userToModify.user_mdp }}">                
+                <!--button-->
+                <input type="reset" value="Rétablir">
+                <input type="submit" value="Soumettre">
+            </form>
+        </section>
+    </main>    
+    <!--footer-->
+    <footer class="wrapper">
+        <!--about-->
+        <div>
+            <dl>
+                <dt>À PROPOS DE NOUS</dt>
+                <dd><a href="#">Général</a></dd>
+                <dd><a href="#">Sur Stampee</a></dd>
+                <dd><a href="#">Annonces</a></dd>
+                <dd><a href="#">Visitez-nous</a></dd>
+            </dl>
+        </div>
+        <!--sitemap-->
+        <div>
+            <dl>
+                <dt>PLAN DU SITE</dt>
+                <dd><a href="/">Accueil</a></dd>
+                <dd><a href="/stamp/lister">Timbres</a></dd>
+                <dd><a class="active" href="/auction/lister">Enchères</a></dd>
+                <dd><a href="/home/about">Sur nous</a></dd>
+            </dl>
+        </div>
+        <!--moreinfo-->
+        <div>
+            <dl>
+                <dt>PLUS D'INFORMATION</dt>
+                <dd><a href="#">Politique de confidentialité</a></dd>
+                <dd><a href="#">Pré-enchères</a></dd>
+                <dd><a href="#">Pendant enchères</a></dd>
+                <dd><a href="#">Après enchères</a></dd>
+            </dl>
+        </div>
+        <!--contact-->
+        <div>
+            <dl>
+                <dt>CONTACT</dt>
+                <dd>Stampee LTD</dd>
+                <dd>3-3333 PIE-IX</dd>
+                <dd>Montréal, QC</dd>
+                <dd><a href="#">services@stampee.ca</a></dd>
+            </dl>
+            <ul>
+                <li><a href="#"><img src="../../assets/icons/facebook.svg" alt="facebook"></a></li>
+                <li><a href="#"><img src="../../assets/icons/twitter.svg" alt="twitter"></a></li>
+                <li><a href="#"><img src="../../assets/icons/youtube.svg" alt="youtube"></a></li>
+                <li><a href="#"><img src="../../assets/icons/instagram.svg" alt="instagram"></a></li>
+            </ul>
+        </div>
+    </footer>
+</body>
+</html>
