@@ -11,10 +11,10 @@
     <!--top-menu-->
     <nav class="wrapper">
         <ul>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/login">DÉCONNECTER</a></li>
-            <li class="{{ user ? 'hide' : '' }}"><a href="/user/login">CONNEXION</a></li>
-            <li class="{{ user ? 'hide' : '' }}"><a href="/user/signup">INSCRIPTION</a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/login">DÉCONNECTER</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/login">CONNEXION</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/signup">INSCRIPTION</a></li>
             <li><a href="#">CONTACTEZ-NOUS</a></li>
             <li><a href="#"><img src="../../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
         </ul>
@@ -23,14 +23,14 @@
     <header class="wrapper">
         <!--logo-->
         <div class="logo">
-            <h1><a href="/">Stampee</a></h1>
+            <h1><a href="{{ url_racine }}/">Stampee</a></h1>
         </div>
         <!--nav-->
         <div class="headerNav">
             <ul>
-                <li><a href="/stamp/lister">TIMBRES</a></li>
-                <li><a href="/auction/lister">ENCHÈRES</a></li>
-                <li><a href="/home/about">SUR NOUS</a></li>
+                <li><a href="{{ url_racine }}/stamp/lister">TIMBRES</a></li>
+                <li><a href="{{ url_racine }}/auction/lister">ENCHÈRES</a></li>
+                <li><a href="{{ url_racine }}/home/about">SUR NOUS</a></li>
             </ul>
         </div>
         <!--search-->
@@ -48,9 +48,9 @@
     <aside class="breadcrumb wrapper">
         
         <ul>
-            <li><a href="/">ACCUEIL</a> ></li>
-            <li><a href="/user/profil">PROFIL</a> ></li>
-            <li><a class="active" href="/stamp/modifier/{{ st_id }}">Modifier timbre {{ st_id }}</a></li>
+            <li><a href="{{ url_racine }}/">ACCUEIL</a> ></li>
+            <li><a href="{{ url_racine }}/user/profil">PROFIL</a> ></li>
+            <li><a class="active" href="{{ url_racine }}/stamp/modifier/{{ st_id }}">Modifier timbre {{ st_id }}</a></li>
         </ul>
     </aside>
     <!--main-->
@@ -63,65 +63,66 @@
                 <!--st_id-->
                 <input class='hide' type="text" name="st_id" value="{{ st_id }}">
                 <!--st_au_id-->
-                <input class='hide' type="text" name="st_au_id" value="{{ st_au_id }}">
+                <input class='hide' type="text" name="st_au_id" value="{{ st.st_au_id }}">
                 <!--Condition-->
                 <label for="st_condition">Condition</label>
                 <select id="st_condition" name="st_condition">
-                    <option value="Parfaite">Parfaite</option>
-                    <option value="Excellente">Excellente</option>
-                    <option value="Bonne">Bonne</option>
-                    <option value="Moyenne">Moyenne</option>
-                    <option value="Endommagé">Endommagé</option>
+                    <option value="Parfaite" {{ st.st_condition == "parfaite" ? 'selected' : '' }}>Parfaite</option>
+                    <option value="Excellente" {{ st.st_condition == "excellente" ? 'selected' : '' }}>Excellente</option>
+                    <option value="Bonne" {{ st.st_condition == "bonne" ? 'selected' : '' }}>Bonne</option>
+                    <option value="Moyenne" {{ st.st_condition == "moyenne" ? 'selected' : '' }}>Moyenne</option>
+                    <option value="Endommagé" {{ st.st_condition == "endommagé" ? 'selected' : '' }}>Endommagé</option>
                 </select>
                 <!--Width-->
                 <label for="st_width">Largeur (centimètre)</label>
-                <input type="number" name="st_width" id="st_width">
+                <input type="number" name="st_width" id="st_width" value="{{ st.st_width }}">
                 <!--Height-->
                 <label for="st_height">Hauteur (centimètre)</label>
-                <input type="number" name="st_height" id="st_height">
-                <!--Start_price-->
-                <input class='hide' type="text" name="st_start_price" value="{{ au_prix_plancher }}">
+                <input type="number" name="st_height" id="st_height" value="{{ st.st_height }}">
                 <!--Title-->
                 <label for="st_title">Titre (Maximum 40 mots)</label>
-                <input type="text" name="st_title" id="st_title">
+                <input type="text" name="st_title" id="st_title" value="{{ st.st_title }}">
                 <!--Description-->
                 <label for="st_description">Description (Maximum 80 mots)</label>
-                <input type="text" name="st_description" id="st_description">
+                <input type="text" name="st_description" id="st_description" value="{{ st.st_description }}">
                 <!--Country-->
                 <label for="st_country">Pays d’origine</label>
-                <input type="text" name="st_country" id="st_country">
+                <input type="text" name="st_country" id="st_country" value="{{ st.st_country }}">
                 <!--Continent-->
                 <label for="st_continent">Continent</label>
                 <select id="st_continent" name="st_continent">
-                    <option value="Afrique">Afrique</option>
-                    <option value="Amérique">Amérique</option>
-                    <option value="Antarctique">Antarctique</option>
-                    <option value="Asie">Asie</option>
-                    <option value="Europe">Europe</option>
-                    <option value="Océanie">Océanie</option>
+                    <option value="Afrique" {{ st.st_continent == "Afrique" ? 'selected' : '' }}>Afrique</option>
+                    <option value="Amérique" {{ st.st_continent == "Amérique" ? 'selected' : '' }}>Amérique</option>
+                    <option value="Antarctique" {{ st.st_continent == "Antarctique" ? 'selected' : '' }}>Antarctique</option>
+                    <option value="Asie" {{ st.st_continent == "Asie" ? 'selected' : '' }}>Asie</option>
+                    <option value="Europe" {{ st.st_continent == "Europe" ? 'selected' : '' }}>Europe</option>
+                    <option value="Océanie" {{ st.st_continent == "Océanie" ? 'selected' : '' }}>Océanie</option>
                 </select>
                 <!--Certifie-->
                 <input class='hide' type="text" name="st_certifie" value="0">
                 <!--Tirage-->
-                <input class='hide' type="text" name="st_tirage" value="1">
+                <label for="st_tirage">Tirage</label>
+                <input type="text" name="st_tirage" id="st_tirage" value="{{ st.st_tirage }}">
                 <!--Color-->
                 <label for="st_color">Couleur principale</label>
                 <select id="st_color" name="st_color">
-                    <option value="bleu">bleu</option>
-                    <option value="vert">vert</option>
-                    <option value="rouge">rouge</option>
-                    <option value="brun">noir</option>
-                    <option value="violet">violet</option>
-                    <option value="brun">brun</option>
-                    <option value="jaune">jaune</option>
+                    <option value="bleu" {{ st.st_color == "bleu" ? 'selected' : '' }}>bleu</option>
+                    <option value="vert" {{ st.st_color == "vert" ? 'selected' : '' }}>vert</option>
+                    <option value="rouge" {{ st.st_color == "rouge" ? 'selected' : '' }}>rouge</option>
+                    <option value="brun" {{ st.st_color == "brun" ? 'selected' : '' }}>noir</option>
+                    <option value="violet" {{ st.st_color == "violet" ? 'selected' : '' }}>violet</option>
+                    <option value="brun" {{ st.st_color == "brun" ? 'selected' : '' }}>brun</option>
+                    <option value="jaune" {{ st.st_color == "jaune" ? 'selected' : '' }}>jaune</option>
                 </select>
                 <!--Category-->
                 <label for="st_cat_id">Catégorie</label>
                 <select id="st_cat_id" name="st_cat_id">
                     {% for category in categories %}
-                    <option value="{{ category.cat_id}}">{{ category.cat_name }}</option>
+                    <option value="{{ category.cat_id }}" {{ st.st_cat_id == category.cat_id ? 'selected' : '' }}>{{ category.cat_name }}</option>
                     {% endfor %}
                 </select>
+                <!--display photo in file-->
+                <img src="../../../assets/images/{{ st.photo_name }}" alt="description pour timbre {{ st_id }}">
                 <!--upload photo-->
                 <!-- MAX_FILE_SIZE must precede the file input field -->
                 <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
@@ -154,10 +155,10 @@
         <div>
             <dl>
                 <dt>PLAN DU SITE</dt>
-                <dd><a href="/">Accueil</a></dd>
-                <dd><a class="active" href="/stamp/lister">Timbres</a></dd>
-                <dd><a href="/auction/lister">Enchères</a></dd>
-                <dd><a href="/home/about">Sur nous</a></dd>
+                <dd><a href="{{ url_racine }}/">Accueil</a></dd>
+                <dd><a class="active" href="{{ url_racine }}/stamp/lister">Timbres</a></dd>
+                <dd><a href="{{ url_racine }}/auction/lister">Enchères</a></dd>
+                <dd><a href="{{ url_racine }}/home/about">Sur nous</a></dd>
             </dl>
         </div>
         <!--moreinfo-->

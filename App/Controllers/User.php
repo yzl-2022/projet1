@@ -52,11 +52,13 @@ class User extends \Core\Controller
             $user_id = $_SESSION['user']['user_id'];
             $auctions = \App\Models\Auction::getByUser($user_id);
             $stamps = \App\Models\Stamp::getByUser($user_id);
+            $offres = \App\Models\User::getOffres($user_id);
 
             View::renderTemplate('User/profil.html',
                                 ['user' => $_SESSION['user'],
                                  'auctions' => $auctions,
                                  'stamps' => $stamps,
+                                 'offres' => $offres,
                                 ]);
         }else{
             $user = null;
@@ -89,8 +91,6 @@ class User extends \Core\Controller
             $all_auctions = \App\Models\Auction::getAllWithEmpty(); // Auction::getAll() only returns auctions with at least one stamp
             $all_stamps = \App\Models\Stamp::getAll();
 
-            //var_dump($all_stamps);
-
             View::renderTemplate('User/admin.html',
                                 ['user' => $_SESSION['user'],
                                  'users' => $all_users,
@@ -113,6 +113,9 @@ class User extends \Core\Controller
             
             $user = $_SESSION['user'];
 
+            //get a list of all roles from SQL query
+            $roles = \App\Models\User::getRoles();
+
             if (!empty($_POST)){
 
                 //on enlève le champ "envoyer" pour que le tableau corresponde aux champs de la table en base de données
@@ -121,7 +124,9 @@ class User extends \Core\Controller
                 $id_insertion = \App\Models\User::insert($_POST);
                 echo "<br>L'id de l'utilisateur inséré est $id_insertion";
             }
-            View::renderTemplate('User/ajouter.html',['user' => $user]);
+            View::renderTemplate('User/ajouter.html',
+                                ['user' => $user,
+                                 'roles' => $roles]);
 
         }else{
             echo "<script>alert('Vous devez se connecter comme administrateur ou propriétaire pour visiter cette page.');location.href='/user/login';</script>";
@@ -139,6 +144,9 @@ class User extends \Core\Controller
             
             $user = $_SESSION['user'];
 
+            //get a list of all roles from SQL query
+            $roles = \App\Models\User::getRoles();
+
             $id = $this->route_params['id'];
             $userToModify = \App\Models\User::getOne($id);
 
@@ -153,12 +161,14 @@ class User extends \Core\Controller
             }
             View::renderTemplate('User/modifier.html',
                                 ['user' => $user,
+                                 'roles' => $roles,
                                  'userToModify' => $userToModify]);
 
         }else{
             echo "<script>alert('Vous devez se connecter comme administrateur ou propriétaire pour visiter cette page.');location.href='/user/login';</script>";
         }
     }
+
     /**
      * supprimer un utillisateur
      *
@@ -166,8 +176,42 @@ class User extends \Core\Controller
      */
     public function supprimerAction()
     {
-        $id = $this->route_params['id'];
-        if (\App\Models\User::delete($id)) echo "<script>location.href='/user/admin';</script>";
+        if ( isset($_SESSION['user']) && ($_SESSION['user']['role'] == 'administrateur' || $_SESSION['user']['role'] == 'propriétaire')){
+            $id = $this->route_params['id'];
+            if (\App\Models\User::delete($id)) echo "<script>location.href='/user/admin';</script>";
+        }else{
+            echo "<script>alert('Vous devez se connecter comme administrateur ou propriétaire pour visiter cette page.');location.href='/user/login';</script>";
+        }
+    }
+
+    /**
+     * placer un mise
+     * 
+     * @return void
+     */
+    public function miserAction()
+    {
+        if (isset($_SESSION['user'])) { //only the members signed up can do this
+
+            $user = $_SESSION['user'];
+            $au_id = $this->route_params['id'];
+            $au = \App\Models\Auction::getOne($au_id);
+
+            if (!empty($_POST)){
+
+                //on enlève le champ "envoyer" pour que le tableau corresponde aux champs de la table en base de données
+                unset($_POST["envoyer"]);
+
+                if (\App\Models\User::miser($_POST)) echo "<script>alert('Vous avez placé un mise avec succès');location.href='/auction/lister';</script>";
+            }
+            View::renderTemplate('User/miser.html',
+                                ['user' => $user,
+                                 'au_id' => $au_id,
+                                 'au' => $au]);
+
+        }else{
+            echo "<script>alert('Vous devez se connecter pour placer un mise.');location.href='/user/login';</script>";
+        }
     }
 }
 

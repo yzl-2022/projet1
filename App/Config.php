@@ -43,5 +43,6 @@ class Config
     /**
      * l’url racine -- ajouter cette url à Twig
      */
-    const URL_RACINE = "http://stampee";
+    const URL_RACINE = "http://localhost";
+    //const URL_RACINE = "https://e2296635.webdev.cmaisonneuve.qc.ca/projet1/public";
 }

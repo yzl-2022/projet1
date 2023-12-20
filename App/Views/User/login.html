@@ -10,9 +10,9 @@
 <body>
     <main>
         <!--logo-->
-        <h1><a class="logo" href="/"><img src="../assets/icons/logo.webp" alt="logo">Stampee</a></h1>
+        <h1><a class="logo" href="{{ url_racine }}/"><img src="../assets/icons/logo.webp" alt="logo">Stampee</a></h1>
         <!--login-->
-        <form name="user_login" action="/user/profil" method="post">
+        <form name="user_login" action="{{ url_racine }}/user/profil" method="post">
             <fieldset>
                 <legend><h2>Connexion</h2></legend>
                 <label for="user_email">Courriel</label>
@@ -25,7 +25,7 @@
         </form>
         <!--signup-->
         <span>Nouveau chez Stampee?</span>
-        <a class="switch" href="/user/signup">Créez votre compte Stampee</a>
+        <a class="switch" href="{{ url_racine }}/user/signup">Créez votre compte Stampee</a>
     </main>
 </body>
 </html>

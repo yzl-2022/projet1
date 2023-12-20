@@ -11,10 +11,10 @@
     <!--top-menu-->
     <nav class="wrapper">
         <ul>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/profil"><img src="../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/login">DÉCONNECTER</a></li>
-            <li class="{{ user ? 'hide' : '' }}"><a href="/user/login">CONNEXION</a></li>
-            <li class="{{ user ? 'hide' : '' }}"><a href="/user/signup">INSCRIPTION</a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/profil"><img src="../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/login">DÉCONNECTER</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/login">CONNEXION</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/signup">INSCRIPTION</a></li>
             <li><a href="#">CONTACTEZ-NOUS</a></li>
             <li><a href="#"><img src="../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
         </ul>
@@ -23,14 +23,14 @@
     <header class="wrapper">
         <!--logo-->
         <div class="logo">
-            <h1><a href="/">Stampee</a></h1>
+            <h1><a href="{{ url_racine }}/">Stampee</a></h1>
         </div>
         <!--nav-->
         <div class="headerNav">
             <ul>
-                <li><a href="/stamp/lister">TIMBRES</a></li>
-                <li><a href="/auction/lister">ENCHÈRES</a></li>
-                <li><a class="active" href="/home/about">SUR NOUS</a></li>
+                <li><a href="{{ url_racine }}/stamp/lister">TIMBRES</a></li>
+                <li><a href="{{ url_racine }}/auction/lister">ENCHÈRES</a></li>
+                <li><a class="active" href="{{ url_racine }}/home/about">SUR NOUS</a></li>
             </ul>
         </div>
         <!--search-->
@@ -47,8 +47,8 @@
     <!--breadcrumb-->
     <aside class="breadcrumb wrapper">
         <ul>
-            <li><a href="/">ACCUEIL</a> ></li>
-            <li><a class="active" href="/home/about">SUR NOUS</a></li>
+            <li><a href="{{ url_racine }}/">ACCUEIL</a> ></li>
+            <li><a class="active" href="{{ url_racine }}/home/about">SUR NOUS</a></li>
         </ul>
     </aside>
     <!--banner-->
@@ -61,7 +61,7 @@
         <div class="bannertext">
             <h2>Bienvenue chez Stampee !</h2>
             <p>Un endroit idéal pour développer votre collection de timbres.</p>
-            <a href="/auction/lister">EN SAVOIR PLUS</a>
+            <a href="{{ url_racine }}/auction/lister">EN SAVOIR PLUS</a>
         </div>
     </section>
     <!--main-->
@@ -126,7 +126,7 @@
         <table>
             <tr>
                 <td>1</td>
-                <td>Creer un compt par <a href="/user/signup">ici</a></td>
+                <td>Creer un compt par <a href="{{ url_racine }}/user/signup">ici</a></td>
             </tr>
             <tr>
                 <td>2</td>
@@ -167,10 +167,10 @@
         <div>
             <dl>
                 <dt>PLAN DU SITE</dt>
-                <dd><a href="/">Accueil</a></dd>
-                <dd><a href="/stamp/lister">Timbres</a></dd>
-                <dd><a href="/auction/lister">Enchères</a></dd>
-                <dd><a class="active" href="/home/about">Sur nous</a></dd>
+                <dd><a href="{{ url_racine }}/">Accueil</a></dd>
+                <dd><a href="{{ url_racine }}/stamp/lister">Timbres</a></dd>
+                <dd><a href="{{ url_racine }}/auction/lister">Enchères</a></dd>
+                <dd><a class="active" href="{{ url_racine }}/home/about">Sur nous</a></dd>
             </dl>
         </div>
         <!--moreinfo-->

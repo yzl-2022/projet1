@@ -93,7 +93,6 @@ class Auction extends \Core\Controller
 
             $au_id = $this->route_params['id'];
             $au = \App\Models\Auction::getOne($au_id);
-            var_dump($au);
 
             if (!empty($_POST)) {
                 unset($_POST["envoyer"]);
@@ -117,8 +116,13 @@ class Auction extends \Core\Controller
      */
     public function supprimerAction()
     {
-        $id = $this->route_params['id'];
-        if (\App\Models\Auction::delete($id)) echo "<script>location.href='/user/profil';</script>";
+        // check if the user has log in -- this page is not accessible without login
+        if (!isset($_SESSION['user'])){
+            echo "<script>alert('Vous devez se connecter pour visiter cette page.');location.href='/user/login';</script>";
+        }else{
+            $id = $this->route_params['id'];
+            if (\App\Models\Auction::delete($id)) echo "<script>location.href='/user/profil';</script>";
+        }
     }
 }
 

@@ -11,11 +11,11 @@
     <!--top-menu-->
     <nav class="wrapper">
         <ul>
-            <li><a href="/user/profil"><img src="../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li><a href="{{ url_racine }}/user/profil"><img src="../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
             {% if user.role is defined and user.role != "membre" %}
-            <li><a href="/user/admin">ADMIN</a></li>
+            <li><a href="{{ url_racine }}/user/admin">ADMIN</a></li>
             {% endif %}
-            <li><a href="/user/login">DÉCONNECTER</a></li>
+            <li><a href="{{ url_racine }}/user/login">DÉCONNECTER</a></li>
             <li><a href="#">CONTACTEZ-NOUS</a></li>
             <li><a href="#"><img src="../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
         </ul>
@@ -24,20 +24,20 @@
     <header class="wrapper">
         <!--logo-->
         <div class="logo">
-            <h1><a href="/">Stampee</a></h1>
+            <h1><a href="{{ url_racine }}/">Stampee</a></h1>
         </div>
         <!--nav-->
         <div class="headerNav">
             <ul>
-                <li><a href="/stamp/lister">TIMBRES</a></li>
-                <li><a href="/auction/lister">ENCHÈRES</a></li>
-                <li><a href="/home/about">SUR NOUS</a></li>
+                <li><a href="{{ url_racine }}/stamp/lister">TIMBRES</a></li>
+                <li><a href="{{ url_racine }}/auction/lister">ENCHÈRES</a></li>
+                <li><a href="{{ url_racine }}/home/about">SUR NOUS</a></li>
             </ul>
         </div>
         <!--search-->
         <div class="headerSearch">
             <input type="text" placeholder="search">
-            <a href="products.html"></a>
+            <a href="#"></a>
         </div>
         <!--notification-->
         <div class="notification">
@@ -47,20 +47,27 @@
     </header>
     <!--main-->
     <main class="wrapper">
-        <!--title-->
-        <div class="title">
-            <div class="left"><h3>ENCHÈRES</h3></div>
-            <a class="ajouter" href="/auction/ajouter">ajouter une enchère</a>
-        </div>
+        <!--profil-nav-->
+        <section class="location wrapper">
+            <ul>
+                <li><a href="#encheres">Enchères</a></li>
+                <li><a href="#mises">Mises</a></li>
+            </ul>
+        </section>
         {% if auctions|length > 0 %}
+        <!--title-->
+        <div class="title" id="encheres">
+            <div class="left"><h3>ENCHÈRES</h3></div>
+            <a class="ajouter" href="{{ url_racine }}/auction/ajouter">ajouter une enchère</a>
+        </div>
         {% for auction in auctions %}
         <!--title-->
         <div class="title">
             <div class="left"><h3>MA ENCHÈRE {{ auction.au_id }}</h3></div>
-            <a class="ajouter" href="/stamp/ajouter/{{ auction.au_id }}">Ajouter timbre</a>
+            <a class="ajouter" href="{{ url_racine }}/stamp/ajouter/{{ auction.au_id }}">Ajouter timbre</a>
             <div>
-                <a class="ajouter" href="/auction/modifier/{{ auction.au_id }}">Modifier</a>
-                <a class="ajouter" href="/auction/supprimer/{{ auction.au_id }}">Supprimer</a>
+                <a class="ajouter" href="{{ url_racine }}/auction/modifier/{{ auction.au_id }}">Modifier</a>
+                <a class="ajouter" href="{{ url_racine }}/auction/supprimer/{{ auction.au_id }}">Supprimer</a>
             </div>
         </div>
         <!--content-->
@@ -69,14 +76,14 @@
                 {% for stamp in stamps %}
                 {% if stamp.st_au_id == auction.au_id %}
                 <li>
-                    <a href="/stamp/instance/{{ stamp.st_id }}">
+                    <a href="{{ url_racine }}/stamp/instance/{{ stamp.st_id }}">
                         <div class="pic"><img src="../assets/images/{{ stamp.photo_name}}" alt="image pour {{ stamp.st_title }}"></div>
                         <div class="txt">
                             <h3>{{ stamp.st_title|title }}</h3>
                             <p>{{ stamp.st_description }}</p>
                             <p>
-                                <a class="ajouter" href="/stamp/modifier/{{ stamp.st_id }}"> Modifier </a>
-                                <a class="ajouter" href="/stamp/supprimer/{{ stamp.st_id }}"> Supprimer </a>
+                                <a class="ajouter" href="{{ url_racine }}/stamp/modifier/{{ stamp.st_id }}"> Modifier </a>
+                                <a class="ajouter" href="{{ url_racine }}/stamp/supprimer/{{ stamp.st_id }}"> Supprimer </a>
                             </p>
                         </div>
                     </a>
@@ -88,6 +95,45 @@
         </div>
         {% endfor %}
         {% endif %}
+        <!--table-offres-->
+        {% if offres|length > 0 %}
+        <!--title-->
+        <div class="title">
+            <div class="left" id="mises"><h3>MISES</h3></div>
+        </div>
+        <table class="wrapper" id="table-offres">
+            <thead>
+                <tr>
+                    <th>mise id</th>
+                    <th>enchère id</th>
+                    <th>prix ($)</th>
+                    <th>date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for offre in offres %}
+                <tr>
+                    <td>{{ offre.offre_id }}</td>
+                    <td>{{ offre.offre_au_id }}</td>
+                    <td>{{ offre.offre_price }}</td>
+                    <td>{{ offre.offre_date }}</td>
+                    <td>
+                        <a href="#">Modifier</a>
+                        <a href="#">Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        <!--profil-nav-->
+        <section class="location wrapper">
+            <ul>
+                <li><a href="#encheres">Enchères</a></li>
+                <li><a href="#mises">Mises</a></li>
+            </ul>
+        </section>
     </main>
     <!--footer-->
     <footer class="wrapper">
@@ -105,10 +151,10 @@
         <div>
             <dl>
                 <dt>PLAN DU SITE</dt>
-                <dd><a href="/">Accueil</a></dd>
-                <dd><a href="/stamp/lister">Timbres</a></dd>
-                <dd><a href="/auction/lister">Enchères</a></dd>
-                <dd><a href="#">Sur nous</a></dd>
+                <dd><a href="{{ url_racine }}/">Accueil</a></dd>
+                <dd><a href="{{ url_racine }}/stamp/lister">Timbres</a></dd>
+                <dd><a href="{{ url_racine }}/auction/lister">Enchères</a></dd>
+                <dd><a href="{{ url_racine }}/home/about">Sur nous</a></dd>
             </dl>
         </div>
         <!--moreinfo-->

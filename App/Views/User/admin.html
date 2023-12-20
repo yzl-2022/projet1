@@ -11,9 +11,9 @@
     <!--top-menu-->
     <nav class="wrapper">
         <ul>
-            <li><a href="/user/profil"><img src="../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
-            <li><a class="active" href="/user/admin">ADMIN</a></li>
-            <li><a href="/user/login">DÉCONNECTER</a></li>
+            <li><a href="{{ url_racine }}/user/profil"><img src="../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li><a class="active" href="{{ url_racine }}/user/admin">ADMIN</a></li>
+            <li><a href="{{ url_racine }}/user/login">DÉCONNECTER</a></li>
             <li><a href="#">CONTACTEZ-NOUS</a></li>
             <li><a href="#"><img src="../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
         </ul>
@@ -22,20 +22,20 @@
     <header class="wrapper">
         <!--logo-->
         <div class="logo">
-            <h1><a href="/">Stampee</a></h1>
+            <h1><a href="{{ url_racine }}/">Stampee</a></h1>
         </div>
         <!--nav-->
         <div class="headerNav">
             <ul>
-                <li><a href="/stamp/lister">TIMBRES</a></li>
-                <li><a href="/auction/lister">ENCHÈRES</a></li>
-                <li><a href="/home/about">SUR NOUS</a></li>
+                <li><a href="{{ url_racine }}/stamp/lister">TIMBRES</a></li>
+                <li><a href="{{ url_racine }}/auction/lister">ENCHÈRES</a></li>
+                <li><a href="{{ url_racine }}/home/about">SUR NOUS</a></li>
             </ul>
         </div>
         <!--search-->
         <div class="headerSearch">
             <input type="text" placeholder="search">
-            <a href="products.html"></a>
+            <a href="#"></a>
         </div>
         <!--notification-->
         <div class="notification">
@@ -74,14 +74,14 @@
                     <td>{{ user.user_email }}</td>
                     <td>{{ user.role }}</td>
                     <td>
-                        <a href="/user/modifier/{{ user.user_id}}">Modifier</a>
+                        <a href="{{ url_racine }}/user/modifier/{{ user.user_id}}">Modifier</a>
                         {% if user.role != 'propriétaire' %}
-                        <a href="/user/supprimer/{{ user.user_id}}">Supprimer</a>
+                        <a href="{{ url_racine }}/user/supprimer/{{ user.user_id}}">Supprimer</a>
                         {% endif %}
                     </td>
                 </tr>
                 {% endfor %}
-                <tr><td colspan="6"><a href="/user/ajouter">Ajouter Utilisateur</a></td></tr>
+                <tr><td colspan="6"><a href="{{ url_racine }}/user/ajouter">Ajouter Utilisateur</a></td></tr>
             </tbody>
         </table>
         <!--table-encheres-->
@@ -107,12 +107,12 @@
                     <td>{{ auction.au_end_date }}</td>
                     <td>{% if (auction.au_lord > 0) %} oui {% else %} non {% endif %}</td>
                     <td>
-                        <a href="/auction/modifier/{{ auction.au_id}}">Modifier</a>
-                        <a href="/auction/supprimer/{{ auction.au_id}}">Supprimer</a>
+                        <a href="{{ url_racine }}/auction/modifier/{{ auction.au_id}}">Modifier</a>
+                        <a href="{{ url_racine }}/auction/supprimer/{{ auction.au_id}}">Supprimer</a>
                     </td>
                 </tr>
                 {% endfor %}
-                <tr><td colspan="7"><a href="/auction/ajouter">Ajouter Enchère</a></td></tr>
+                <tr><td colspan="7"><a href="{{ url_racine }}/auction/ajouter">Ajouter Enchère</a></td></tr>
             </tbody>
         </table>
         <!--table-timbres-->
@@ -142,15 +142,15 @@
                     <td>{% if (stamp.st_certifie > 0) %} oui {% else %} non {% endif %}</td>
                     <td>{{ stamp.st_color }}</td>
                     <td>
-                        <a href="/stamp/modifier/{{ stamp.st_id}}">Modifier</a>
-                        <a href="/stamp/supprimer/{{ stamp.st_id}}">Supprimer</a>
+                        <a href="{{ url_racine }}/stamp/modifier/{{ stamp.st_id}}">Modifier</a>
+                        <a href="{{ url_racine }}/stamp/supprimer/{{ stamp.st_id}}">Supprimer</a>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
         <section class="location wrapper">
-            <!--? Do I need a button 'Ajouter' here ?-->
+            <!--left to fill with content-->
         </section>
     </main>
     <!--footer-->
@@ -169,10 +169,10 @@
         <div>
             <dl>
                 <dt>PLAN DU SITE</dt>
-                <dd><a href="/">Accueil</a></dd>
-                <dd><a href="/stamp/lister">Timbres</a></dd>
-                <dd><a href="/auction/lister">Enchères</a></dd>
-                <dd><a href="/home/about">Sur nous</a></dd>
+                <dd><a href="{{ url_racine }}/">Accueil</a></dd>
+                <dd><a href="{{ url_racine }}/stamp/lister">Timbres</a></dd>
+                <dd><a href="{{ url_racine }}/auction/lister">Enchères</a></dd>
+                <dd><a href="{{ url_racine }}/home/about">Sur nous</a></dd>
             </dl>
         </div>
         <!--moreinfo-->

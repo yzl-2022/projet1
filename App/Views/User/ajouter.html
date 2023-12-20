@@ -11,10 +11,10 @@
     <!--top-menu-->
     <nav class="wrapper">
         <ul>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/login">DÉCONNECTER</a></li>
-            <li class="{{ user ? 'hide' : '' }}"><a href="/user/login">CONNEXION</a></li>
-            <li class="{{ user ? 'hide' : '' }}"><a href="/user/signup">INSCRIPTION</a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/login">DÉCONNECTER</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/login">CONNEXION</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/signup">INSCRIPTION</a></li>
             <li><a href="#">CONTACTEZ-NOUS</a></li>
             <li><a href="#"><img src="../../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
         </ul>
@@ -23,14 +23,14 @@
     <header class="wrapper">
         <!--logo-->
         <div class="logo">
-            <h1><a href="/">Stampee</a></h1>
+            <h1><a href="{{ url_racine }}/">Stampee</a></h1>
         </div>
         <!--nav-->
         <div class="headerNav">
             <ul>
-                <li><a href="/stamp/lister">TIMBRES</a></li>
-                <li><a href="/auction/lister">ENCHÈRES</a></li>
-                <li><a href="/home/about">SUR NOUS</a></li>
+                <li><a href="{{ url_racine }}/stamp/lister">TIMBRES</a></li>
+                <li><a href="{{ url_racine }}/auction/lister">ENCHÈRES</a></li>
+                <li><a href="{{ url_racine }}/home/about">SUR NOUS</a></li>
             </ul>
         </div>
         <!--search-->
@@ -47,10 +47,10 @@
     <!--breadcrumb-->
     <aside class="breadcrumb wrapper">
         <ul>
-            <li><a href="/">ACCUEIL</a> ></li>
-            <li><a href="/user/profil">PROFIL</a> ></li>
-            <li><a href="/user/admin">ADMIN</a> ></li>
-            <li><a class="active" href="/auction/ajouter">Ajouter un utilisateur</a></li>
+            <li><a href="{{ url_racine }}/">ACCUEIL</a> ></li>
+            <li><a href="{{ url_racine }}/user/profil">PROFIL</a> ></li>
+            <li><a href="{{ url_racine }}/user/admin">ADMIN</a> ></li>
+            <li><a class="active" href="{{ url_racine }}/auction/ajouter">Ajouter un utilisateur</a></li>
         </ul>
     </aside>
     <!--main-->
@@ -67,7 +67,13 @@
                 <label for="user_email">Courriel</label>
                 <input type="email" id="user_email" name="user_email" placeholder="email">
                 <label for="user_mdp">Mot de passe</label>
-                <input type="password" id="user_mdp" name="user_mdp" placeholder="password">                
+                <input type="password" id="user_mdp" name="user_mdp" placeholder="password"> 
+                <label for="user_role_id">Rôle</label>
+                <select name="user_role_id" id="user_role_id">
+                    {% for r in roles %}
+                    <option value="{{ r.role_id }}">{{ r.role }}</option>
+                    {% endfor %}
+                </select>           
                 <!--button-->
                 <input type="reset" value="Rétablir">
                 <input type="submit" value="Soumettre">
@@ -90,10 +96,10 @@
         <div>
             <dl>
                 <dt>PLAN DU SITE</dt>
-                <dd><a href="/">Accueil</a></dd>
-                <dd><a href="/stamp/lister">Timbres</a></dd>
-                <dd><a class="active" href="/auction/lister">Enchères</a></dd>
-                <dd><a href="/home/about">Sur nous</a></dd>
+                <dd><a href="{{ url_racine }}/">Accueil</a></dd>
+                <dd><a href="{{ url_racine }}/stamp/lister">Timbres</a></dd>
+                <dd><a class="active" href="{{ url_racine }}/auction/lister">Enchères</a></dd>
+                <dd><a href="{{ url_racine }}/home/about">Sur nous</a></dd>
             </dl>
         </div>
         <!--moreinfo-->

@@ -37,7 +37,7 @@
 		<type label="SET" length="1" sql="SET" quote=""/>
 		<type label="Bit" length="0" sql="bit" quote=""/>
 	</group>
-</datatypes><table x="372" y="543.3999938964844" name="stamp">
+</datatypes><table x="372" y="543" name="stamp">
 <row name="st_id" null="0" autoincrement="1">
 <datatype>INT</datatype>
 </row>
@@ -53,12 +53,6 @@
 </row>
 <row name="st_height" null="0" autoincrement="0">
 <datatype>TINYINT</datatype>
-</row>
-<row name="st_start_price" null="0" autoincrement="0">
-<datatype>DOUBLE</datatype>
-</row>
-<row name="st_end_price" null="0" autoincrement="0">
-<datatype>DOUBLE</datatype>
 </row>
 <row name="st_title" null="0" autoincrement="0">
 <datatype>VARCHAR(100)</datatype>
@@ -89,7 +83,7 @@
 <part>st_id</part>
 </key>
 </table>
-<table x="130" y="558.4000244140625" name="photo">
+<table x="136" y="559" name="photo">
 <row name="photo_id" null="0" autoincrement="1">
 <datatype>INT</datatype>
 </row>
@@ -172,7 +166,7 @@
 <part>role</part>
 </key>
 </table>
-<table x="1169" y="542.7999877929688" name="offre">
+<table x="1169" y="542" name="offre">
 <row name="offre_id" null="0" autoincrement="1">
 <datatype>INT</datatype>
 </row>
@@ -197,7 +191,7 @@
 <part>offre_id</part>
 </key>
 </table>
-<table x="1169.7999877929688" y="722.7999877929688" name="favoris">
+<table x="1169" y="722" name="favoris">
 <row name="fav_id" null="0" autoincrement="1">
 <datatype>INT</datatype>
 </row>
@@ -217,7 +211,7 @@
 <part>fav_user_id</part>
 </key>
 </table>
-<table x="158" y="838.7999877929688" name="category">
+<table x="167" y="783" name="category">
 <row name="cat_id" null="0" autoincrement="1">
 <datatype>INT</datatype>
 </row>

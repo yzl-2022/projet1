@@ -10,9 +10,9 @@
 <body>
     <main>
         <!--logo-->
-        <h1><a class="logo" href="/"><img src="../assets/icons/logo.webp" alt="logo">Stampee</a></h1>
+        <h1><a class="logo" href="{{ url_racine }}/"><img src="../assets/icons/logo.webp" alt="logo">Stampee</a></h1>
         <!--signup-->
-        <form name="user_signup" action="/user/login" method="post">
+        <form name="user_signup" action="{{ url_racine }}/user/login" method="post">
             <fieldset>
                 <legend><h2>Inscription</h2></legend>
                 <label for="user_nom">Votre nom</label>
@@ -23,12 +23,13 @@
                 <input type="email" id="user_email" name="user_email" placeholder="email">
                 <label for="user_mdp">Mot de passe</label>
                 <input type="password" id="user_mdp" name="user_mdp" placeholder="password">
+                <input type="hidden" name="user_role_id" value="3">
                 <input type="submit" name="" value="S'inscrire">
             </fieldset>
         </form>
         <!--login-->
         <span>Vous avez déjà un compte?</span>
-        <a class="switch" href="/user/login">Se connecter</a>
+        <a class="switch" href="{{ url_racine }}/user/login">Se connecter</a>
     </main>
 </body>
 </html>

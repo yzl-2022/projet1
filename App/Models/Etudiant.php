@@ -27,10 +27,10 @@ class Etudiant extends \Core\Model
     public static function getOne($id_etudiant)
     {
         $db = static::getDB();
-        $stmt = $db->query('SELECT * FROM etudiant WHERE id_etudiant = :id_etudiant');
+        $stmt = $db->prepare('SELECT * FROM etudiant WHERE id_etudiant = :id_etudiant');
         $stmt->bindParam(':id_etudiant', $id_etudiant);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
     /**

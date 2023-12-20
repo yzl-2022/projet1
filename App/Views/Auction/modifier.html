@@ -11,10 +11,10 @@
     <!--top-menu-->
     <nav class="wrapper">
         <ul>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/login">DÉCONNECTER</a></li>
-            <li class="{{ user ? 'hide' : '' }}"><a href="/user/login">CONNEXION</a></li>
-            <li class="{{ user ? 'hide' : '' }}"><a href="/user/signup">INSCRIPTION</a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/login">DÉCONNECTER</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/login">CONNEXION</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/signup">INSCRIPTION</a></li>
             <li><a href="#">CONTACTEZ-NOUS</a></li>
             <li><a href="#"><img src="../../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
         </ul>
@@ -23,14 +23,14 @@
     <header class="wrapper">
         <!--logo-->
         <div class="logo">
-            <h1><a href="/">Stampee</a></h1>
+            <h1><a href="{{ url_racine }}/">Stampee</a></h1>
         </div>
         <!--nav-->
         <div class="headerNav">
             <ul>
-                <li><a href="/stamp/lister">TIMBRES</a></li>
-                <li><a href="/auction/lister">ENCHÈRES</a></li>
-                <li><a href="/home/about">SUR NOUS</a></li>
+                <li><a href="{{ url_racine }}/stamp/lister">TIMBRES</a></li>
+                <li><a href="{{ url_racine }}/auction/lister">ENCHÈRES</a></li>
+                <li><a href="{{ url_racine }}/home/about">SUR NOUS</a></li>
             </ul>
         </div>
         <!--search-->
@@ -47,9 +47,9 @@
     <!--breadcrumb-->
     <aside class="breadcrumb wrapper">
         <ul>
-            <li><a href="/">ACCUEIL</a> ></li>
-            <li><a href="/user/profil">PROFIL</a> ></li>
-            <li><a class="active" href="/auction/modifier/{{ au_id }}">Modifier enchère {{ au_id }}</a></li>
+            <li><a href="{{ url_racine }}/">ACCUEIL</a> ></li>
+            <li><a href="{{ url_racine }}/user/profil">PROFIL</a> ></li>
+            <li><a class="active" href="{{ url_racine }}/auction/modifier/{{ au_id }}">Modifier enchère {{ au_id }}</a></li>
         </ul>
     </aside>
     <!--main-->
@@ -68,14 +68,14 @@
                 <input type="number" name="au_prix_plancher" id="au_prix_plancher" value="{{ au.au_prix_plancher|number_format }}">
                 <!--Date de début-->
                 <label for="au_start_date">Date de début:</label>
-                <input type="date" name="au_start_date" id="au_start_date" value="{{ au.au_start_date|date('Y-m-d H:i:s')}}">
+                <input type="date" name="au_start_date" id="au_start_date" value="{{ au.au_start_date|slice(0,10)|date('Y-m-d')}}">
                 <label for="au_start_time">Heure de début:</label>
-                <input type="time" name="au_start_time" id="au_start_time">
+                <input type="time" name="au_start_time" id="au_start_time" value="{{ au.au_start_date|slice(11,19)|date('H:i:s')}}">
                 <!--Date de fin-->
                 <label for="au_end_date">Date de fin:</label>
-                <input type="date" name="au_end_date" id="au_end_date">
+                <input type="date" name="au_end_date" id="au_end_date" value="{{ au.au_end_date|slice(0,10)|date('Y-m-d')}}">
                 <label for="au_end_time">Heure de fin:</label>
-                <input type="time" name="au_end_time" id="au_end_time">
+                <input type="time" name="au_end_time" id="au_end_time" value="{{ au.au_end_date|slice(11,19)|date('H:i:s')}}">
                 <!--button-->
                 <input type="reset" value="Rétablir">
                 <input type="submit" value="Soumettre">
@@ -98,10 +98,10 @@
         <div>
             <dl>
                 <dt>PLAN DU SITE</dt>
-                <dd><a href="/">Accueil</a></dd>
-                <dd><a href="/stamp/lister">Timbres</a></dd>
-                <dd><a class="active" href="/auction/lister">Enchères</a></dd>
-                <dd><a href="/home/about">Sur nous</a></dd>
+                <dd><a href="{{ url_racine }}/">Accueil</a></dd>
+                <dd><a href="{{ url_racine }}/stamp/lister">Timbres</a></dd>
+                <dd><a class="active" href="{{ url_racine }}/auction/lister">Enchères</a></dd>
+                <dd><a href="{{ url_racine }}/home/about">Sur nous</a></dd>
             </dl>
         </div>
         <!--moreinfo-->

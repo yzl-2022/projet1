@@ -11,10 +11,10 @@
     <!--top-menu-->
     <nav class="wrapper">
         <ul>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/profil"><img src="../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/login">DÉCONNECTER</a></li>
-            <li class="{{ user ? 'hide' : '' }}"><a href="/user/login">CONNEXION</a></li>
-            <li class="{{ user ? 'hide' : '' }}"><a href="/user/signup">INSCRIPTION</a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/profil"><img src="../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/login">DÉCONNECTER</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/login">CONNEXION</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/signup">INSCRIPTION</a></li>
             <li><a href="#">CONTACTEZ-NOUS</a></li>
             <li><a href="#"><img src="../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
         </ul>
@@ -23,14 +23,14 @@
     <header class="wrapper">
         <!--logo-->
         <div class="logo">
-            <h1><a href="/">Stampee</a></h1>
+            <h1><a href="{{ url_racine }}/">Stampee</a></h1>
         </div>
         <!--nav-->
         <div class="headerNav">
             <ul>
-                <li><a href="/stamp/lister">TIMBRES</a></li>
-                <li><a class="active" href="/auction/lister">ENCHÈRES</a></li>
-                <li><a href="/home/about">SUR NOUS</a></li>
+                <li><a href="{{ url_racine }}/stamp/lister">TIMBRES</a></li>
+                <li><a class="active" href="{{ url_racine }}/auction/lister">ENCHÈRES</a></li>
+                <li><a href="{{ url_racine }}/home/about">SUR NOUS</a></li>
             </ul>
         </div>
         <!--search-->
@@ -47,8 +47,8 @@
     <!--breadcrumb-->
     <aside class="breadcrumb wrapper">
         <ul>
-            <li><a href="/">ACCUEIL</a> ></li>
-            <li><a class="active" href="/auction/lister">ENCHÈRES</a></li>
+            <li><a href="{{ url_racine }}/">ACCUEIL</a> ></li>
+            <li><a class="active" href="{{ url_racine }}/auction/lister">ENCHÈRES</a></li>
         </ul>
     </aside>
     <!--main-->
@@ -80,16 +80,16 @@
                 {% for auction in auctions %}
                 <li>
                     <article>
-                        <a href="/auction/instance/{{ auction.au_id }}">
+                        <a href="{{ url_racine }}/auction/instance/{{ auction.au_id }}">
                             <div class="pic"><img src="../assets/images/{{ auction.photo_name }}" alt="image pour {{ auction.st_title }}"></div>
                             <div class="txt">
                                 <h3>Heure de début:<br> {{ auction.au_start_date }}</h3>
                                 <p>Ouvert pour miser jusqu'à <span>{{ auction.au_end_date }}</span></p>
                                 <p class="price">Prix de départ: <span>{{ auction.au_prix_plancher }}</span> $</p>
                                 {% if auction.au_user_id != user.user_id %}    
-                                <a class="panier" href="{{ user ? '#' : '/user/login' }}">Placer un mise</a>
+                                <a class="panier" href="{{ url_racine }}{{ user ? '/user/miser/' ~ auction.au_id : '/user/login' }}">Placer un mise</a>
                                 {% else %}
-                                <a class="panier" href="/auction/modifier/{{ auction.au_id }}"> Modifier </a>
+                                <a class="panier" href="{{ url_racine }}/auction/modifier/{{ auction.au_id }}"> Modifier </a>
                                 {% endif %}
                             </div>
                         </a>
@@ -118,10 +118,10 @@
         <div>
             <dl>
                 <dt>PLAN DU SITE</dt>
-                <dd><a href="/">Accueil</a></dd>
-                <dd><a href="/stamp/lister">Timbres</a></dd>
-                <dd><a class="active" href="/auction/lister">Enchères</a></dd>
-                <dd><a href="/home/about">Sur nous</a></dd>
+                <dd><a href="{{ url_racine }}/">Accueil</a></dd>
+                <dd><a href="{{ url_racine }}/stamp/lister">Timbres</a></dd>
+                <dd><a class="active" href="{{ url_racine }}/auction/lister">Enchères</a></dd>
+                <dd><a href="{{ url_racine }}/home/about">Sur nous</a></dd>
             </dl>
         </div>
         <!--moreinfo-->

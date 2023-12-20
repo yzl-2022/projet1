@@ -72,7 +72,7 @@ class Stamp extends \Core\Controller
             $st_au_id = $this->route_params['id'];
 
             if (!empty($_POST)) {
-                unset($_POST["envoyer"]);
+                //unset($_POST["envoyer"]);
 
                 var_dump($_FILES);
 
@@ -118,17 +118,42 @@ class Stamp extends \Core\Controller
     }
 
     /**
-     * Show the modifier page
+     * modifier un timbre
      *
      * @return void
      */
     public function modifierAction()
     {
-        $st_id = $this->route_params['id'];
-        View::renderTemplate('Stamp/modifier.html',
-                            ['st_id' => $st_id]
-        );
+        // check if the user has log in -- this page is not accessible without login
+        if (!isset($_SESSION['user'])){
+            echo "<script>alert('Vous devez se connecter pour visiter cette page.');location.href='/user/login';</script>";
+        }else{
+            $user = $_SESSION['user'];
+
+            $st_id = $this->route_params['id'];
+            $st = \App\Models\Stamp::getOne($st_id);
+            
+            //get a list of all categories from SQL query
+            $categories = \App\Models\Stamp::getCategories();
+
+            //var_dump($st);
+
+            if (!empty($_POST)) {
+                unset($_POST["envoyer"]);
+
+                $id_insertion = \App\Models\Stamp::modifier($_POST);
+                echo "<br>L'id du timbre modifié est $id_insertion";
+            }
+
+            View::renderTemplate('Stamp/modifier.html',
+                                ['st_id' => $st_id,
+                                 'st' => $st,
+                                 'categories' => $categories,
+                                 'user' => $user]
+            );
+        }
     }
+
     /**
      * supprimer un timbre
      *
@@ -136,8 +161,13 @@ class Stamp extends \Core\Controller
      */
     public function supprimerAction()
     {
-        $id = $this->route_params['id'];
-        if (\App\Models\Stamp::delete($id)) echo "<script>location.href='/user/profil';</script>";
+        // check if the user has log in -- this page is not accessible without login
+        if (!isset($_SESSION['user'])){
+            echo "<script>alert('Vous devez se connecter pour visiter cette page.');location.href='/user/login';</script>";
+        }else{
+            $id = $this->route_params['id'];
+            if (\App\Models\Stamp::delete($id)) echo "<script>location.href='/user/profil';</script>";
+        }
     }
 }
 

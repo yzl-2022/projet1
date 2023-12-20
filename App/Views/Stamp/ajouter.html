@@ -11,10 +11,10 @@
     <!--top-menu-->
     <nav class="wrapper">
         <ul>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/login">DÉCONNECTER</a></li>
-            <li class="{{ user ? 'hide' : '' }}"><a href="/user/login">CONNEXION</a></li>
-            <li class="{{ user ? 'hide' : '' }}"><a href="/user/signup">INSCRIPTION</a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/login">DÉCONNECTER</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/login">CONNEXION</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/signup">INSCRIPTION</a></li>
             <li><a href="#">CONTACTEZ-NOUS</a></li>
             <li><a href="#"><img src="../../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
         </ul>
@@ -23,14 +23,14 @@
     <header class="wrapper">
         <!--logo-->
         <div class="logo">
-            <h1><a href="/">Stampee</a></h1>
+            <h1><a href="{{ url_racine }}/">Stampee</a></h1>
         </div>
         <!--nav-->
         <div class="headerNav">
             <ul>
-                <li><a href="/stamp/lister">TIMBRES</a></li>
-                <li><a href="/auction/lister">ENCHÈRES</a></li>
-                <li><a href="/home/about">SUR NOUS</a></li>
+                <li><a href="{{ url_racine }}/stamp/lister">TIMBRES</a></li>
+                <li><a href="{{ url_racine }}/auction/lister">ENCHÈRES</a></li>
+                <li><a href="{{ url_racine }}/home/about">SUR NOUS</a></li>
             </ul>
         </div>
         <!--search-->
@@ -48,9 +48,9 @@
     <aside class="breadcrumb wrapper">
         
         <ul>
-            <li><a href="/">ACCUEIL</a> ></li>
-            <li><a href="/user/profil">PROFIL</a> ></li>
-            <li><a class="active" href="/stamp/ajouter">Ajouter un timbre</a></li>
+            <li><a href="{{ url_racine }}/">ACCUEIL</a> ></li>
+            <li><a href="{{ url_racine }}/user/profil">PROFIL</a> ></li>
+            <li><a class="active" href="{{ url_racine }}/stamp/ajouter">Ajouter un timbre</a></li>
         </ul>
     </aside>
     <!--main-->
@@ -77,8 +77,6 @@
                 <!--Height-->
                 <label for="st_height">Hauteur (centimètre)</label>
                 <input type="number" name="st_height" id="st_height">
-                <!--Start_price-->
-                <input class='hide' type="text" name="st_start_price" value="{{ au_prix_plancher }}">
                 <!--Title-->
                 <label for="st_title">Titre (Maximum 40 mots)</label>
                 <input type="text" name="st_title" id="st_title">
@@ -101,7 +99,8 @@
                 <!--Certifie-->
                 <input class='hide' type="text" name="st_certifie" value="0">
                 <!--Tirage-->
-                <input class='hide' type="text" name="st_tirage" value="1">
+                <label for="st_tirage">Tirage</label>
+                <input type="text" name="st_tirage" id="st_tirage">
                 <!--Color-->
                 <label for="st_color">Couleur principale</label>
                 <select id="st_color" name="st_color">
@@ -121,10 +120,12 @@
                     {% endfor %}
                 </select>
                 <!--upload photo-->
+                
+                <label for="photo_name">Téléverser une image</label>
                 <!-- MAX_FILE_SIZE must precede the file input field -->
                 <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-                <label for="photo_name">Téléverser une image</label>
                 <input type="file" name="photo_name" id="photo_name">
+                
                 <!--principal image: yes/no-->
                 <label for="photo_principal">Image principale: </label>
                 <select name="photo_principal" id="photo_principal">
@@ -152,10 +153,10 @@
         <div>
             <dl>
                 <dt>PLAN DU SITE</dt>
-                <dd><a href="/">Accueil</a></dd>
-                <dd><a class="active" href="/stamp/lister">Timbres</a></dd>
-                <dd><a href="/auction/lister">Enchères</a></dd>
-                <dd><a href="/home/about">Sur nous</a></dd>
+                <dd><a href="{{ url_racine }}/">Accueil</a></dd>
+                <dd><a class="active" href="{{ url_racine }}/stamp/lister">Timbres</a></dd>
+                <dd><a href="{{ url_racine }}/auction/lister">Enchères</a></dd>
+                <dd><a href="{{ url_racine }}/home/about">Sur nous</a></dd>
             </dl>
         </div>
         <!--moreinfo-->

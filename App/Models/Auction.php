@@ -61,11 +61,10 @@ class Auction extends \Core\Model
     public static function getOne($au_id)
     {
         $db = static::getDB();
-        $stmt = $db->prepare("SELECT * FROM auction 
-                              WHERE au_id = :au_id");
+        $stmt = $db->prepare("SELECT * FROM auction WHERE au_id = :au_id");
         $stmt->bindParam(':au_id', $au_id);
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     /**
      * Get all stamps of one auction
@@ -102,7 +101,7 @@ class Auction extends \Core\Model
     /**
      * ajouter une enchère
      * @param array $data
-     * @return boolean true si suppression effectuée, false sinon
+     * @return boolean true si addition effectuée, false sinon
      */
 
     public static function insert($data)
@@ -124,7 +123,7 @@ class Auction extends \Core\Model
     /**
      * supprimer une enchère
      * @param int $au_id
-     * @return boolean
+     * @return boolean true si suppression effectuée, false sinon
      */
     public static function delete($id)
     {
@@ -133,6 +132,28 @@ class Auction extends \Core\Model
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         if ($stmt->rowCount() <= 0)  return false;
+        return true;
+    }
+
+    /**
+     * modifier une enchère
+     * @param array $data
+     * @return boolean
+     */
+    public static function modifier($data)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare("UPDATE auction SET au_user_id = :au_user_id, 
+                                                 au_prix_plancher = :au_prix_plancher, 
+                                                 au_start_date = CONCAT( :au_start_date, ' ', :au_start_time, ':00'),
+                                                 au_end_date = CONCAT( :au_end_date, ' ', :au_end_time, ':00')
+                                             WHERE au_id = :au_id");
+        $nomsParams = array_keys($data);
+        foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam]);
+        $stmt->execute();
+
+        if ($stmt->rowCount() <= 0)  return false;
+        if ($db->lastInsertId() > 0) return $db->lastInsertId();
         return true;
     }
 }

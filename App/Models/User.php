@@ -30,12 +30,39 @@ class User extends \Core\Model
     public static function getOne($user_id)
     {
         $db = static::getDB();
-        $stmt = $db->prepare("SELECT user_id, user_nom, user_prenom, user_email, role FROM user
+        $stmt = $db->prepare("SELECT * FROM user
                               JOIN user_role ON role_id = user_role_id
                               WHERE user_id = :user_id");
         $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get all roles of users
+     * 
+     * @return array
+     */
+    public static function getRoles()
+    {
+        $db = static::getDB();
+        $stmt = $db->query("SELECT * FROM user_role");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get all offres places by a user
+     * @param int $user_id
+     * @return array
+     */
+    public static function getOffres($user_id)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare("SELECT * FROM offre
+                              WHERE offre_user_id = :user_id");
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
@@ -75,7 +102,7 @@ class User extends \Core\Model
                                   user_prenom  = LOWER(TRIM(:user_prenom)),
                                   user_email   = LOWER(TRIM(:user_email)), 
                                   user_mdp     = LOWER(TRIM(:user_mdp)),
-                                  user_role_id = 3");
+                                  user_role_id = :user_role_id");
         $nomsParams = array_keys($data);
         foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam]);
         $stmt->execute();
@@ -84,6 +111,7 @@ class User extends \Core\Model
         if ($db->lastInsertId() > 0) return $db->lastInsertId();
         return true;
     }
+
     /**
      * Supprimer un utilisateur
      * @param int $user_id
@@ -94,6 +122,50 @@ class User extends \Core\Model
         $db = static::getDB();
         $stmt = $db->prepare('DELETE FROM user WHERE user_id = :user_id');
         $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        if ($stmt->rowCount() <= 0)  return false;
+        return true;
+    }
+
+    /**
+     * modifier un utilisateur
+     * @param array $data
+     * @return boolean
+     */
+    public static function modifier($data)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare("UPDATE user SET user_nom     = LOWER(TRIM(:user_nom)), 
+                                              user_prenom  = LOWER(TRIM(:user_prenom)),
+                                              user_email   = LOWER(TRIM(:user_email)), 
+                                              user_mdp     = LOWER(TRIM(:user_mdp)),
+                                              user_role_id = :user_role_id
+                                          WHERE user_id = :user_id");
+        $nomsParams = array_keys($data);
+        foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam]);
+        $stmt->execute();
+
+        if ($stmt->rowCount() <= 0)  return false;
+        if ($db->lastInsertId() > 0) return $db->lastInsertId();
+        return true;
+    }
+
+    /**
+     * place un mise
+     * @param array $data
+     * @return boolean
+     */
+    public static function miser($data)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare(' INSERT INTO offre 
+                               SET offre_au_id = :offre_au_id,
+                                   offre_user_id = :offre_user_id,
+                                   offre_price = :offre_price,
+                                   offre_date = NOW(),
+                                   offre_success = 0');
+        $nomsParams = array_keys($data);
+        foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam]);
         $stmt->execute();
         if ($stmt->rowCount() <= 0)  return false;
         return true;

@@ -11,10 +11,10 @@
     <!--top-menu-->
     <nav class="wrapper">
         <ul>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
-            <li class="{{ user ? '' : 'hide' }}"><a href="/user/login">DÉCONNECTER</a></li>
-            <li class="{{ user ? 'hide' : '' }}"><a href="/user/login">CONNEXION</a></li>
-            <li class="{{ user ? 'hide' : '' }}"><a href="/user/signup">INSCRIPTION</a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/login">DÉCONNECTER</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/login">CONNEXION</a></li>
+            <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/signup">INSCRIPTION</a></li>
             <li><a href="#">CONTACTEZ-NOUS</a></li>
             <li><a href="#"><img src="../../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
         </ul>
@@ -23,14 +23,14 @@
     <header class="wrapper">
         <!--logo-->
         <div class="logo">
-            <h1><a href="/">Stampee</a></h1>
+            <h1><a href="{{ url_racine }}/">Stampee</a></h1>
         </div>
         <!--nav-->
         <div class="headerNav">
             <ul>
-                <li><a class="active" href="/stamp/lister">TIMBRES</a></li>
-                <li><a href="/auction/lister">ENCHÈRES</a></li>
-                <li><a href="/home/about">SUR NOUS</a></li>
+                <li><a class="active" href="{{ url_racine }}/stamp/lister">TIMBRES</a></li>
+                <li><a href="{{ url_racine }}/auction/lister">ENCHÈRES</a></li>
+                <li><a href="{{ url_racine }}/home/about">SUR NOUS</a></li>
             </ul>
         </div>
         <!--search-->
@@ -47,16 +47,16 @@
     <!--breadcrumb-->
     <aside class="breadcrumb wrapper">
         <ul>
-            <li><a href="/">ACCUEIL</a> ></li>
-            <li><a href="/stamp/lister">TIMBRES</a> ></li>
-            <li><a class="active" href="/stamp/instance/{{ st_id }}">Timbre {{ st_id }}</a></li>
+            <li><a href="{{ url_racine }}/">ACCUEIL</a> ></li>
+            <li><a href="{{ url_racine }}/stamp/lister">TIMBRES</a> ></li>
+            <li><a class="active" href="{{ url_racine }}/stamp/instance/{{ st_id }}">Timbre {{ st_id }}</a></li>
         </ul>
     </aside>
     <!--main-->
     <main class="wrapper content">
         <!--stamp-->
         <article>
-            <a href="/stamp/instance/{{ stamp.st_id }}">
+            <a href="{{ url_racine }}/stamp/instance/{{ stamp.st_id }}">
                 <div class="pic"><img src="../../assets/images/{{ stamp.photo_name }}" alt="image pour {{ stamp.st_title }}"></div>
                 <div class="txt">
                     <h3>{{ stamp.st_title|title }}</h3>
@@ -68,12 +68,11 @@
                     <p>Largeur: {{ stamp.st_width }} centimètre</p>
                     <p>Hauteur: {{ stamp.st_height }} centimètre</p>
                     <p>Certifié: {% if stamp.st_certifie > 0 %} Oui {% else %} Non {% endif %}</p>
-                    <p class="price">Prix de départ: <span>{{ stamp.st_start_price }}</span> $</p>  
                     {% if stamp.au_user_id != user.user_id %}
-                    <a class="panier" href="#"> Placer un mise </a>
+                    <a class="panier" href="{{ url_racine }}/user/miser/{{ stamp.st_au_id }}"> Placer un mise </a>
                     {% else %}
-                    <a class="panier" href="/stamp/modifier/{{ stamp.st_id }}"> Modifier </a>
-                    <a class="panier" href="/stamp/supprimer/{{ stamp.st_id }}"> Supprimer </a>
+                    <a class="panier" href="{{ url_racine }}/stamp/modifier/{{ stamp.st_id }}"> Modifier </a>
+                    <a class="panier" href="{{ url_racine }}/stamp/supprimer/{{ stamp.st_id }}"> Supprimer </a>
                     {% endif %}
                     <p><!--empty for test--></p>
                 </div>
@@ -96,10 +95,10 @@
         <div>
             <dl>
                 <dt>PLAN DU SITE</dt>
-                <dd><a href="/">Accueil</a></dd>
-                <dd><a class="active" href="/stamp/lister">Timbres</a></dd>
-                <dd><a href="/auction/lister">Enchères</a></dd>
-                <dd><a href="/home/about">Sur nous</a></dd>
+                <dd><a href="{{ url_racine }}/">Accueil</a></dd>
+                <dd><a class="active" href="{{ url_racine }}/stamp/lister">Timbres</a></dd>
+                <dd><a href="{{ url_racine }}/auction/lister">Enchères</a></dd>
+                <dd><a href="{{ url_racine }}/home/about">Sur nous</a></dd>
             </dl>
         </div>
         <!--moreinfo-->
