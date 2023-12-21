@@ -72,36 +72,36 @@ class Stamp extends \Core\Controller
             $st_au_id = $this->route_params['id'];
 
             if (!empty($_POST)) {
-                //unset($_POST["envoyer"]);
-
-                var_dump($_FILES);
 
                 //treatment of image upload
-                if($_FILES['photo_name']['error']){
+                if($_FILES['photo']['error']){
                     echo "<script>alert('erreur dans image');history.back();</script>";
                     exit;
                 }
-                if(!empty($_FILES['photo_name']['name'])){
-                    //maximum file size
-                    if($_FILES['photo_name']['size'] > 3000){
+                if(!empty($_FILES['photo']['name'])){  // upload exists
+                    //maximum file size -- int in ['size']
+                    if($_FILES['photo']['size'] > 3000){
                         echo "<script>alert('image trops large');history.back();</script>";
                         exit;
                     }
-                    //file format
-                    $allowType = array('png','gif','jpg','jpeg');
-                    $arrCut = explode('.',$_FILES['photo_name']['name']);
-                    $ext = $arrCut[count($arrCut) - 1];
-                    if (!in_array($ext, $allowType)){
+                    //file format -- string in ['type']
+                    $allowType = array('image/png','image/gif','image/jpg','image/jpeg','image/pjpeg');
+                    if (!in_array($_FILES['photo']['type'], $allowType)){
                         echo "<script>alert('wrong image format');history.back();</script>";
                         exit;
                     }
                     //file path
-                    $uploaddir = "../../assets/images/";
-                    $uploadfile = $uploaddir . basename($_FILES['photo_name']['name']);
+                    $uploaddir = "assets/images/"; //root folder is /public, write anything directly under it
+                    $uploadfile = $uploaddir . $_FILES['photo']['name'];
 
-                    if(move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)){
-                        $id_insertion = \App\Models\Stamp::insert($_POST);
-                        echo "<br>L'id de l'timbre inséré est $id_insertion";
+                    if(move_uploaded_file($_FILES['photo']['tmp_name'], $uploadfile)){
+                        //prepare data from the formulaire
+                        unset($_POST['MAX_FILE_SIZE']);
+                        $photo_name = $_FILES['photo']['name'];
+                        //insert into the table `stamp`
+                        $st_id = \App\Models\Stamp::insert($_POST);
+                        //insert into the table `photo`
+                        if (\App\Models\Stamp::insertPhoto($st_id, $photo_name)) echo "<script>location.href='/user/profil';</script>";
                     }else{
                         echo "<script>alert('image non trouvé');history.back();</script>";
                         exit;
@@ -139,7 +139,6 @@ class Stamp extends \Core\Controller
             //var_dump($st);
 
             if (!empty($_POST)) {
-                unset($_POST["envoyer"]);
 
                 $id_insertion = \App\Models\Stamp::modifier($_POST);
                 echo "<br>L'id du timbre modifié est $id_insertion";

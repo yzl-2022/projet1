@@ -55,7 +55,7 @@ class User extends \Core\Model
      * @param int $user_id
      * @return array
      */
-    public static function getOffres($user_id)
+    public static function getOffers($user_id)
     {
         $db = static::getDB();
         $stmt = $db->prepare("SELECT * FROM offre
@@ -166,6 +166,21 @@ class User extends \Core\Model
                                    offre_success = 0');
         $nomsParams = array_keys($data);
         foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam]);
+        $stmt->execute();
+        if ($stmt->rowCount() <= 0)  return false;
+        return true;
+    }
+
+    /**
+     * Supprimer un mise
+     * @param int $offre_id
+     * @return boolean
+     */
+    public static function unmiser($offre_id)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare('DELETE FROM offre WHERE offre_id = :offre_id');
+        $stmt->bindParam(':offre_id', $offre_id);
         $stmt->execute();
         if ($stmt->rowCount() <= 0)  return false;
         return true;

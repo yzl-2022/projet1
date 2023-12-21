@@ -23,6 +23,7 @@ class Auction extends \Core\Model
                             GROUP BY au_id");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
     /**
      * Get all auctions even those without no stamps
      *
@@ -66,6 +67,7 @@ class Auction extends \Core\Model
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
     /**
      * Get all stamps of one auction
      * @param int $au_id
@@ -78,6 +80,24 @@ class Auction extends \Core\Model
                               JOIN photo on st_id = photo_st_id
                               WHERE st_au_id = :au_id");
         $stmt->bindParam(':au_id', $au_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get all offers of one user to an auction
+     * @param int $au_id
+     * @param int $user_id
+     * @return array
+     */
+    public static function getOffers($au_id,$user_id)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare("SELECT * FROM offre 
+                              WHERE offre_au_id = :au_id
+                              AND offre_user_id = :user_id");
+        $stmt->bindParam(':au_id', $au_id);
+        $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

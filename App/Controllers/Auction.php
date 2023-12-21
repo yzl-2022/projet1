@@ -38,18 +38,26 @@ class Auction extends \Core\Controller
      */
     public function instanceAction()
     {
+        // obtain data
+        $au_id = $this->route_params['id'];
+        $stamps = \App\Models\Auction::getStamps($au_id);
+
+        $au = \App\Models\Auction::getOne($au_id);
+
         // check if the user has log in
         $user = null;
-        if (isset($_SESSION['user'])) $user = $_SESSION['user'];
-
-        // obtain data
-        $id = $this->route_params['id'];
-        $list = \App\Models\Auction::getStamps($id);
+        $offers = null;
+        if (isset($_SESSION['user'])){
+            $user = $_SESSION['user'];
+            $offers = \App\Models\Auction::getOffers($au_id,$user['user_id']);
+        }
 
         View::renderTemplate('Auction/instance.html',
                              ['user' => $user,
-                              'au_id' => $id,
-                              'stamps' => $list
+                              'au_id' => $au_id,
+                              'stamps' => $stamps,
+                              'offers' => $offers,
+                              'au' => $au
                             ]);
     }
 
@@ -67,7 +75,6 @@ class Auction extends \Core\Controller
             $user = $_SESSION['user'];
 
             if (!empty($_POST)) {
-                unset($_POST["envoyer"]);
 
                 $id_insertion = \App\Models\Auction::insert($_POST);
                 echo "<br>L'id de l'enchère insérée est $id_insertion";
@@ -95,7 +102,6 @@ class Auction extends \Core\Controller
             $au = \App\Models\Auction::getOne($au_id);
 
             if (!empty($_POST)) {
-                unset($_POST["envoyer"]);
 
                 $id_insertion = \App\Models\Auction::modifier($_POST);
                 echo "<br>L'id de l'enchère modifiée est $id_insertion";

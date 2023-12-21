@@ -52,13 +52,13 @@ class User extends \Core\Controller
             $user_id = $_SESSION['user']['user_id'];
             $auctions = \App\Models\Auction::getByUser($user_id);
             $stamps = \App\Models\Stamp::getByUser($user_id);
-            $offres = \App\Models\User::getOffres($user_id);
+            $offers = \App\Models\User::getOffers($user_id);
 
             View::renderTemplate('User/profil.html',
                                 ['user' => $_SESSION['user'],
                                  'auctions' => $auctions,
                                  'stamps' => $stamps,
-                                 'offres' => $offres,
+                                 'offers' => $offers,
                                 ]);
         }else{
             $user = null;
@@ -117,9 +117,6 @@ class User extends \Core\Controller
             $roles = \App\Models\User::getRoles();
 
             if (!empty($_POST)){
-
-                //on enlève le champ "envoyer" pour que le tableau corresponde aux champs de la table en base de données
-                unset($_POST["envoyer"]);
     
                 $id_insertion = \App\Models\User::insert($_POST);
                 echo "<br>L'id de l'utilisateur inséré est $id_insertion";
@@ -151,9 +148,6 @@ class User extends \Core\Controller
             $userToModify = \App\Models\User::getOne($id);
 
             if (!empty($_POST)){
-
-                //on enlève le champ "envoyer" pour que le tableau corresponde aux champs de la table en base de données
-                unset($_POST["envoyer"]);
     
                 $id_insertion = \App\Models\User::modifier($_POST);
                 echo "<br>L'id de l'utilisateur modifié est $id_insertion";
@@ -199,10 +193,7 @@ class User extends \Core\Controller
 
             if (!empty($_POST)){
 
-                //on enlève le champ "envoyer" pour que le tableau corresponde aux champs de la table en base de données
-                unset($_POST["envoyer"]);
-
-                if (\App\Models\User::miser($_POST)) echo "<script>alert('Vous avez placé un mise avec succès');location.href='/auction/lister';</script>";
+                if (\App\Models\User::miser($_POST)) echo "<script>alert('Vous avez placé un mise avec succès');location.href='/auction/instance/$au_id';</script>";
             }
             View::renderTemplate('User/miser.html',
                                 ['user' => $user,
@@ -211,6 +202,21 @@ class User extends \Core\Controller
 
         }else{
             echo "<script>alert('Vous devez se connecter pour placer un mise.');location.href='/user/login';</script>";
+        }
+    }
+
+    /**
+     * supprimer un mise
+     *
+     * @return void
+     */
+    public function unmiserAction()
+    {
+        if (isset($_SESSION['user'])){
+            $id = $this->route_params['id'];
+            if (\App\Models\User::unmiser($id)) echo "<script>location.href='/user/profil';</script>";
+        }else{
+            echo "<script>alert('Vous devez se connecter pour visiter cette page.');location.href='/user/login';</script>";
         }
     }
 }

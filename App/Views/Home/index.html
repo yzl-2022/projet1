@@ -67,29 +67,6 @@
     <main class="wrapper">
         <!--title-->
         <div class="title">
-            <div class="left"><h3>TIMBRES</h3></div>
-            <div class="right"><a href="{{ url_racine }}/stamp/lister">afficher plus ></a></div>
-        </div>
-        <!--content-->
-        <div class="content">
-            <ul>
-                {% for stamp in stamps %}
-                <li>
-                    <a href="{{ url_racine }}/stamp/instance/{{ stamp.st_id }}">
-                        <div class="pic"><img src="assets/images/{{ stamp.photo_name }}" alt="image pour {{ stamp.st_title }}"></div>
-                        <div class="txt">
-                            <h3>{{ stamp.st_title|title }}</h3>
-                            <p>{{ stamp.st_description }}</p>
-                            <p class="price">Tirage: <span>{{ stamp.st_tirage}}</span></p>
-                        </div>
-                    </a>
-                    <div class="promo">{{ stamp.st_condition }}</div>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <!--title-->
-        <div class="title">
             <div class="left"><h3>ENCHÈRES</h3></div>
             <ul>
                 <li><a class="active" href="#">décembre</a></li>
@@ -118,6 +95,29 @@
                 {% endfor %}
             </ul>
         </div>
+        <!--title-->
+        <div class="title">
+            <div class="left"><h3>TIMBRES</h3></div>
+            <div class="right"><a href="{{ url_racine }}/stamp/lister">afficher plus ></a></div>
+        </div>
+        <!--content-->
+        <div class="content">
+            <ul>
+                {% for stamp in stamps %}
+                <li>
+                    <a href="{{ url_racine }}/stamp/instance/{{ stamp.st_id }}">
+                        <div class="pic"><img src="assets/images/{{ stamp.photo_name }}" alt="image pour {{ stamp.st_title }}"></div>
+                        <div class="txt">
+                            <h3>{{ stamp.st_title|title }}</h3>
+                            <p>{{ stamp.st_description }}</p>
+                            <p class="price">Tirage: <span>{{ stamp.st_tirage}}</span></p>
+                        </div>
+                    </a>
+                    <div class="promo">{{ stamp.st_condition }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
     </main>
     <!--presentation-->
     <section class="presentation wrapper">
@@ -129,7 +129,6 @@
            Avec la popularité de NFT, Stampee libère un nouveau marché NFT pour ses collections de timbres. 
            Ce faisant, Stampee espère protéger la beauté des timbres fragiles et apporter leur beauté aux amateurs de timbres du monde entier.</p>
     </section>
-    <!--location-->
     <!--location-->
     <section class="location wrapper">
         <a href="#"><h3>Trouver un club Stampee</h3></a>

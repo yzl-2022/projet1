@@ -96,7 +96,7 @@
         {% endfor %}
         {% endif %}
         <!--table-offres-->
-        {% if offres|length > 0 %}
+        {% if offers|length > 0 %}
         <!--title-->
         <div class="title">
             <div class="left" id="mises"><h3>MISES</h3></div>
@@ -104,7 +104,6 @@
         <table class="wrapper" id="table-offres">
             <thead>
                 <tr>
-                    <th>mise id</th>
                     <th>enchère id</th>
                     <th>prix ($)</th>
                     <th>date</th>
@@ -112,15 +111,13 @@
                 </tr>
             </thead>
             <tbody>
-                {% for offre in offres %}
+                {% for offer in offers %}
                 <tr>
-                    <td>{{ offre.offre_id }}</td>
-                    <td>{{ offre.offre_au_id }}</td>
-                    <td>{{ offre.offre_price }}</td>
-                    <td>{{ offre.offre_date }}</td>
+                    <td>{{ offer.offre_au_id }}</td>
+                    <td>{{ offer.offre_price }}</td>
+                    <td>{{ offer.offre_date }}</td>
                     <td>
-                        <a href="#">Modifier</a>
-                        <a href="#">Supprimer</a>
+                        <a href="{{ url_racine }}/user/unmiser/{{ offer.offre_id }}">Supprimer</a>
                     </td>
                 </tr>
                 {% endfor %}

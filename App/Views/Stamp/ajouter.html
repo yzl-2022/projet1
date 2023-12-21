@@ -121,17 +121,11 @@
                 </select>
                 <!--upload photo-->
                 
-                <label for="photo_name">Téléverser une image</label>
+                <label for="photo">Téléverser une image</label>
                 <!-- MAX_FILE_SIZE must precede the file input field -->
                 <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-                <input type="file" name="photo_name" id="photo_name">
+                <input type="file" name="photo" id="photo">
                 
-                <!--principal image: yes/no-->
-                <label for="photo_principal">Image principale: </label>
-                <select name="photo_principal" id="photo_principal">
-                    <option value="1">Oui</option>
-                    <option value="0">Non</option>
-                </select>
                 <input type="reset" value="Rétablir">
                 <input type="submit" value="Soumettre">
             </form>

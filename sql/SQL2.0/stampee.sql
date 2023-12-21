@@ -179,7 +179,7 @@ ALTER TABLE `category` ENGINE=InnoDB;
 -- Test Data
 -- ---
 
--- INSERT INTO `stamp` (`st_id`,`st_au_id`,`st_condition`,`st_width`,`st_height`,`st_start_price`,`st_end_price`,`st_title`,`st_description`,`st_country`,`st_continent`,`st_certifie`,`st_tirage`,`st_color`,`st_cat_id`) VALUES
+-- INSERT INTO `stamp` (`st_id`,`st_au_id`,`st_condition`,`st_width`,`st_end_price`,`st_title`,`st_description`,`st_country`,`st_continent`,`st_certifie`,`st_tirage`,`st_color`,`st_cat_id`) VALUES
 -- ('','','','','','','','','','','','','','','');
 -- INSERT INTO `photo` (`photo_id`,`photo_st_id`,`photo_name`,`photo_principal`) VALUES
 -- ('','','','');

@@ -33,9 +33,6 @@ class Etudiant extends \Core\Controller
     {
         if (!empty($_POST)){
 
-            //on enlève le champ "envoyer" pour que le tableau corresponde aux champs de la table en base de données
-            unset($_POST["envoyer"]);
-
             $id_insertion = \App\Models\Etudiant::insert($_POST);
             echo "<br>L'id de l'étudiant inséré est $id_insertion";
         }

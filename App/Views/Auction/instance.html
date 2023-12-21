@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="projet1-stampee">
     <title>ENCHÈRE</title>
-    <link rel="stylesheet" href="../../assets/css/products.css">
+    <link rel="stylesheet" href="../../assets/css/index.css">
 </head>
 <body>
     <!--top-menu-->
@@ -55,31 +55,65 @@
     <!--main-->
     <main class="wrapper">
         <!--list of stamps-->
-        <section class="content">
-            <div class="grid"><button id="grid-list">Ajouter à la liste de souhaits</button></div>
-            <ul id="products">
+        {% if stamps|length > 0 %}
+        <div class="title">
+            <div class="left"><h3>Timbres dans Enchère {{ au_id }}</h3></div>
+            {% if au.au_user_id != user.user_id %}    
+            <a class="ajouter" href="{{ url_racine }}{{ user ? '/user/miser/' ~ auction.au_id : '/user/login' }}">Placer un mise</a>
+            {% else %}
+            <a class="ajouter" href="{{ url_racine }}/auction/modifier/{{ auction.au_id }}"> Modifier </a>
+            {% endif %}
+        </div>
+        <div class="content">
+            <ul>
                 {% for stamp in stamps %}
                 <li>
-                    <article>
-                        <a href="{{ url_racine }}/stamp/instance/{{ stamp.st_id }}">
-                            <div class="pic"><img src="../../assets/images/{{ stamp.photo_name }}" alt="image pour {{ stamp.st_title }}"></div>
-                            <div class="txt">
-                                <h3>{{ stamp.st_title|title }}</h3>
-                                <p>{{ stamp.st_description }}</p>
-                                <p class="price">Tirage: <span>{{ stamp.st_tirage }}</span></p>    
-                                {% if (user is null) or (stamp.au_user_id != user.user_id) %}
-                                <a class="panier" href="{{ url_racine }}/user/miser/{{ stamp.st_au_id }}">Placer un mise</a>
-                                {% else %}
-                                <a class="panier" href="{{ url_racine }}/stamp/modifier/{{ stamp.st_id }}"> Modifier </a>
-                                {% endif %}
-                            </div>
-                        </a>
-                        <div class="promo">{{ stamp.st_condition }}</div>
-                    </article>
+                    <a href="{{ url_racine }}/stamp/instance/{{ stamp.st_id }}">
+                        <div class="pic"><img src="../../assets/images/{{ stamp.photo_name }}" alt="image pour {{ stamp.st_title }}"></div>
+                        <div class="txt">
+                            <h3>{{ stamp.st_title|title }}</h3>
+                            <p>{{ stamp.st_description }}</p>
+                            <p class="price">Tirage: <span>{{ stamp.st_tirage}}</span></p>
+                        </div>
+                    </a>
+                    <div class="promo">{{ stamp.st_condition }}</div>
                 </li>
                 {% endfor %}
             </ul>
+        </div>
+        {% endif %}
+        <!--list of offers-->
+        {% if offers|length > 0 %}
+        <div class="title">
+            <div class="left"><h3>Mes offres pour Enchère {{ au_id }}</h3></div>
+        </div>
+        <table class="wrapper" id="table-offres">
+            <thead>
+                <tr>
+                    <th>prix ($)</th>
+                    <th>date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for offer in offers %}
+                <tr>
+                    <td>{{ offer.offre_price }}</td>
+                    <td>{{ offer.offre_date }}</td>
+                    <td>
+                        <a href="{{ url_racine }}/user/unmiser/{{ offer.offre_id }}">Supprimer</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        <!--like-->
+        {% if au.au_user_id != user.user_id %}
+        <section class="location wrapper">
+            <a href="{{ url_racine }}/auction/like/{{ au_id }}"><h3>ajouter à la liste des favoris</h3></a>
         </section>
+        {% endif %}
     </main>
     <!--footer-->
     <footer class="wrapper">
