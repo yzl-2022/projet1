@@ -73,40 +73,46 @@ class Stamp extends \Core\Controller
 
             if (!empty($_POST)) {
 
-                //treatment of image upload
-                if($_FILES['photo']['error']){
-                    echo "<script>alert('erreur dans image');history.back();</script>";
+                if( !isset($_FILES) ){
+                    echo "<script>alert('Il fault ajouter une image');history.back();</script>";
                     exit;
-                }
-                if(!empty($_FILES['photo']['name'])){  // upload exists
-                    //maximum file size -- int in ['size']
-                    if($_FILES['photo']['size'] > 3000){
-                        echo "<script>alert('image trops large');history.back();</script>";
+                }else{
+                    //treatment of image upload
+                    if($_FILES['photo']['error']){
+                        echo "<script>alert('erreur dans image');history.back();</script>";
                         exit;
                     }
-                    //file format -- string in ['type']
-                    $allowType = array('image/png','image/gif','image/jpg','image/jpeg','image/pjpeg');
-                    if (!in_array($_FILES['photo']['type'], $allowType)){
-                        echo "<script>alert('wrong image format');history.back();</script>";
-                        exit;
-                    }
-                    //file path
-                    $uploaddir = "assets/images/"; //root folder is /public, write anything directly under it
-                    $uploadfile = $uploaddir . $_FILES['photo']['name'];
+                    if(!empty($_FILES['photo']['name'])){  // upload exists
+                        //maximum file size -- int in ['size']
+                        if($_FILES['photo']['size'] > 3000){
+                            echo "<script>alert('image trops large');history.back();</script>";
+                            exit;
+                        }
+                        //file format -- string in ['type']
+                        $allowType = array('image/png','image/gif','image/jpg','image/jpeg','image/pjpeg');
+                        if (!in_array($_FILES['photo']['type'], $allowType)){
+                            echo "<script>alert('wrong image format');history.back();</script>";
+                            exit;
+                        }
+                        //file path
+                        $uploaddir = "assets/images/"; //root folder is /public, write anything directly under it
+                        $uploadfile = $uploaddir . $_FILES['photo']['name'];
 
-                    if(move_uploaded_file($_FILES['photo']['tmp_name'], $uploadfile)){
-                        //prepare data from the formulaire
-                        unset($_POST['MAX_FILE_SIZE']);
-                        $photo_name = $_FILES['photo']['name'];
-                        //insert into the table `stamp`
-                        $st_id = \App\Models\Stamp::insert($_POST);
-                        //insert into the table `photo`
-                        if (\App\Models\Stamp::insertPhoto($st_id, $photo_name)) echo "<script>location.href='/user/profil';</script>";
-                    }else{
-                        echo "<script>alert('image non trouvé');history.back();</script>";
-                        exit;
+                        if(move_uploaded_file($_FILES['photo']['tmp_name'], $uploadfile)){
+                            //prepare data from the formulaire
+                            unset($_POST['MAX_FILE_SIZE']);
+                            $photo_name = $_FILES['photo']['name'];
+                            //insert into the table `stamp`
+                            $st_id = \App\Models\Stamp::insert($_POST);
+                            //insert into the table `photo`
+                            if (\App\Models\Stamp::insertPhoto($st_id, $photo_name,1)) echo "<script>location.href='/user/profil';</script>";
+                        }else{
+                            echo "<script>alert('image non trouvé');history.back();</script>";
+                            exit;
+                        }
                     }
                 }
+                
             }
 
             View::renderTemplate('Stamp/ajouter.html',
@@ -136,13 +142,53 @@ class Stamp extends \Core\Controller
             //get a list of all categories from SQL query
             $categories = \App\Models\Stamp::getCategories();
 
-            //var_dump($st);
-
             if (!empty($_POST)) {
 
-                $id_insertion = \App\Models\Stamp::modifier($_POST);
-                echo "<br>L'id du timbre modifié est $id_insertion";
+                
+                if( empty($_FILES['photo']['name']) ){    // no photo uploaded, do not change the photo
+                    unset($_POST['MAX_FILE_SIZE']);
+
+                    if (\App\Models\Stamp::modifier($_POST)) echo "<script>location.href='/user/profil';</script>";
+
+                    exit;
+                    
+                }else{  // upload exists
+
+                    //treatment of image upload
+                    if($_FILES['photo']['error'] != 4){
+                        echo "<script>alert('erreur dans image');</script>";
+                        exit;
+                    }
+                    //maximum file size -- int in ['size']
+                    if($_FILES['photo']['size'] > 3000){
+                        echo "<script>alert('image trops large');history.back();</script>";
+                        exit;
+                    }
+                    //file format -- string in ['type']
+                    $allowType = array('image/png','image/gif','image/jpg','image/jpeg','image/pjpeg');
+                    if (!in_array($_FILES['photo']['type'], $allowType)){
+                        echo "<script>alert('wrong image format');history.back();</script>";
+                        exit;
+                    }
+                    //file path
+                    $uploaddir = "assets/images/"; //root folder is /public, write anything directly under it
+                    $uploadfile = $uploaddir . $_FILES['photo']['name'];
+
+                    if(move_uploaded_file($_FILES['photo']['tmp_name'], $uploadfile)){
+                        //prepare data from the formulaire
+                        unset($_POST['MAX_FILE_SIZE']);
+                        $photo_name = $_FILES['photo']['name'];
+                        //insert into the table `stamp`
+                        $bool = \App\Models\Stamp::modifier($_POST);
+                        //insert into the table `photo`
+                        if (\App\Models\Stamp::modifierPhoto($st_id, $photo_name)) echo "<script>location.href='/user/profil';</script>";
+                    }else{
+                        echo "<script>alert('image non trouvé');history.back();</script>";
+                        exit;
+                    }
+                }
             }
+
 
             View::renderTemplate('Stamp/modifier.html',
                                 ['st_id' => $st_id,

@@ -122,18 +122,15 @@
                     {% endfor %}
                 </select>
                 <!--display photo in file-->
+                <label>Image principale:</label>
                 <img src="../../../assets/images/{{ st.photo_name }}" alt="description pour timbre {{ st_id }}">
+                
                 <!--upload photo-->
+                <label for="photo">Téléverser une autre image</label>
                 <!-- MAX_FILE_SIZE must precede the file input field -->
                 <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
-                <label for="photo_name">Téléverser une image</label>
-                <input type="file" name="photo_name" id="photo_name">
-                <!--principal image: yes/no-->
-                <label for="photo_principal">Image principale: </label>
-                <select name="photo_principal" id="photo_principal">
-                    <option value="1">Oui</option>
-                    <option value="0">Non</option>
-                </select>
+                <input type="file" name="photo" id="photo">
+
                 <input type="reset" value="Rétablir">
                 <input type="submit" value="Soumettre">
             </form>
