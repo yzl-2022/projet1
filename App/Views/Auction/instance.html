@@ -59,9 +59,9 @@
         <div class="title">
             <div class="left"><h3>Timbres dans Enchère {{ au_id }}</h3></div>
             {% if au.au_user_id != user.user_id %}    
-            <a class="ajouter" href="{{ url_racine }}{{ user ? '/user/miser/' ~ auction.au_id : '/user/login' }}">Placer un mise</a>
+            <a class="ajouter" href="{{ url_racine }}{{ user ? '/user/miser/' ~ au.au_id : '/user/login' }}">Placer un mise</a>
             {% else %}
-            <a class="ajouter" href="{{ url_racine }}/auction/modifier/{{ auction.au_id }}"> Modifier </a>
+            <a class="ajouter" href="{{ url_racine }}/auction/modifier/{{ au.au_id }}"> Modifier </a>
             {% endif %}
         </div>
         <div class="content">
