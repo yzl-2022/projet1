@@ -90,19 +90,17 @@
         <table class="wrapper" id="table-offres">
             <thead>
                 <tr>
+                    <th>mise par</th>
                     <th>prix ($)</th>
                     <th>date</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 {% for offer in offers %}
                 <tr>
+                    <td>{{ offer.user_prenom|title }} {{ offer.user_nom|title }}</td>
                     <td>{{ offer.offre_price }}</td>
                     <td>{{ offer.offre_date }}</td>
-                    <td>
-                        <a href="{{ url_racine }}/user/unmiser/{{ offer.offre_id }}">Supprimer</a>
-                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

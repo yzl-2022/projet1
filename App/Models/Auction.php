@@ -85,19 +85,17 @@ class Auction extends \Core\Model
     }
 
     /**
-     * Get all offers of one user to an auction
+     * Get all offers by all users of an auction
      * @param int $au_id
-     * @param int $user_id
      * @return array
      */
-    public static function getOffers($au_id,$user_id)
+    public static function getOffers($au_id)
     {
         $db = static::getDB();
-        $stmt = $db->prepare("SELECT * FROM offre 
-                              WHERE offre_au_id = :au_id
-                              AND offre_user_id = :user_id");
+        $stmt = $db->prepare("SELECT offre_price, offre_date, user_nom, user_prenom FROM offre 
+                              JOIN user on offre_user_id = user_id
+                              WHERE offre_au_id = :au_id");
         $stmt->bindParam(':au_id', $au_id);
-        $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }

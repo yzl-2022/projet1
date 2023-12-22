@@ -96,7 +96,7 @@ class Stamp extends \Core\Controller
                         }
                         //file path
                         $uploaddir = "assets/images/"; //root folder is /public, write anything directly under it
-                        $uploadfile = $uploaddir . $_FILES['photo']['name'];
+                        $uploadfile = $uploaddir . uniqid(). $_FILES['photo']['name'];
 
                         if(move_uploaded_file($_FILES['photo']['tmp_name'], $uploadfile)){
                             //prepare data from the formulaire

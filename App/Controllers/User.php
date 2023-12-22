@@ -204,20 +204,5 @@ class User extends \Core\Controller
             echo "<script>alert('Vous devez se connecter pour placer un mise.');location.href='/user/login';</script>";
         }
     }
-
-    /**
-     * supprimer un mise
-     *
-     * @return void
-     */
-    public function unmiserAction()
-    {
-        if (isset($_SESSION['user'])){
-            $id = $this->route_params['id'];
-            if (\App\Models\User::unmiser($id)) echo "<script>location.href='/user/profil';</script>";
-        }else{
-            echo "<script>alert('Vous devez se connecter pour visiter cette page.');location.href='/user/login';</script>";
-        }
-    }
 }
 

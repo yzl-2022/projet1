@@ -107,7 +107,6 @@
                     <th>enchère id</th>
                     <th>prix ($)</th>
                     <th>date</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -116,9 +115,6 @@
                     <td>{{ offer.offre_au_id }}</td>
                     <td>{{ offer.offre_price }}</td>
                     <td>{{ offer.offre_date }}</td>
-                    <td>
-                        <a href="{{ url_racine }}/user/unmiser/{{ offer.offre_id }}">Supprimer</a>
-                    </td>
                 </tr>
                 {% endfor %}
             </tbody>

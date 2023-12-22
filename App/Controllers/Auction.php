@@ -41,16 +41,15 @@ class Auction extends \Core\Controller
         // obtain data
         $au_id = $this->route_params['id'];
         $stamps = \App\Models\Auction::getStamps($au_id);
+        $offers = \App\Models\Auction::getOffers($au_id);
+
+        //var_dump($offers);
 
         $au = \App\Models\Auction::getOne($au_id);
 
         // check if the user has log in
         $user = null;
-        $offers = null;
-        if (isset($_SESSION['user'])){
-            $user = $_SESSION['user'];
-            $offers = \App\Models\Auction::getOffers($au_id,$user['user_id']);
-        }
+        if (isset($_SESSION['user'])) $user = $_SESSION['user'];
 
         View::renderTemplate('Auction/instance.html',
                              ['user' => $user,
