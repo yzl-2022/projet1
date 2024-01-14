@@ -5,7 +5,7 @@ namespace App\Controllers;
 use \Core\View;
 
 /**
- * Etudiant controller
+ * User controller
  *
  * PHP version 7.0
  */
@@ -53,12 +53,14 @@ class User extends \Core\Controller
             $auctions = \App\Models\Auction::getByUser($user_id);
             $stamps = \App\Models\Stamp::getByUser($user_id);
             $offers = \App\Models\User::getOffers($user_id);
+            $favoris = \App\Models\User::getFavoris($user_id);
 
             View::renderTemplate('User/profil.html',
                                 ['user' => $_SESSION['user'],
                                  'auctions' => $auctions,
                                  'stamps' => $stamps,
                                  'offers' => $offers,
+                                 'favoris' => $favoris
                                 ]);
         }else{
             $user = null;
@@ -67,7 +69,6 @@ class User extends \Core\Controller
                 $user = \App\Models\User::connecter($_POST);
                 if ($user !== false){
                     $_SESSION['user'] = $user;
-                    exit(header('Location:/user/profil')); //$_SESSION need to refresh the page
                     View::renderTemplate('User/profil.html',
                                         ['user' => $user]);
                 }else{ // if connection fails
@@ -98,7 +99,7 @@ class User extends \Core\Controller
                                  'stamps' => $all_stamps
                                 ]);
         }else{
-            echo "<script>alert('Vous devez se connecter comme administrateur ou propriétaire pour visiter cette page.');location.href='/user/login';</script>";
+            echo "<script>alert('Vous devez se connecter comme administrateur ou propriétaire pour visiter cette page.');location.href='".\App\Config::URL_RACINE."/user/login';</script>";
         }
     }
 
@@ -126,7 +127,7 @@ class User extends \Core\Controller
                                  'roles' => $roles]);
 
         }else{
-            echo "<script>alert('Vous devez se connecter comme administrateur ou propriétaire pour visiter cette page.');location.href='/user/login';</script>";
+            echo "<script>alert('Vous devez se connecter comme administrateur ou propriétaire pour visiter cette page.');location.href='".\App\Config::URL_RACINE."/user/login';</script>";
         }
     }
 
@@ -159,7 +160,7 @@ class User extends \Core\Controller
                                  'userToModify' => $userToModify]);
 
         }else{
-            echo "<script>alert('Vous devez se connecter comme administrateur ou propriétaire pour visiter cette page.');location.href='/user/login';</script>";
+            echo "<script>alert('Vous devez se connecter comme administrateur ou propriétaire pour visiter cette page.');location.href='".\App\Config::URL_RACINE."/user/login';</script>";
         }
     }
 
@@ -172,9 +173,9 @@ class User extends \Core\Controller
     {
         if ( isset($_SESSION['user']) && ($_SESSION['user']['role'] == 'administrateur' || $_SESSION['user']['role'] == 'propriétaire')){
             $id = $this->route_params['id'];
-            if (\App\Models\User::delete($id)) echo "<script>location.href='/user/admin';</script>";
+            if (\App\Models\User::delete($id)) echo "<script>location.href='".\App\Config::URL_RACINE."/user/admin';</script>";
         }else{
-            echo "<script>alert('Vous devez se connecter comme administrateur ou propriétaire pour visiter cette page.');location.href='/user/login';</script>";
+            echo "<script>alert('Vous devez se connecter comme administrateur ou propriétaire pour visiter cette page.');location.href='".\App\Config::URL_RACINE."/user/login';</script>";
         }
     }
 
@@ -193,7 +194,7 @@ class User extends \Core\Controller
 
             if (!empty($_POST)){
 
-                if (\App\Models\User::miser($_POST)) echo "<script>alert('Vous avez placé un mise avec succès');location.href='/auction/instance/$au_id';</script>";
+                if (\App\Models\User::miser($_POST)) echo "<script>alert('Vous avez placé un mise avec succès');location.href='".\App\Config::URL_RACINE."/auction/instance/$au_id';</script>";
             }
             View::renderTemplate('User/miser.html',
                                 ['user' => $user,
@@ -201,7 +202,45 @@ class User extends \Core\Controller
                                  'au' => $au]);
 
         }else{
-            echo "<script>alert('Vous devez se connecter pour placer un mise.');location.href='/user/login';</script>";
+            echo "<script>alert('Vous devez se connecter pour placer un mise.');location.href='".\App\Config::URL_RACINE."/user/login';</script>";
+        }
+    }
+
+    /**
+     * ajouter au favoris (favorisé)
+     * 
+     * @return void
+     */
+    public function favoriserAction()
+    {
+        if (isset($_SESSION['user'])) { //only the members signed up can do this
+
+            $user = $_SESSION['user'];
+            $au_id = $this->route_params['id'];
+
+            if (\App\Models\User::favoriser($user['user_id'], $au_id)) echo "<script>history.back()</script>";
+
+        }else{
+            echo "<script>alert('Vous devez se connecter pour ajouter à la liste des favoris.');location.href='".\App\Config::URL_RACINE."/user/login';</script>";
+        }
+    }
+
+    /**
+     * supprimer au favoris (unfavorisé)
+     * 
+     * @return void
+     */
+    public function unfavoriserAction()
+    {
+        if (isset($_SESSION['user'])) { //only the members signed up can do this
+
+            $user = $_SESSION['user'];
+            $au_id = $this->route_params['id'];
+
+            if (\App\Models\User::unfavoriser($user['user_id'], $au_id)) echo "<script>history.back()</script>";
+
+        }else{
+            echo "<script>alert('Vous devez se connecter pour supprimer dans la liste des favoris.');location.href='".\App\Config::URL_RACINE."/user/login';</script>";
         }
     }
 }

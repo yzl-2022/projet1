@@ -74,9 +74,9 @@
                     <td>{{ user.user_email }}</td>
                     <td>{{ user.role }}</td>
                     <td>
-                        <a href="{{ url_racine }}/user/modifier/{{ user.user_id}}">Modifier</a>
+                        <a href="{{ url_racine }}/user/modifier/{{ user.user_id }}">Modifier</a>
                         {% if user.role != 'propriétaire' %}
-                        <a href="{{ url_racine }}/user/supprimer/{{ user.user_id}}">Supprimer</a>
+                        <a href="{{ url_racine }}/user/supprimer/{{ user.user_id }}">Supprimer</a>
                         {% endif %}
                     </td>
                 </tr>

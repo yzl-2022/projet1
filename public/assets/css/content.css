@@ -46,6 +46,7 @@
     width: auto;  /*why the inverse (width: 100%; height: auto) does not work?*/
     height: 100%;
     vertical-align: middle;  /*It seems not to work, why?  --> flex parent box*/
+    display: flex;
 }
 
 .content li .txt {

@@ -54,12 +54,13 @@
                 <li><a href="#mises">Mises</a></li>
             </ul>
         </section>
-        {% if auctions|length > 0 %}
+        
         <!--title-->
         <div class="title" id="encheres">
             <div class="left"><h3>ENCHÈRES</h3></div>
             <a class="ajouter" href="{{ url_racine }}/auction/ajouter">ajouter une enchère</a>
         </div>
+        {% if auctions|length > 0 %}
         {% for auction in auctions %}
         <!--title-->
         <div class="title">
@@ -115,6 +116,29 @@
                     <td>{{ offer.offre_au_id }}</td>
                     <td>{{ offer.offre_price }}</td>
                     <td>{{ offer.offre_date }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+        <!--table-favoris-->
+        {% if favoris|length > 0 %}
+        <!--title-->
+        <div class="title">
+            <div class="left" id="mises"><h3>FAVORIS</h3></div>
+        </div>
+        <table class="wrapper" id="table-offres">
+            <thead>
+                <tr>
+                    <th>enchère id</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for favori in favoris %}
+                <tr>
+                    <td>{{ favori.fav_au_id }}</td>
+                    <td><a href="{{ url_racine }}/user/unfavoriser/{{ favori.fav_au_id }}">retirer des favoris</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

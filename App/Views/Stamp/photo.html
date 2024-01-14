@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="projet1-stampee">
-    <title>ENCHÈRE</title>
-    <link rel="stylesheet" href="../../assets/css/index.css">
+    <title>TIMBRE</title>
+    <link rel="stylesheet" href="../../assets/css/products.css">
 </head>
 <body>
     <!--top-menu-->
@@ -29,7 +29,7 @@
         <div class="headerNav">
             <ul>
                 <li><a href="{{ url_racine }}/stamp/lister">TIMBRES</a></li>
-                <li><a class="active" href="{{ url_racine }}/auction/lister">ENCHÈRES</a></li>
+                <li><a href="{{ url_racine }}/auction/lister">ENCHÈRES</a></li>
                 <li><a href="{{ url_racine }}/home/about">SUR NOUS</a></li>
             </ul>
         </div>
@@ -46,75 +46,34 @@
     </header>
     <!--breadcrumb-->
     <aside class="breadcrumb wrapper">
+        
         <ul>
             <li><a href="{{ url_racine }}/">ACCUEIL</a> ></li>
-            <li><a href="{{ url_racine }}/auction/lister">ENCHÈRES</a> ></li>
-            <li><a class="active" href="{{ url_racine }}/auction/instance/{{ au_id }}">Timbres d'enchère {{ au_id }}</a></li>
+            <li><a href="{{ url_racine }}/user/profil">PROFIL</a> ></li>
+            <li><a class="active" href="{{ url_racine }}/stamp/photo{{ st_id }}">Ajouter une image supplémentaire</a></li>
         </ul>
     </aside>
     <!--main-->
     <main class="wrapper">
-        <!--list of stamps-->
-        {% if stamps|length > 0 %}
-        <div class="title">
-            <div class="left"><h3>Timbres dans Enchère {{ au_id }}</h3></div>
-            {% if au.au_user_id != user.user_id %}    
-            <a class="ajouter" href="{{ url_racine }}{{ user ? '/user/miser/' ~ au_id : '/user/login' }}">Placer un mise</a>
-            {% else %}
-            <a class="ajouter" href="{{ url_racine }}/auction/modifier/{{ au_id }}"> Modifier </a>
-            {% endif %}
-        </div>
-        <div class="content">
-            <ul>
-                {% for stamp in stamps %}
-                <li>
-                    <a href="{{ url_racine }}/stamp/instance/{{ stamp.st_id }}">
-                        <div class="pic"><img src="../../assets/images/{{ stamp.photo_name }}" alt="image pour {{ stamp.st_title }}"></div>
-                        <div class="txt">
-                            <h3>{{ stamp.st_title|title }}</h3>
-                            <p>{{ stamp.st_description }}</p>
-                            <p class="price">Tirage: <span>{{ stamp.st_tirage}}</span></p>
-                        </div>
-                    </a>
-                    <div class="promo">{{ stamp.st_condition }}</div>
-                </li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-        <!--list of offers-->
-        {% if offers|length > 0 %}
-        <div class="title">
-            <div class="left"><h3>Mises pour Enchère {{ au_id }}</h3></div>
-        </div>
-        <table class="wrapper" id="table-offres">
-            <thead>
-                <tr>
-                    <th>mise par</th>
-                    <th>prix ($)</th>
-                    <th>date</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for offer in offers %}
-                <tr>
-                    <td>{{ offer.user_prenom|title }} {{ offer.user_nom|title }}</td>
-                    <td>{{ offer.offre_price }}</td>
-                    <td>{{ offer.offre_date }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        {% endif %}
-        <!--like-->
-        <section class="location wrapper">
-        {% if user and like %}
-            <a href="{{ url_racine }}/user/unfavoriser/{{au_id}}"><h3>favorisé</h3></a>
-        {% else %}
-            <a href="{{ url_racine }}{{ user ? '/user/favoriser/' ~ au_id : '/user/login' }}"><h3>ajouter à la liste des favoris</h3></a>
-        {% endif %}
+        <!--ajouter un timbre-->
+        <section class="filter">
+            <!--form of adding a stamp-->
+            <form enctype="multipart/form-data" action="" name="stamp_ajouter" method="post">
+                <h2>Ajouter une image supplémentaire</h2>
+                <!--st_id-->
+                <input class='hide' type="text" name="st_id" value="{{ st_id }}">
+            
+                <!--upload photo-->
+                <label for="photo">Téléverser l'image supplémentaire</label>
+                <!-- MAX_FILE_SIZE must precede the file input field -->
+                <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+                <input type="file" name="photo" id="photo">
+                
+                <input type="reset" value="Rétablir">
+                <input type="submit" value="Soumettre">
+            </form>
         </section>
-    </main>
+    </main>        
     <!--footer-->
     <footer class="wrapper">
         <!--about-->
@@ -132,8 +91,8 @@
             <dl>
                 <dt>PLAN DU SITE</dt>
                 <dd><a href="{{ url_racine }}/">Accueil</a></dd>
-                <dd><a href="{{ url_racine }}/stamp/lister">Timbres</a></dd>
-                <dd><a class="active" href="{{ url_racine }}/auction/lister">Enchères</a></dd>
+                <dd><a class="active" href="{{ url_racine }}/stamp/lister">Timbres</a></dd>
+                <dd><a href="{{ url_racine }}/auction/lister">Enchères</a></dd>
                 <dd><a href="{{ url_racine }}/home/about">Sur nous</a></dd>
             </dl>
         </div>

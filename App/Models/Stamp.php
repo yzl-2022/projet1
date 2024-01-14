@@ -49,12 +49,29 @@ class Stamp extends \Core\Model
         $db = static::getDB();
         $stmt = $db->prepare("SELECT * FROM stamp 
                               JOIN photo on st_id = photo_st_id
-                              JOIN auction ON st_au_id = au_id
-                              WHERE st_id = :st_id");
+                              WHERE st_id = :st_id
+                              AND photo_principal = 1");
         $stmt->bindParam(':st_id', $st_id);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    /**
+     * lister toutes images supplémentaires d'un timbre
+     * @param int $st_id
+     * @return array
+     */
+    public static function getPhoto($st_id)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare("SELECT * FROM photo 
+                              WHERE photo_st_id = :st_id
+                              AND photo_principal = 0");
+        $stmt->bindParam(':st_id', $st_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 
     /**
      * get the id of the last stamp available
@@ -131,29 +148,6 @@ class Stamp extends \Core\Model
     }
 
     /**
-     * ajouter un photo pour un timbre
-     * @param int $st_id
-     * @param int $photo_name
-     * @param int $principal
-     * @return boolean
-     */
-    public static function insertPhoto($st_id, $photo_name, $principal)
-    {
-        $db = static::getDB();
-        $stmt = $db->prepare('INSERT INTO photo SET photo_st_id = :photo_st_id,
-                                                    photo_name = :photo_name,
-                                                    photo_principal = :photo_principal');
-        $stmt->bindParam(':photo_st_id', $st_id);
-        $stmt->bindParam(':photo_name', $photo_name);
-        $stmt->bindParam(':photo_principal', $principal);
-        $stmt->execute();
-
-        if ($stmt->rowCount() <= 0)  return false;
-        if ($db->lastInsertId() > 0) return $db->lastInsertId();
-        return true;
-    }
-
-    /**
      * supprimer un timbre
      * @param int $st_id
      * @return boolean
@@ -197,9 +191,47 @@ class Stamp extends \Core\Model
         if ($db->lastInsertId() > 0) return $db->lastInsertId();
         return true;
     }
+    
+    /**
+     * ajouter un photo d'un timbre
+     * @param int $st_id
+     * @param int $photo_name
+     * @param int $principal
+     * @return boolean
+     */
+    public static function insertPhoto($st_id, $photo_name, $principal)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare('INSERT INTO photo SET photo_st_id = :photo_st_id,
+                                                    photo_name = :photo_name,
+                                                    photo_principal = :photo_principal');
+        $stmt->bindParam(':photo_st_id', $st_id);
+        $stmt->bindParam(':photo_name', $photo_name);
+        $stmt->bindParam(':photo_principal', $principal);
+        $stmt->execute();
+
+        if ($stmt->rowCount() <= 0)  return false;
+        if ($db->lastInsertId() > 0) return $db->lastInsertId();
+        return true;
+    }
 
     /**
-     * modifier image prinpicale pour un timbre
+     * supprimer une image supplémentaire d'un timbre
+     * @param int $photo_id
+     * @return boolean
+     */
+    public static function deletePhoto($id)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare('DELETE FROM photo WHERE photo_id = :id');
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        if ($stmt->rowCount() <= 0)  return false;
+        return true;
+    }
+
+    /**
+     * modifier l'image prinpicale pour un timbre
      * @param int $st_id
      * @param int $photo_name
      * @return boolean
@@ -208,7 +240,8 @@ class Stamp extends \Core\Model
     {
         $db = static::getDB();
         $stmt = $db->prepare('UPDATE photo SET photo_name = :photo_name
-                                           WHERE (photo_st_id = :photo_st_id AND photo_principal = 1)');
+                                           WHERE photo_st_id = :photo_st_id 
+                                           AND photo_principal = 1');
         $stmt->bindParam(':photo_st_id', $st_id);
         $stmt->bindParam(':photo_name', $photo_name);
         $stmt->execute();

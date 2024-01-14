@@ -131,6 +131,16 @@
                 <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
                 <input type="file" name="photo" id="photo">
 
+                {% if photos|length > 0 %}
+                <label>Image supplémentaire:</label>
+                {% for photo in photos %}
+                <img src="../../../assets/images/{{ photo.photo_name }}" alt="description pour timbre {{ photo.photo_id }}">
+                <a href="{{ url_racine }}/stamp/unphoto/{{ photo.photo_id }}"></a>
+                {% endfor %}
+                {% endif %}
+
+                <label><a class="active" href="{{ url_racine }}/stamp/photo/{{ st_id }}">Ajouter image supplémentaire</a></label>
+
                 <input type="reset" value="Rétablir">
                 <input type="submit" value="Soumettre">
             </form>

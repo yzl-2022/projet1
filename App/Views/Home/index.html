@@ -81,7 +81,7 @@
                 {% for auction in auctions %}
                 <li>
                     <a href="{{ url_racine }}/auction/instance/{{ auction.au_id }}">
-                        <div class="pic"><img src="../assets/images/{{ auction.photo_name }}" alt="image pour {{ auction.st_title }}"></div>
+                        <div class="pic"><img src="assets/images/{{ auction.photo_name }}" alt="image pour {{ auction.st_title }}"></div>
                         <div class="txt">
                             <h3>Heure de début:<br> {{ auction.au_start_date }}</h3>
                             <p>Ouvert pour miser jusqu'à <span>{{ auction.au_end_date }}</span></p>

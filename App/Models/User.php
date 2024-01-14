@@ -66,6 +66,22 @@ class User extends \Core\Model
     }
 
     /**
+     * Get all auctions liked by a user
+     * @param int $user_id
+     * @return array
+     */
+    public static function getFavoris($user_id)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare("SELECT * FROM favoris
+                              JOIN auction on fav_au_id = au_id
+                              WHERE fav_user_id = :user_id");
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    /**
      * Connecter un utilisateur
      * @param array $data, tableau avec les champs utilisateur_courriel et utilisateur_mdp
      * @return array
@@ -151,7 +167,7 @@ class User extends \Core\Model
     }
 
     /**
-     * place un mise
+     * placer un mise
      * @param array $data
      * @return boolean
      */
@@ -172,15 +188,51 @@ class User extends \Core\Model
     }
 
     /**
-     * Supprimer un mise
-     * @param int $offre_id
+     * ajouter au favoris (favorisé)
+     * @param int $user_id
+     * @param int $au_id
      * @return boolean
      */
-    public static function unmiser($offre_id)
+    public static function favoriser($user_id, $au_id)
     {
         $db = static::getDB();
-        $stmt = $db->prepare('DELETE FROM offre WHERE offre_id = :offre_id');
-        $stmt->bindParam(':offre_id', $offre_id);
+        $stmt = $db->prepare('INSERT INTO favoris SET fav_au_id = :au_id, fav_user_id = :user_id');
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':au_id', $au_id);
+        $stmt->execute();
+        if ($stmt->rowCount() <= 0)  return false;
+        return true;
+    }
+
+    /**
+     * supprimer au favoris (unfavorisé)
+     * @param int $user_id
+     * @param int $au_id
+     * @return boolean
+     */
+    public static function unfavoriser($user_id, $au_id)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare('DELETE FROM favoris WHERE fav_au_id = :au_id AND fav_user_id = :user_id');
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':au_id', $au_id);
+        $stmt->execute();
+        if ($stmt->rowCount() <= 0)  return false;
+        return true;
+    }
+
+    /**
+     * vérifier le statut de favori
+     * @param int $user_id
+     * @param int $au_id
+     * @return boolean
+     */
+    public static function isLiked($user_id, $au_id)
+    {
+        $db = static::getDB();
+        $stmt = $db->prepare('SELECT * FROM favoris WHERE fav_au_id = :au_id AND fav_user_id = :user_id');
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':au_id', $au_id);
         $stmt->execute();
         if ($stmt->rowCount() <= 0)  return false;
         return true;

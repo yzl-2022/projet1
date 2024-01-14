@@ -5,18 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="projet1-stampee">
     <title>ENCHÈRE</title>
-    <link rel="stylesheet" href="../../assets/css/products.css">
+    <link rel="stylesheet" href="../assets/css/products.css">
 </head>
 <body>
     <!--top-menu-->
     <nav class="wrapper">
         <ul>
-            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/profil"><img src="../../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
+            <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/profil"><img src="../assets/icons/account.svg" alt="account"><span>{{ user.user_prenom|title }} {{ user.user_nom|title }}</span></a></li>
             <li class="{{ user ? '' : 'hide' }}"><a href="{{ url_racine }}/user/login">DÉCONNECTER</a></li>
             <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/login">CONNEXION</a></li>
             <li class="{{ user ? 'hide' : '' }}"><a href="{{ url_racine }}/user/signup">INSCRIPTION</a></li>
             <li><a href="#">CONTACTEZ-NOUS</a></li>
-            <li><a href="#"><img src="../../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
+            <li><a href="#"><img src="../assets/icons/language.svg" alt="language"><span class="active">FR</span></a></li>
         </ul>
     </nav>
     <!--header--main-menu-->
@@ -122,10 +122,10 @@
                 <dd><a href="#">services@stampee.ca</a></dd>
             </dl>
             <ul>
-                <li><a href="#"><img src="../../assets/icons/facebook.svg" alt="facebook"></a></li>
-                <li><a href="#"><img src="../../assets/icons/twitter.svg" alt="twitter"></a></li>
-                <li><a href="#"><img src="../../assets/icons/youtube.svg" alt="youtube"></a></li>
-                <li><a href="#"><img src="../../assets/icons/instagram.svg" alt="instagram"></a></li>
+                <li><a href="#"><img src="../assets/icons/facebook.svg" alt="facebook"></a></li>
+                <li><a href="#"><img src="../assets/icons/twitter.svg" alt="twitter"></a></li>
+                <li><a href="#"><img src="../assets/icons/youtube.svg" alt="youtube"></a></li>
+                <li><a href="#"><img src="../assets/icons/instagram.svg" alt="instagram"></a></li>
             </ul>
         </div>
     </footer>

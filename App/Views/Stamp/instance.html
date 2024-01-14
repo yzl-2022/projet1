@@ -6,6 +6,38 @@
     <meta name="description" content="projet1-stampee">
     <title>TIMBRE</title>
     <link rel="stylesheet" href="../../assets/css/products.css">
+    <link rel="stylesheet" href="../../assets/css/zoom.css">
+    <style>
+        .box {
+            position: relative;
+        }
+        .mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 120px;
+            height: 120px;
+            background-color: var(--blue);
+            opacity: 0.4;
+            display: none;    /* display only when mouse over */
+        }
+        .zoom {
+            position: absolute;
+            overflow: hidden;
+            width: 580px;
+            height: 400px;
+            top: 0px;
+            left: 300px;
+            display: none;    /* display only when mouse over */
+        }
+        .zoom img{
+            position: absolute;
+            top: 0;
+            left: 0;
+            max-width: 870px;
+            max-height: 600px;
+        }
+    </style>
 </head>
 <body>
     <!--top-menu-->
@@ -56,8 +88,10 @@
     <main class="wrapper content">
         <!--stamp-->
         <article>
-            <a href="{{ url_racine }}/stamp/instance/{{ stamp.st_id }}">
-                <div class="pic"><img src="../../assets/images/{{ stamp.photo_name }}" alt="image pour {{ stamp.st_title }}"></div>
+                <div class="box">
+                    <div class="pic"><img src="../../assets/images/{{ stamp.photo_name }}" alt="image pour {{ stamp.st_title }}"><div class="mask"></div></div>
+                    <div class="zoom"><img src="../../assets/images/{{ stamp.photo_name }}" alt="image large pour {{ stamp.st_title }}"></div>
+                </div>
                 <div class="txt">
                     <h3>{{ stamp.st_title|title }}</h3>
                     <p>Description: {{ stamp.st_description }}</p>
@@ -76,7 +110,6 @@
                     {% endif %}
                     <p><!--empty for test--></p>
                 </div>
-            </a>
         </article>
     </main>
     <!--footer-->
@@ -128,5 +161,52 @@
             </ul>
         </div>
     </footer>
+<script>
+    const box = document.querySelector('.box');
+    const mask = document.querySelector('.mask');
+    const zoom = document.querySelector('.zoom');
+    const zoomImg = document.querySelector('.zoom>img');
+
+    window.addEventListener('load', function(){
+
+        box.addEventListener('mouseover', function(){
+            mask.style.display = 'block';
+            zoom.style.display = 'block';
+        });
+        box.addEventListener('mouseout', function(){
+            mask.style.display = 'none';
+            zoom.style.display = 'none';
+        });
+        box.addEventListener('mousemove', function(e){
+            //position of mouse-pointer
+            var x = e.pageX - this.offsetLeft;
+            var y = e.pageY - this.offsetTop;
+            //position of mask
+            var maskX = x - mask.offsetWidth/2;
+            var maskY = y - mask.offsetHeight/2;
+            //movement range of mask
+            var maskWidth = box.offsetWidth - mask.offsetWidth;
+            var maskHeight = box.offsetHeight - mask.offsetHeight;
+            if ( maskX <= 0){
+                maskX = 0;
+            }else if ( maskX >= maskWidth ){
+                maskX = maskWidth;
+            }
+            if ( maskY <= 0){
+                maskY = 0;
+            }else if ( maskY >= maskHeight ){
+                maskY = maskHeight;
+            }
+            mask.style.left = maskX + 'px';
+            mask.style.top = maskY + 'px';
+
+            //movement of zoom image
+            var zoomX = maskX * (zoomImg.offsetWidth - zoom.offsetWidth) / (box.offsetWidth - zoom.offsetWidth);
+            var zoomY = maskY * (zoomImg.offsetHeight - zoom.offsetHeight) / (box.offsetHeight - zoom.offsetHeight);
+            zoomImg.style.left = zoomX + 'px';
+            zoomImg.style.top = zoomY + 'px';
+        });
+    });
+</script>
 </body>
 </html>

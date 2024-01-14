@@ -5,7 +5,7 @@ namespace App\Controllers;
 use \Core\View;
 
 /**
- * Etudiant controller
+ * Auction controller
  *
  * PHP version 7.0
  */
@@ -50,13 +50,16 @@ class Auction extends \Core\Controller
         // check if the user has log in
         $user = null;
         if (isset($_SESSION['user'])) $user = $_SESSION['user'];
+        $like = null;
+        if ($user) $like = \App\Models\User::isLiked($user['user_id'],$au_id);
 
         View::renderTemplate('Auction/instance.html',
                              ['user' => $user,
                               'au_id' => $au_id,
                               'stamps' => $stamps,
                               'offers' => $offers,
-                              'au' => $au
+                              'au' => $au,
+                              'like' => $like
                             ]);
     }
 
@@ -69,14 +72,13 @@ class Auction extends \Core\Controller
     {
         // check if the user has log in -- this page is not accessible without login
         if (!isset($_SESSION['user'])){
-            echo "<script>alert('Vous devez se connecter pour visiter cette page.');location.href='/user/login';</script>";
+            echo "<script>alert('Vous devez se connecter pour visiter cette page.');location.href='".\App\Config::URL_RACINE."/user/login';</script>";
         }else{
             $user = $_SESSION['user'];
 
             if (!empty($_POST)) {
 
-                $id_insertion = \App\Models\Auction::insert($_POST);
-                echo "<br>L'id de l'enchère insérée est $id_insertion";
+                if (\App\Models\Auction::insert($_POST)) echo "<script>location.href='".\App\Config::URL_RACINE."/user/profil';</script>";
             }
     
             View::renderTemplate('Auction/ajouter.html',
@@ -93,7 +95,7 @@ class Auction extends \Core\Controller
     {
         // check if the user has log in -- this page is not accessible without login
         if (!isset($_SESSION['user'])){
-            echo "<script>alert('Vous devez se connecter pour visiter cette page.');location.href='/user/login';</script>";
+            echo "<script>alert('Vous devez se connecter pour visiter cette page.');location.href='".\App\Config::URL_RACINE."/user/login';</script>";
         }else{
             $user = $_SESSION['user'];
 
@@ -123,10 +125,10 @@ class Auction extends \Core\Controller
     {
         // check if the user has log in -- this page is not accessible without login
         if (!isset($_SESSION['user'])){
-            echo "<script>alert('Vous devez se connecter pour visiter cette page.');location.href='/user/login';</script>";
+            echo "<script>alert('Vous devez se connecter pour visiter cette page.');location.href='".\App\Config::URL_RACINE."/user/login';</script>";
         }else{
             $id = $this->route_params['id'];
-            if (\App\Models\Auction::delete($id)) echo "<script>location.href='/user/profil';</script>";
+            if (\App\Models\Auction::delete($id)) echo "<script>location.href='".\App\Config::URL_RACINE."/user/profil';</script>";
         }
     }
 }
