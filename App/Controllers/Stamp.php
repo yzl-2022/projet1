@@ -26,8 +26,12 @@ class Stamp extends \Core\Controller
         // obtain data
         $list = \App\Models\Stamp::getAll();
 
+        //get a list of all categories from SQL query
+        $categories = \App\Models\Stamp::getCategories();
+
         View::renderTemplate('Stamp/index.html',
                              ['user' => $user,
+                              'categories' => $categories,
                               'stamps' => $list]);
     }
 

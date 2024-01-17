@@ -60,9 +60,9 @@
             <form action="" name="auction_modifier" method="post">
                 <h2>Modifier enchère {{ au_id }}</h2>
                 <!--au_id-->
-                <input class='hide' type="text" name="au_id" value="{{ au_id }}">
+                <input type="hidden" name="au_id" value="{{ au_id }}">
                 <!--au_user_id-->
-                <input class='hide' type="text" name="au_user_id" value="{{ user.user_id }}">
+                <input type="hidden" name="au_user_id" value="{{ user.user_id }}">
                 <!--Prix plancher-->
                 <label for="au_prix_plancher">Prix plancher:</label>
                 <input type="number" name="au_prix_plancher" id="au_prix_plancher" value="{{ au.au_prix_plancher|number_format }}">
@@ -76,6 +76,16 @@
                 <input type="date" name="au_end_date" id="au_end_date" value="{{ au.au_end_date|slice(0,10)|date('Y-m-d')}}">
                 <label for="au_end_time">Heure de fin:</label>
                 <input type="time" name="au_end_time" id="au_end_time" value="{{ au.au_end_date|slice(11,19)|date('H:i:s')}}">
+                <!--coups de coeur de Lord-->
+                {% if (user.role == 'administrateur' or user.role == 'propriétaire') %}
+                <label for="au_lord">Coups de coeur de Lord</label>
+                <select name="au_lord" id="au_lord">
+                    <option value="1" {{ au.au_lord == '1' ? 'selected' : '' }}>Oui</option>
+                    <option value="0" {{ au.au_lord == '0' ? 'selected' : '' }}>Non</option>
+                </select>
+                {% else %}
+                <input type="hidden" name="au_lord" value="{{ au.au_lord }}">
+                {% endif %}
                 <!--button-->
                 <input type="reset" value="Rétablir">
                 <input type="submit" value="Soumettre">

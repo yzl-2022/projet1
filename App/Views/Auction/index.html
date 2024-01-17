@@ -56,7 +56,7 @@
         <!--filter-->
         <section class="filter">
             <!--form of the filter-->
-            <form action="" name="filter">
+            <form action="" name="filter" id="formFilter">
                 <h2>Sélection</h2>
                 <label for="start_date">Date de début:</label>
                 <input type="date" name="start_date" id="start_date">
@@ -65,12 +65,11 @@
                 <fieldset>
                     <legend>Fourchette de prix :</legend>
                     <label for="minP">Minimum</label>
-                    <input type="text" name="minP" id="minP" placeholder="9.99">
+                    <input type="number" name="minP" id="minP" placeholder="9.99">
                     <label for="maxP">Maximum</label>
-                    <input type="text" name="maxP" id="maxP" placeholder="999.99">
+                    <input type="number" name="maxP" id="maxP" placeholder="999.99">
                 </fieldset>
                 <input type="reset" value="Rétablir">
-                <input type="submit" value="Soumettre">
             </form>
         </section>
         <!--list of products-->
@@ -83,7 +82,7 @@
                         <a href="{{ url_racine }}/auction/instance/{{ auction.au_id }}">
                             <div class="pic"><img src="../assets/images/{{ auction.photo_name }}" alt="image pour {{ auction.st_title }}"></div>
                             <div class="txt">
-                                <h3>Heure de début:<br> {{ auction.au_start_date }}</h3>
+                                <h3>Heure de début:<br> <span>{{ auction.au_start_date }}</span></h3>
                                 <p>Ouvert pour miser jusqu'à <span>{{ auction.au_end_date }}</span></p>
                                 <p class="price">Prix de départ: <span>{{ auction.au_prix_plancher }}</span> $</p>
                                 {% if auction.au_user_id != user.user_id %}    
@@ -151,5 +150,38 @@
             </ul>
         </div>
     </footer>
+<script>
+    let list = document.getElementById('products').children;
+
+    //inputs from the form 'filter'
+    let start_date, end_date, minP, maxP;
+    let values = [];
+
+    const frm = document.getElementById('formFilter');
+    frm.addEventListener('change', filterFunction);
+    frm.addEventListener('reset', resetFunction);
+
+    //loop through the list to hide all unsearched items
+    function filterFunction(){
+        start_date = document.getElementById('start_date').value;
+        end_date = document.getElementById('end_date').value;
+        minP = parseInt(document.getElementById('minP').value);
+        maxP = parseInt(document.getElementById('maxP').value);
+
+        for (let i = 0 ; i < list.length ; i++){
+            values = list[i].getElementsByTagName('span');
+            if ( start_date && ( (new Date(values[0].innerText)) < (new Date(start_date)) )) { list[i].style.display = 'none'; }
+            if ( end_date && ( (new Date(values[1].innerText)) > (new Date(end_date)))) { list[i].style.display = 'none'; }
+            if ( minP && ( parseInt(values[2].innerText) < minP )){ list[i].style.display = 'none'; }
+            if ( maxP && ( parseInt(values[2].innerText) > maxP )){ list[i].style.display = 'none'; }
+        }
+    }
+
+    function resetFunction(){
+        for (let i = 0 ; i < list.length ; i++){
+            list[i].style.display = 'block';
+        }
+    }
+</script>
 </body>
 </html>

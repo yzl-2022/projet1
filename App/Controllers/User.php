@@ -69,8 +69,19 @@ class User extends \Core\Controller
                 $user = \App\Models\User::connecter($_POST);
                 if ($user !== false){
                     $_SESSION['user'] = $user;
+                    $user_id = $_SESSION['user']['user_id'];
+                    $auctions = \App\Models\Auction::getByUser($user_id);
+                    $stamps = \App\Models\Stamp::getByUser($user_id);
+                    $offers = \App\Models\User::getOffers($user_id);
+                    $favoris = \App\Models\User::getFavoris($user_id);
+
                     View::renderTemplate('User/profil.html',
-                                        ['user' => $user]);
+                                        ['user' => $_SESSION['user'],
+                                        'auctions' => $auctions,
+                                        'stamps' => $stamps,
+                                        'offers' => $offers,
+                                        'favoris' => $favoris
+                                        ]);
                 }else{ // if connection fails
                     $msgErr = "Courriel ou mot de passe incorrect.";
                     View::renderTemplate('User/login.html',
@@ -119,12 +130,13 @@ class User extends \Core\Controller
 
             if (!empty($_POST)){
     
-                $id_insertion = \App\Models\User::insert($_POST);
-                echo "<br>L'id de l'utilisateur inséré est $id_insertion";
+                if (\App\Models\User::insert($_POST)) echo "<script>location.href='".\App\Config::URL_RACINE."/user/admin';</script>";
+                
             }
             View::renderTemplate('User/ajouter.html',
                                 ['user' => $user,
-                                 'roles' => $roles]);
+                                 'roles' => $roles
+                                ]);
 
         }else{
             echo "<script>alert('Vous devez se connecter comme administrateur ou propriétaire pour visiter cette page.');location.href='".\App\Config::URL_RACINE."/user/login';</script>";
@@ -138,7 +150,7 @@ class User extends \Core\Controller
      */
     public function modifierAction()
     {
-        if ( isset($_SESSION['user']) && ($_SESSION['user']['role'] == 'administrateur' || $_SESSION['user']['role'] == 'propriétaire')){
+        if ( isset($_SESSION['user']) ){
             
             $user = $_SESSION['user'];
 
@@ -150,14 +162,14 @@ class User extends \Core\Controller
 
             if (!empty($_POST)){
     
-                $id_insertion = \App\Models\User::modifier($_POST);
-                echo "<br>L'id de l'utilisateur modifié est $id_insertion";
+                if (\App\Models\User::modifier($_POST)) echo "<script>location.href='".\App\Config::URL_RACINE."/user/profil';</script>";
                 
             }
             View::renderTemplate('User/modifier.html',
                                 ['user' => $user,
                                  'roles' => $roles,
-                                 'userToModify' => $userToModify]);
+                                 'userToModify' => $userToModify
+                                ]);
 
         }else{
             echo "<script>alert('Vous devez se connecter comme administrateur ou propriétaire pour visiter cette page.');location.href='".\App\Config::URL_RACINE."/user/login';</script>";
@@ -199,7 +211,8 @@ class User extends \Core\Controller
             View::renderTemplate('User/miser.html',
                                 ['user' => $user,
                                  'au_id' => $au_id,
-                                 'au' => $au]);
+                                 'au' => $au
+                                ]);
 
         }else{
             echo "<script>alert('Vous devez se connecter pour placer un mise.');location.href='".\App\Config::URL_RACINE."/user/login';</script>";

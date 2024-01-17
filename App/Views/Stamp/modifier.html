@@ -67,17 +67,17 @@
                 <!--Condition-->
                 <label for="st_condition">Condition</label>
                 <select id="st_condition" name="st_condition">
-                    <option value="Parfaite" {{ st.st_condition == "parfaite" ? 'selected' : '' }}>Parfaite</option>
-                    <option value="Excellente" {{ st.st_condition == "excellente" ? 'selected' : '' }}>Excellente</option>
-                    <option value="Bonne" {{ st.st_condition == "bonne" ? 'selected' : '' }}>Bonne</option>
-                    <option value="Moyenne" {{ st.st_condition == "moyenne" ? 'selected' : '' }}>Moyenne</option>
-                    <option value="Endommagé" {{ st.st_condition == "endommagé" ? 'selected' : '' }}>Endommagé</option>
+                    <option value="parfaite" {{ st.st_condition == "parfaite" ? 'selected' : '' }}>Parfaite</option>
+                    <option value="excellente" {{ st.st_condition == "excellente" ? 'selected' : '' }}>Excellente</option>
+                    <option value="bonne" {{ st.st_condition == "bonne" ? 'selected' : '' }}>Bonne</option>
+                    <option value="moyenne" {{ st.st_condition == "moyenne" ? 'selected' : '' }}>Moyenne</option>
+                    <option value="endommagé" {{ st.st_condition == "endommagé" ? 'selected' : '' }}>Endommagé</option>
                 </select>
                 <!--Width-->
-                <label for="st_width">Largeur (centimètre)</label>
+                <label for="st_width">Largeur (centimètres)</label>
                 <input type="number" name="st_width" id="st_width" value="{{ st.st_width }}">
                 <!--Height-->
-                <label for="st_height">Hauteur (centimètre)</label>
+                <label for="st_height">Hauteur (centimètres)</label>
                 <input type="number" name="st_height" id="st_height" value="{{ st.st_height }}">
                 <!--Title-->
                 <label for="st_title">Titre (Maximum 40 mots)</label>
@@ -87,16 +87,16 @@
                 <input type="text" name="st_description" id="st_description" value="{{ st.st_description }}">
                 <!--Country-->
                 <label for="st_country">Pays d’origine</label>
-                <input type="text" name="st_country" id="st_country" value="{{ st.st_country }}">
+                <input type="text" name="st_country" id="st_country" value="{{ st.st_country|title }}">
                 <!--Continent-->
                 <label for="st_continent">Continent</label>
                 <select id="st_continent" name="st_continent">
-                    <option value="Afrique" {{ st.st_continent == "Afrique" ? 'selected' : '' }}>Afrique</option>
-                    <option value="Amérique" {{ st.st_continent == "Amérique" ? 'selected' : '' }}>Amérique</option>
-                    <option value="Antarctique" {{ st.st_continent == "Antarctique" ? 'selected' : '' }}>Antarctique</option>
-                    <option value="Asie" {{ st.st_continent == "Asie" ? 'selected' : '' }}>Asie</option>
-                    <option value="Europe" {{ st.st_continent == "Europe" ? 'selected' : '' }}>Europe</option>
-                    <option value="Océanie" {{ st.st_continent == "Océanie" ? 'selected' : '' }}>Océanie</option>
+                    <option value="Afrique" {{ st.st_continent == "afrique" ? 'selected' : '' }}>Afrique</option>
+                    <option value="Amérique" {{ st.st_continent == "amérique" ? 'selected' : '' }}>Amérique</option>
+                    <option value="Antarctique" {{ st.st_continent == "antarctique" ? 'selected' : '' }}>Antarctique</option>
+                    <option value="Asie" {{ st.st_continent == "asie" ? 'selected' : '' }}>Asie</option>
+                    <option value="Europe" {{ st.st_continent == "europe" ? 'selected' : '' }}>Europe</option>
+                    <option value="Océanie" {{ st.st_continent == "océanie" ? 'selected' : '' }}>Océanie</option>
                 </select>
                 <!--Certifie-->
                 <input class='hide' type="text" name="st_certifie" value="0">
@@ -123,7 +123,7 @@
                 </select>
                 <!--display photo in file-->
                 <label>Image principale:</label>
-                <img src="../../../assets/images/{{ st.photo_name }}" alt="description pour timbre {{ st_id }}">
+                <img src="../../assets/images/{{ st.photo_name }}" alt="description pour timbre {{ st_id }}">
                 
                 <!--upload photo-->
                 <label for="photo">Téléverser une autre image</label>
@@ -134,7 +134,7 @@
                 {% if photos|length > 0 %}
                 <label>Image supplémentaire:</label>
                 {% for photo in photos %}
-                <img src="../../../assets/images/{{ photo.photo_name }}" alt="description pour timbre {{ photo.photo_id }}">
+                <img src="../../assets/images/{{ photo.photo_name }}" alt="description pour timbre {{ photo.photo_id }}">
                 <a href="{{ url_racine }}/stamp/unphoto/{{ photo.photo_id }}"></a>
                 {% endfor %}
                 {% endif %}

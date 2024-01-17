@@ -164,7 +164,8 @@ class Auction extends \Core\Model
         $stmt = $db->prepare("UPDATE auction SET au_user_id = :au_user_id, 
                                                  au_prix_plancher = :au_prix_plancher, 
                                                  au_start_date = CONCAT( :au_start_date, ' ', :au_start_time, ':00'),
-                                                 au_end_date = CONCAT( :au_end_date, ' ', :au_end_time, ':00')
+                                                 au_end_date = CONCAT( :au_end_date, ' ', :au_end_time, ':00'),
+                                                 au_lord = CONVERT(:au_lord, signed)
                                              WHERE au_id = :au_id");
         $nomsParams = array_keys($data);
         foreach ($nomsParams as $nomParam) $stmt->bindParam(':' . $nomParam, $data[$nomParam]);

@@ -42,9 +42,6 @@ class Auction extends \Core\Controller
         $au_id = $this->route_params['id'];
         $stamps = \App\Models\Auction::getStamps($au_id);
         $offers = \App\Models\Auction::getOffers($au_id);
-
-        //var_dump($offers);
-
         $au = \App\Models\Auction::getOne($au_id);
 
         // check if the user has log in
@@ -101,11 +98,11 @@ class Auction extends \Core\Controller
 
             $au_id = $this->route_params['id'];
             $au = \App\Models\Auction::getOne($au_id);
-
+            
             if (!empty($_POST)) {
 
-                $id_insertion = \App\Models\Auction::modifier($_POST);
-                echo "<br>L'id de l'enchère modifiée est $id_insertion";
+               if (\App\Models\Auction::modifier($_POST))echo "<script>location.href='".\App\Config::URL_RACINE."/user/profil';</script>";
+
             }
 
             View::renderTemplate('Auction/modifier.html',

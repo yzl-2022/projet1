@@ -52,6 +52,7 @@
             <ul>
                 <li><a href="#encheres">Enchères</a></li>
                 <li><a href="#mises">Mises</a></li>
+                <li><a href="{{ url_racine }}/user/modifier/{{ user.user_id }}">Modifier mon profil</a></li>
             </ul>
         </section>
         
@@ -105,7 +106,7 @@
         <table class="wrapper" id="table-offres">
             <thead>
                 <tr>
-                    <th>enchère id</th>
+                    <th>Enchères misées</th>
                     <th>prix ($)</th>
                     <th>date</th>
                 </tr>
@@ -113,7 +114,7 @@
             <tbody>
                 {% for offer in offers %}
                 <tr>
-                    <td>{{ offer.offre_au_id }}</td>
+                    <td><a href="{{ url_racine }}/auction/instance/{{ offer.offre_au_id }}">lien vers enchère {{ offer.offre_au_id }}</a></td>
                     <td>{{ offer.offre_price }}</td>
                     <td>{{ offer.offre_date }}</td>
                 </tr>
@@ -130,14 +131,14 @@
         <table class="wrapper" id="table-offres">
             <thead>
                 <tr>
-                    <th>enchère id</th>
+                    <th>Enchères Favorisées</th>
                     <th>Action</th>
                 </tr>
             </thead>
             <tbody>
                 {% for favori in favoris %}
                 <tr>
-                    <td>{{ favori.fav_au_id }}</td>
+                    <td><a href="{{ url_racine }}/auction/instance/{{ favori.fav_au_id }}">lien vers enchère {{ favori.fav_au_id }}</a></td>
                     <td><a href="{{ url_racine }}/user/unfavoriser/{{ favori.fav_au_id }}">retirer des favoris</a></td>
                 </tr>
                 {% endfor %}
@@ -149,6 +150,7 @@
             <ul>
                 <li><a href="#encheres">Enchères</a></li>
                 <li><a href="#mises">Mises</a></li>
+                <li><a href="{{ url_racine }}/user/modifier/{{ user.user_id }}">Modifier mon profil</a></li>
             </ul>
         </section>
     </main>

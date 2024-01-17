@@ -6,7 +6,6 @@
     <meta name="description" content="projet1-stampee">
     <title>TIMBRE</title>
     <link rel="stylesheet" href="../../assets/css/products.css">
-    <link rel="stylesheet" href="../../assets/css/zoom.css">
     <style>
         .box {
             position: relative;
@@ -15,8 +14,8 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 120px;
-            height: 120px;
+            width: 145px;
+            height: 100px;
             background-color: var(--blue);
             opacity: 0.4;
             display: none;    /* display only when mouse over */
@@ -95,12 +94,12 @@
                 <div class="txt">
                     <h3>{{ stamp.st_title|title }}</h3>
                     <p>Description: {{ stamp.st_description }}</p>
-                    <p>Couleur: {{ stamp.st_color }}</p>
-                    <p>Pays d’origine: {{ stamp.st_country }}</p>
-                    <p>Condition: {{ stamp.st_condition }}</p>
+                    <p>Couleur: {{ stamp.st_color|title }}</p>
+                    <p>Pays d’origine: {{ stamp.st_country|title }}</p>
+                    <p>Condition: {{ stamp.st_condition|title }}</p>
                     <p>Tirage: {{ stamp.st_tirage }}</p>
-                    <p>Largeur: {{ stamp.st_width }} centimètre</p>
-                    <p>Hauteur: {{ stamp.st_height }} centimètre</p>
+                    <p>Largeur: {{ stamp.st_width }} centimètres</p>
+                    <p>Hauteur: {{ stamp.st_height }} centimètres</p>
                     <p>Certifié: {% if stamp.st_certifie > 0 %} Oui {% else %} Non {% endif %}</p>
                     {% if stamp.au_user_id != user.user_id %}
                     <a class="panier" href="{{ url_racine }}/user/miser/{{ stamp.st_au_id }}"> Placer un mise </a>

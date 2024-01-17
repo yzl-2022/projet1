@@ -59,7 +59,8 @@ class User extends \Core\Model
     {
         $db = static::getDB();
         $stmt = $db->prepare("SELECT * FROM offre
-                              WHERE offre_user_id = :user_id");
+                              WHERE offre_user_id = :user_id
+                              ORDER BY offre_date ASC");
         $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
