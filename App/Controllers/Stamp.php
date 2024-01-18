@@ -48,12 +48,14 @@ class Stamp extends \Core\Controller
 
         // obtain data
         $id = $this->route_params['id'];
-        $list = \App\Models\Stamp::getOne($id);
+        $stamp = \App\Models\Stamp::getOne($id);
+
+        var_dump($stamp);
 
         View::renderTemplate('Stamp/instance.html',
                              ['user' => $user,
                               'st_id' => $id,
-                              'stamp' => $list]);
+                              'stamp' => $stamp]);
     }
 
     /**

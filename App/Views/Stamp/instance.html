@@ -92,7 +92,7 @@
                     <div class="zoom"><img src="../../assets/images/{{ stamp.photo_name }}" alt="image large pour {{ stamp.st_title }}"></div>
                 </div>
                 <div class="txt">
-                    <h3>{{ stamp.st_title|title }}</h3>
+                    <h3>{{ stamp.st_title|title }} {{ stamp.au_user_id }} {{ user.user_id }}</h3>
                     <p>Description: {{ stamp.st_description }}</p>
                     <p>Couleur: {{ stamp.st_color|title }}</p>
                     <p>Pays d’origine: {{ stamp.st_country|title }}</p>

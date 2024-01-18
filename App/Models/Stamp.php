@@ -49,6 +49,7 @@ class Stamp extends \Core\Model
         $db = static::getDB();
         $stmt = $db->prepare("SELECT * FROM stamp 
                               JOIN photo on st_id = photo_st_id
+                              JOIN auction ON st_au_id = au_id
                               WHERE st_id = :st_id
                               AND photo_principal = 1");
         $stmt->bindParam(':st_id', $st_id);
