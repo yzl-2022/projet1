@@ -163,6 +163,20 @@ ALTER TABLE `favoris` ADD FOREIGN KEY (fav_au_id) REFERENCES `auction` (`au_id`)
 ALTER TABLE `favoris` ADD FOREIGN KEY (fav_user_id) REFERENCES `user` (`user_id`);
 
 -- ---
+-- Drop foreign Keys constraint: SELECT * FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS
+-- ---
+
+ALTER TABLE `stamp` DROP CONSTRAINT stamp_ibfk_1;
+ALTER TABLE `stamp` DROP CONSTRAINT stamp_ibfk_2;
+ALTER TABLE `photo` DROP CONSTRAINT photo_ibfk_1;
+ALTER TABLE `auction` DROP CONSTRAINT auction_ibfk_1;
+ALTER TABLE `user` DROP CONSTRAINT user_ibfk_1;
+ALTER TABLE `offre` DROP CONSTRAINT offre_ibfk_1;
+ALTER TABLE `offre` DROP CONSTRAINT offre_ibfk_2;
+ALTER TABLE `favoris` DROP CONSTRAINT favoris_ibfk_1;
+ALTER TABLE `favoris` DROP CONSTRAINT favoris_ibfk_2;
+
+-- ---
 -- Table Properties
 -- ---
 

@@ -156,7 +156,7 @@ class Stamp extends \Core\Model
     public static function delete($id)
     {
         $db = static::getDB();
-        $stmt = $db->prepare('DELETE FROM stamp WHERE st_id = :id');
+        $stmt = $db->prepare('DELETE FROM stamp WHERE st_id = :id; DELETE FROM photo WHERE photo_st_id = :id;');
         $stmt->bindParam(':id', $id);
         $stmt->execute();
         if ($stmt->rowCount() <= 0)  return false;
