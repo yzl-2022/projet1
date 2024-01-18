@@ -35,7 +35,7 @@
         </div>
         <!--search-->
         <div class="headerSearch">
-            <input type="text" placeholder="search">
+            <input type="text" placeholder="search" id="searchBox">
             <a href="#"></a>
         </div>
         <!--notification-->
@@ -207,10 +207,33 @@
 	</datalist>
     <script>
         let list = document.getElementById('products').children;
+
+        let stamp = {}; // empty variable to store the data
+
+        //===============search=================
+
+        let searchMot, hid;
+
+        const searchBox = document.getElementById('searchBox');
+        searchBox.addEventListener('change', searchFunction);
+        searchBox.nextElementSibling.addEventListener('click', searchFunction);
+
+        function searchFunction(){
+            searchMot = searchBox.value.trim().toLowerCase();
+
+            if (searchMot) {
+                for (let i = 0 ; i < list.length ; i++){
+                    if (list[i].style.display !=='none' ){  // get the items that are diplayed in the page
+                        stamp = list[i].firstElementChild.getAttribute('data-stamp');
+                        if ( !stamp.includes(searchMot) ) { list[i].style.display = 'none'; }
+                    }
+                }
+            }
+        }
+
+        //===============filter=================
     
-        //inputs from the form 'filter'
-        let continent, pay, largeur, hauteur, condition, couleur, categorie;
-        let values = {};
+        let continent, pay, largeur, hauteur, condition, couleur, categorie; //inputs from the form 'filter'
     
         const frm = document.getElementById('formFilter');
         frm.addEventListener('change', filterFunction);
@@ -227,23 +250,23 @@
             categorie = document.getElementById('categorie').value;
     
             for (let i = 0 ; i < list.length ; i++){
-                values = JSON.parse(list[i].firstElementChild.getAttribute('data-stamp'));
+                stamp = JSON.parse(list[i].firstElementChild.getAttribute('data-stamp'));
 
-                console.log(values);
-
-                if ( continent && (continent.localeCompare(values.st_continent, undefined, {sensitivity: 'base'}) !== 0) ) { list[i].style.display = 'none'; }
-                if ( pay && (pay.localeCompare(values.st_country, undefined, {sensitivity: 'base'}) !== 0) ) { list[i].style.display = 'none'; }
-                if ( largeur && ( parseInt(largeur) > parseInt(values.st_width) )){ list[i].style.display = 'none'; }
-                if ( hauteur && ( parseInt(hauteur) > parseInt(values.st_height) )){ list[i].style.display = 'none'; }
-                if ( condition && ( condition.localeCompare(values.st_condition, undefined, {sensitivity: 'base'}) !== 0 )){ list[i].style.display = 'none'; }
-                if ( couleur && ( couleur.localeCompare(values.st_color, undefined, {sensitivity: 'base'}) !== 0 )){ list[i].style.display = 'none'; }
-                if ( categorie && ( categorie.localeCompare(values.st_cat_id, undefined, {sensitivity: 'base'}) !== 0 )){ list[i].style.display = 'none'; }
+                if ( continent && (continent.localeCompare(stamp.st_continent, undefined, {sensitivity: 'base'}) !== 0) ) { list[i].style.display = 'none'; }
+                if ( pay && (pay.localeCompare(stamp.st_country, undefined, {sensitivity: 'base'}) !== 0) ) { list[i].style.display = 'none'; }
+                if ( largeur && ( parseInt(largeur) > parseInt(stamp.st_width) )){ list[i].style.display = 'none'; }
+                if ( hauteur && ( parseInt(hauteur) > parseInt(stamp.st_height) )){ list[i].style.display = 'none'; }
+                if ( condition && ( condition.localeCompare(stamp.st_condition, undefined, {sensitivity: 'base'}) !== 0 )){ list[i].style.display = 'none'; }
+                if ( couleur && ( couleur.localeCompare(stamp.st_color, undefined, {sensitivity: 'base'}) !== 0 )){ list[i].style.display = 'none'; }
+                if ( categorie && ( categorie.localeCompare(stamp.st_cat_id, undefined, {sensitivity: 'base'}) !== 0 )){ list[i].style.display = 'none'; }
             }
         }
     
         function resetFunction(){
+            searchBox.value = '';
+            
             for (let i = 0 ; i < list.length ; i++){
-                list[i].style.display = 'block';
+                list[i].style.display = '';
             }
         }
     </script>

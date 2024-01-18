@@ -35,7 +35,7 @@
         </div>
         <!--search-->
         <div class="headerSearch">
-            <input type="text" placeholder="search">
+            <input type="text" placeholder="search" id="searchBox">
             <a href="#"></a>
         </div>
         <!--notification-->
@@ -153,9 +153,34 @@
 <script>
     let list = document.getElementById('products').children;
 
-    //inputs from the form 'filter'
-    let start_date, end_date, minP, maxP;
-    let values = [];
+    let stamp = []; // empty variable to store the data
+
+    //===============search=================
+
+    let searchMot, hid;
+
+    const searchBox = document.getElementById('searchBox');
+    searchBox.addEventListener('change', searchFunction);
+    searchBox.nextElementSibling.addEventListener('click', searchFunction);
+
+    function searchFunction(){
+        searchMot = searchBox.value.trim().toLowerCase();
+
+        if (searchMot) {
+            for (let i = 0 ; i < list.length ; i++){
+                if (list[i].style.display !=='none' ){  // get the items that are diplayed in the page
+                    stamp = list[i].getElementsByTagName('span');
+                
+                    if ( !stamp[0].innerText.includes(searchMot) && !stamp[1].innerText.includes(searchMot) && !stamp[2].innerText.includes(searchMot) ) { list[i].style.display = 'none'; }
+                }
+            }
+        }
+    }
+
+
+    //===============filter=================
+
+    let start_date, end_date, minP, maxP; //inputs from the form 'filter'
 
     const frm = document.getElementById('formFilter');
     frm.addEventListener('change', filterFunction);
@@ -169,17 +194,19 @@
         maxP = parseInt(document.getElementById('maxP').value);
 
         for (let i = 0 ; i < list.length ; i++){
-            values = list[i].getElementsByTagName('span');
-            if ( start_date && ( (new Date(values[0].innerText)) < (new Date(start_date)) )) { list[i].style.display = 'none'; }
-            if ( end_date && ( (new Date(values[1].innerText)) > (new Date(end_date)))) { list[i].style.display = 'none'; }
-            if ( minP && ( parseInt(values[2].innerText) < minP )){ list[i].style.display = 'none'; }
-            if ( maxP && ( parseInt(values[2].innerText) > maxP )){ list[i].style.display = 'none'; }
+            stamp = list[i].getElementsByTagName('span');
+            if ( start_date && ( (new Date(stamp[0].innerText)) < (new Date(start_date)) )) { list[i].style.display = 'none'; }
+            if ( end_date && ( (new Date(stamp[1].innerText)) > (new Date(end_date)))) { list[i].style.display = 'none'; }
+            if ( minP && ( parseInt(stamp[2].innerText) < minP )){ list[i].style.display = 'none'; }
+            if ( maxP && ( parseInt(stamp[2].innerText) > maxP )){ list[i].style.display = 'none'; }
         }
     }
 
     function resetFunction(){
+        searchBox.value = '';
+
         for (let i = 0 ; i < list.length ; i++){
-            list[i].style.display = 'block';
+            list[i].style.display = '';  // by default it is ''
         }
     }
 </script>
